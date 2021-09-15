@@ -3,10 +3,14 @@ const MPH = 'MPH';
 const MPH_TYPE = 'Miles per Hour';
 const MPS = 'MS';
 const MPS_TYPE = 'Meters per Second';
-const FAHRENHEIT = 'Fahrenheit';
-const FAHR_UNIT = '*F';
-const CEL_UNIT = '*C';
-const CELSIUS = 'Celsius';
+const FAHRENHEIT_TYPE = 'Fahrenheit';
+const MM = 'MM';
+const MM_TYPE ='Millimeters';
+const IN = 'IN';
+const IN_TYPE = 'Inches';
+const FAHRENHEIT_UNIT = '*F';
+const CELSIUS_UNIT = '*C';
+const CELSIUS_TYPE = 'Celsius';
 
 function Event(place) {
     // initial state (attributes)
@@ -55,7 +59,7 @@ function WeatherData(value, place, type, unit) {
     return {...event, ...dataType, getValue, setValue, getEvent, setEvent, getDataType, setDataType};
 }
 
-const weatherData1 = new WeatherData(30, 'Barcelona', CELSIUS, CEL_UNIT);
+const weatherData1 = new WeatherData(30, 'Barcelona', CELSIUS_TYPE, CELSIUS_UNIT);
 console.log(NEW_LINE + '============== WEATHER DATA OBJECT TEST 1 ===================>');
 console.log(weatherData1.getValue());
 console.log(
@@ -68,7 +72,7 @@ console.log(
 console.log(NEW_LINE + '============== WEATHER DATA OBJECT TEST 2 ===================>');
 weatherData1.setValue(100);
 weatherData1.setEvent('Berlin');
-weatherData1.setDataType({unit: FAHR_UNIT, type: FAHRENHEIT});
+weatherData1.setDataType({unit: FAHRENHEIT_UNIT, type: FAHRENHEIT_TYPE});
 console.log(
     weatherData1.getEvent().getPlace() + NEW_LINE +
     weatherData1.getDataType().getUnit() + NEW_LINE +
@@ -82,17 +86,17 @@ function Temperature(place, type, unit, value) {
     let dataType = new DataType(state.unit, state.type);
     let weatherData = new WeatherData(state.value, event.getPlace(), dataType.getUnit(), dataType.getType());
     const convertToF = () => {
-        if (type === CELSIUS) {
-            weatherData.getDataType().setUnit(FAHR_UNIT);
+        if (type === CELSIUS_TYPE) {
+            weatherData.getDataType().setUnit(FAHRENHEIT_UNIT);
             weatherData.setValue(weatherData.getValue() * 1.8 + 32);
-            weatherData.getDataType().setType(FAHRENHEIT);
+            weatherData.getDataType().setType(FAHRENHEIT_TYPE);
         }
     }
     const convertToC = () => {
-        if (weatherData.getDataType().getType() === FAHRENHEIT) {
-            weatherData.getDataType().setUnit(CEL_UNIT);
+        if (weatherData.getDataType().getType() === FAHRENHEIT_TYPE) {
+            weatherData.getDataType().setUnit(CELSIUS_UNIT);
             weatherData.setValue((weatherData.getValue() - 32) / 1.8);
-            weatherData.getDataType().setType(CELSIUS);
+            weatherData.getDataType().setType(CELSIUS_TYPE);
         }
     }
     const getWeatherData = () => weatherData;
@@ -100,7 +104,7 @@ function Temperature(place, type, unit, value) {
     return {...weatherData, convertToF, convertToC, getWeatherData, setWeatherData};
 }
 
-const temperature1 = new Temperature('Sibiu', CELSIUS, CEL_UNIT, 100);
+const temperature1 = new Temperature('Sibiu', CELSIUS_TYPE, CELSIUS_UNIT, 100);
 console.log(NEW_LINE + '============== TEMPERATURE OBJECT TEST 1 ===================>');
 console.log(
     temperature1.getWeatherData().getValue() + NEW_LINE +
@@ -289,19 +293,19 @@ function TemperaturePrediction(unit, type, place, min, max) {
     let dataType = new DataType(state.unit, state.type);
     let weatherPrediction = new WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), state.min, state.max);
     const convertToF = () => {
-        if (weatherPrediction.getDataType().getType() === CELSIUS) {
-            weatherPrediction.getDataType().setType(FAHRENHEIT);
+        if (weatherPrediction.getDataType().getType() === CELSIUS_TYPE) {
+            weatherPrediction.getDataType().setType(FAHRENHEIT_TYPE);
             weatherPrediction.setMin(weatherPrediction.getMin() * 1.8 + 32);
             weatherPrediction.setMax(weatherPrediction.getMax() * 1.8 + 32)
-            weatherPrediction.getDataType().setUnit(FAHR_UNIT);
+            weatherPrediction.getDataType().setUnit(FAHRENHEIT_UNIT);
         }
     }
     const convertToC = () => {
-        if (weatherPrediction.getDataType().getType() === FAHRENHEIT) {
-            weatherPrediction.getDataType().setType(CELSIUS);
+        if (weatherPrediction.getDataType().getType() === FAHRENHEIT_TYPE) {
+            weatherPrediction.getDataType().setType(CELSIUS_TYPE);
             weatherPrediction.setMin((weatherPrediction.getMin() - 32) / 1.8);
             weatherPrediction.setMax((weatherPrediction.getMax() - 23) / 1.8);
-            weatherPrediction.getDataType().setUnit(CEL_UNIT);
+            weatherPrediction.getDataType().setUnit(CELSIUS_UNIT);
         }
     }
     const getWeatherPrediction = () => weatherPrediction;
@@ -310,14 +314,14 @@ function TemperaturePrediction(unit, type, place, min, max) {
 }
 
 console.log(NEW_LINE + '============== TEMPERATURE PREDICTION TEST 1 ===================>');
-let temperaturePrediction1 = new TemperaturePrediction(CEL_UNIT, CELSIUS, 'Leipzig', 20, 40);
+let temperaturePrediction1 = new TemperaturePrediction(CELSIUS_UNIT, CELSIUS_TYPE, 'Leipzig', 20, 40);
 console.log(
     temperaturePrediction1.getDataType().getUnit() + NEW_LINE +
     temperaturePrediction1.getDataType().getType() + NEW_LINE +
     temperaturePrediction1.getPlace() + NEW_LINE +
     temperaturePrediction1.getWeatherPrediction().getMax() + NEW_LINE +
     temperaturePrediction1.getWeatherPrediction().getMin() + NEW_LINE +
-    temperaturePrediction1.getWeatherPrediction().matches(new WeatherData(30, 'Leipzig', CELSIUS, CEL_UNIT))
+    temperaturePrediction1.getWeatherPrediction().matches(new WeatherData(30, 'Leipzig', CELSIUS_TYPE, CELSIUS_UNIT))
 );
 
 function PrecipitationPrediction(unit, type, place, max, min, expectedTypes) {
