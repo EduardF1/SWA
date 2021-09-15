@@ -25,7 +25,7 @@ const CELSIUS_UNIT = '*C';
  */
 function Event(place, date) {
     let state = {place: place, date: date};
-    const getTime = () => date.toLocaleString();
+    const getTime = () => state.place.toLocaleString();
     const getPlace = () => state.place;
     const setDate = (newDate) => state.date = newDate ? new Date(newDate) : new Date(state.date);
     const getDate = () => new Date(state.date);
@@ -472,6 +472,433 @@ weatherHistory2.forPeriod(dateInterval).getData().forEach(element => console.log
 console.log('<==============================================================================================================================================>');
 weatherHistory2.convertToUsUnits();
 weatherHistory2.forPeriod(dateInterval).getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+weatherHistory2.including([weatherData8]);
+weatherHistory2.forPlace('Chicago').getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+console.log(
+    weatherHistory2.lowestValue().getValue() + NEW_LINE +
+    weatherHistory2.lowestValue().getTime() + NEW_LINE +
+    weatherHistory2.lowestValue().getDate() + NEW_LINE +
+    weatherHistory2.lowestValue().getUnit() + NEW_LINE +
+    weatherHistory2.lowestValue().getPlace() + NEW_LINE
+);
+
+
+function WeatherPrediction(unit, type, place, min, max) {
+    let state = {unit: unit, type: type, place: place, min: min, max: max};
+    let event = new Event(state.place);
+    let dataType = new DataType(state.unit, state.type);
+    const getMin = () => state.min;
+    const setMin = (newMin) => state.min = newMin;
+    const getMax = () => state.max;
+    const getEvent = () => event;
+    const setEvent = (newEvent) => event = newEvent;
+    const setDataType = (newDataType) => dataType = newDataType;
+    const getDataType = () => dataType;
+    const setMax = (newMax) => state.max = newMax;
+    const matches = (data) => (
+        data.getValue() === ((state.min + state.max) / 2) &&
+        data.getEvent().getTime() === event.getTime() &&
+        data.getEvent().getPlace() === event.getPlace() &&
+        data.getDataType().getType() === dataType.getType() &&
+        data.getDataType().getUnit() === dataType.getUnit()
+    );
+    return {...event, ...dataType, getMin, getMax, setMin, setMax, matches, getEvent, getDataType, setEvent, setDataType};
+}
+
+console.log(NEW_LINE + '============== WEATHER PREDICTION TEST 1 ===================>');
+const weatherData3 = new WeatherData(55, 'Toledo', 'speed', 'M/S');
+const weatherPrediction1 = new WeatherPrediction('M/S', 'speed', 'Toledo', 10, 100);
+console.log(
+    weatherPrediction1.getEvent().getPlace() + NEW_LINE +
+    weatherPrediction1.getEvent().getTime() + NEW_LINE +
+    weatherPrediction1.getDataType().getType() + NEW_LINE +
+    weatherPrediction1.getDataType().getUnit() + NEW_LINE +
+    weatherPrediction1.getMax() + NEW_LINE +
+    weatherPrediction1.getMin() + NEW_LINE +
+    weatherPrediction1.matches(weatherData3)
+);
+
+function TemperaturePrediction(unit, type, place, min, max) {
+    let state = {unit: unit, type: type, place: place, min: min, max: max};
+    let event = new Event(state.place);
+    let dataType = new DataType(state.unit, state.type);
+    let weatherPrediction = new WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), state.min, state.max);
+    const convertToF = () => {
+        if (weatherPrediction.getDataType().getType() === CELSIUS_TYPE) {
+            weatherPrediction.getDataType().setType(FAHRENHEIT_TYPE);
+            weatherPrediction.setMin(weatherPrediction.getMin() * 1.8 + 32);
+            weatherPrediction.setMax(weatherPrediction.getMax() * 1.8 + 32)
+            weatherPrediction.getDataType().setUnit(FAHRENHEIT_UNIT);
+        }
+    }
+    const convertToC = () => {
+        if (weatherPrediction.getDataType().getType() === FAHRENHEIT_TYPE) {
+            weatherPrediction.getDataType().setType(CELSIUS_TYPE);
+            weatherPrediction.setMin((weatherPrediction.getMin() - 32) / 1.8);
+            weatherPrediction.setMax((weatherPrediction.getMax() - 23) / 1.8);
+            weatherPrediction.getDataType().setUnit(CELSIUS_UNIT);
+        }
+    }
+    const getWeatherPrediction = () => weatherPrediction;
+    const setWeatherPrediction = (newWeatherPrediction) => weatherPrediction = newWeatherPrediction;
+    return {...weatherPrediction, convertToC, convertToF, getWeatherPrediction, setWeatherPrediction};
+}
+
+console.log(NEW_LINE + '============== TEMPERATURE PREDICTION TEST 1 ===================>');
+let temperaturePrediction1 = new TemperaturePrediction(CELSIUS_UNIT, CELSIUS_TYPE, 'Leipzig', 20, 40);
+console.log(
+    temperaturePrediction1.getDataType().getUnit() + NEW_LINE +
+    temperaturePrediction1.getDataType().getType() + NEW_LINE +
+    temperaturePrediction1.getPlace() + NEW_LINE +
+    temperaturePrediction1.getWeatherPrediction().getMax() + NEW_LINE +
+    temperaturePrediction1.getWeatherPrediction().getMin() + NEW_LINE +
+    temperaturePrediction1.getWeatherPrediction().matches(new WeatherData(30, 'Leipzig', CELSIUS_TYPE, CELSIUS_UNIT))
+);
+
+function PrecipitationPrediction(unit, type, place, max, min, expectedTypes) {
+    let state = {unit: unit, type: type, place: place, max: max, min: min, expectedTypes: expectedTypes};
+    let event = new Event(state.place);
+    let dataType = new DataType(state.unit, state.type);
+    let weatherPrediction = new WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), state.min, state.max);
+    const getExpectedTypes = () => new Array(state.expectedTypes);
+    const setExpectedTypes = (newExpectedTypes) => state.expectedTypes = newExpectedTypes;
+    const setWeatherPrediction = (newWeatherPrediction) => weatherPrediction = newWeatherPrediction;
+    const getWeatherPrediction = () => weatherPrediction;
+    const matches = (data) => (
+        data.getValue() === ((weatherPrediction.getMin() + weatherPrediction.getMax()) / 2) &&
+        data.getDataType().getType() === weatherPrediction.getDataType().getType() &&
+        data.getDataType().getUnit() === weatherPrediction.getDataType().getUnit() &&
+        data.getEvent().getTime() === weatherPrediction.getEvent().getTime() &&
+        data.getEvent().getPlace() === weatherPrediction.getEvent().getPlace()
+    );
+    const convertToInches = () => {
+        if (weatherPrediction.getDataType().getType() === 'MM') {
+            weatherPrediction.getDataType().setUnit('Inches');
+            weatherPrediction.setMin(Math.round(weatherPrediction1.getMin() / 25.4));
+            weatherPrediction.setMax(Math.round(weatherPrediction1.getMax() / 25.4));
+            weatherPrediction.getDataType().setType('IN');
+        }
+    };
+    const convertToMM = () => {
+        if (weatherPrediction.getDataType().getType() === 'IN') {
+            weatherPrediction.getDataType().setUnit('MM');
+            weatherPrediction.setMin(Math.round(weatherPrediction.getMin() * 0.0393701));
+            weatherPrediction.setMax(Math.round(weatherPrediction.getMax() * 0.0393701));
+            weatherPrediction.getDataType().setType('Millimeter');
+        }
+    };
+    return {...weatherPrediction, getExpectedTypes, setExpectedTypes, matches, convertToInches, convertToMM, getWeatherPrediction, setWeatherPrediction}
+}
+
+console.log(NEW_LINE + '============== PRECIPITATION PREDICTION TEST 1 ===================>');
+const precipitationPrediction1 = new PrecipitationPrediction('Millimeter', 'MM', 'San Jose', 10, 100, ['rain', 'fog']);
+console.log(
+    precipitationPrediction1.getDataType().getUnit() + NEW_LINE +
+    precipitationPrediction1.getDataType().getType() + NEW_LINE +
+    precipitationPrediction1.getEvent().getPlace() + NEW_LINE +
+    precipitationPrediction1.getMin() + NEW_LINE +
+    precipitationPrediction1.getMax() + NEW_LINE +
+    precipitationPrediction1.getExpectedTypes()
+);
+precipitationPrediction1.convertToInches();
+console.log(
+    precipitationPrediction1.getDataType().getUnit() + NEW_LINE +
+    precipitationPrediction1.getDataType().getType() + NEW_LINE +
+    precipitationPrediction1.getMin() + NEW_LINE +
+    precipitationPrediction1.getMax() + NEW_LINE
+);
+
+function WindPrediction(unit, type, place, max, min, expectedDirections) {
+    let state = {unit, type, place, max, min, expectedDirections: expectedDirections};
+    let event = new Event(place);
+    let dataType = new DataType(unit, type);
+    let weatherPrediction = new WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), state.min, state.max);
+    const getExpectedDirections = () => new Array(state.expectedDirections);
+    const setExpectedTypes = (newExpectedTypes) => state.expectedTypes = newExpectedTypes;
+    const setWeatherPrediction = (newWeatherPrediction) => weatherPrediction = newWeatherPrediction;
+    const getWeatherPrediction = () => weatherPrediction;
+    const matches = (data) => (
+        data.getValue() === ((weatherPrediction.getMin() + weatherPrediction.getMax()) / 2) &&
+        data.getDataType().getType() === weatherPrediction.getDataType().getType() &&
+        data.getDataType().getUnit() === weatherPrediction.getDataType().getUnit() &&
+        data.getEvent().getTime() === weatherPrediction.getEvent().getTime()
+    );
+    const convertToMPH = () => {
+        if (weatherPrediction.getDataType().getUnit() === MPS) {
+            weatherPrediction.getDataType().setUnit(MPH);
+            weatherPrediction.setMin(Math.round(weatherPrediction1.getMin() / 25.4));
+            weatherPrediction.setMax(Math.round(weatherPrediction1.getMax() / 25.4));
+            weatherPrediction.getDataType().setType(MPH_TYPE);
+        }
+    };
+    const convertToMS = () => {
+        if (weatherPrediction.getDataType().getUnit() === MPH) {
+            weatherPrediction.getDataType().setUnit(MPS);
+            weatherPrediction.setMin(Math.round(weatherPrediction.getMin() * 0.0393701));
+            weatherPrediction.setMax(Math.round(weatherPrediction.getMax() * 0.0393701));
+            weatherPrediction.getDataType().setType(MPS_TYPE);
+        }
+    };
+    return {...weatherPrediction, getExpectedDirections, setExpectedTypes, matches, convertToMPH, convertToMS, getWeatherPrediction, setWeatherPrediction};
+}
+
+const windPrediction1 = new WindPrediction(MPH, MPH_TYPE, 'Santorini', 100, 10, ['North', 'South', 'West']);
+console.log(NEW_LINE + '============== WIND PREDICTION TEST 1 ===================>');
+console.log(
+    windPrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getEvent().getPlace() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getEvent().getTime() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getMax() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getMin() + NEW_LINE +
+    windPrediction1.getExpectedDirections()
+);
+const weatherData10 = new WeatherData(55, 'Santorini', MPH_TYPE, MPH);
+console.log(windPrediction1.matches(weatherData10));
+windPrediction1.convertToMS();
+console.log(
+    windPrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getMax() + NEW_LINE +
+    windPrediction1.getWeatherPrediction().getMin()
+);
+
+function CloudCoveragePrediction(unit, type, place, max, min) {
+    let state = {unit, type, place, max, min};
+    let event = new Event(state.place);
+    let dataType = new DataType(state.unit, state.type)
+    let weatherPrediction = new WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), state.min, state.max);
+    const setWeatherPrediction = (newWeatherPrediction) => weatherPrediction = newWeatherPrediction;
+    const getWeatherPrediction = () => weatherPrediction;
+    return {...weatherPrediction, setWeatherPrediction, getWeatherPrediction};
+}
+
+console.log(NEW_LINE + '============== CLOUD COVERAGE PREDICTION TEST 1 ===================>');
+const cloudCoveragePrediction1 = new CloudCoveragePrediction(MPH, MPH_TYPE, 'Lisbon', 100, 20);
+console.log(
+    cloudCoveragePrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getEvent().getTime() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getEvent().getPlace() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getMax() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getMin()
+);
+cloudCoveragePrediction1.getWeatherPrediction().setMin(15.22);
+cloudCoveragePrediction1.getWeatherPrediction().setMax(199.2);
+cloudCoveragePrediction1.getWeatherPrediction().setEvent(new Event('Alanya'));
+cloudCoveragePrediction1.getWeatherPrediction().setDataType(new DataType(MPS, MPS_TYPE));
+console.log(
+    cloudCoveragePrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getEvent().getTime() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getEvent().getPlace() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getMax() + NEW_LINE +
+    cloudCoveragePrediction1.getWeatherPrediction().getMin()
+);
+
+
+function WeatherForecast(weatherPredictionSet) {
+    let state = {weatherPredictionSet: weatherPredictionSet};
+    const forPlace = (place) => {
+        let weatherForecastOfPlace = [];
+        state.weatherPredictionSet.forEach((element) => {
+            if (element.getPlace() === place) {
+                weatherForecastOfPlace.push(element);
+            }
+        });
+        return WeatherForecast(weatherForecastOfPlace);
+    }
+    const forType = (type) => {
+        let weatherHistoryOfType = [];
+        state.weatherPredictionSet.forEach((element) => {
+            if (element.getType() === type) {
+                weatherHistoryOfType.push(element);
+            }
+        });
+        return WeatherForecast(weatherHistoryOfType);
+    };
+    const forPeriod = (period) => {
+        let weatherForecastForPeriod = [];
+        state.weatherPredictionSet.forEach((element) => {
+                if (period.getDateFrom().getTime() <= element.getDate().getTime() &&
+                    element.getDate().getTime() <= period.getDateTo().getTime())
+                    weatherForecastForPeriod.push(element);
+            }
+        );
+        return WeatherForecast(weatherForecastForPeriod);
+    };
+    const including = (forecastData) => {
+        let forecastDataForComparison = [];
+        state.weatherPredictionSet.forEach(element => {
+            forecastData.forEach((comparisonElement => {
+                if (Object.keys(element).length === Object.keys(comparisonElement).length
+                    && Object.keys(element).every(p => element[p] === comparisonElement[p])) {
+                    forecastDataForComparison.push(element);
+                }
+            }));
+        });
+        return WeatherForecast(forecastDataForComparison);
+    };
+    const convertToUsUnits = () => {
+        state.weatherPredictionSet.forEach((element => {
+            switch (element.getType()) {
+                case CELSIUS_TYPE:
+                    element.setUnit(FAHRENHEIT_UNIT);
+                    element.setType(FAHRENHEIT_TYPE);
+                    element.setValue((element.getValue() * 9 / 5) + 32);
+                    break;
+                case MM_TYPE:
+                    element.setUnit(IN);
+                    element.setType(IN_TYPE);
+                    element.setValue(element.getValue() * 25.4);
+                    break;
+                case MPS_TYPE:
+                    element.setUnit(MPH)
+                    element.setType(MPH_TYPE);
+                    element.setValue(element.getValue() * 2.237)
+                    break;
+                default:
+                    break;
+            }
+        }));
+    };
+    const convertToInternationalUnits = () => {
+        state.weatherPredictionSet.forEach((element => {
+            switch (element.getType()) {
+                case FAHRENHEIT_TYPE:
+                    element.setUnit(CELSIUS_UNIT);
+                    element.setType(CELSIUS_TYPE);
+                    element.setValue((element.getValue() * 9 / 5) + 32);
+                    break;
+                case IN_TYPE:
+                    element.setUnit(MM);
+                    element.setType(MM_TYPE);
+                    element.setValue(element.getValue() * 25.4);
+                    break;
+                case MPH_TYPE:
+                    element.setUnit(MPS)
+                    element.setType(MPS_TYPE);
+                    element.setValue(element.getValue() * 2.237)
+                    break;
+                default:
+                    break;
+            }
+        }));
+    };
+    const getAverageMinValue = () => {
+        let avgMinNumber = 0;
+        state.weatherPredictionSet.forEach(element => {
+            if (element.getMin() !== undefined) {
+                avgMinNumber += element.getMin();
+            }
+            return avgMinNumber / state.weatherPredictionSet.length;
+        });
+    }
+    const getAverageMaxValue = () => {
+        let avgMaxNumber = 0;
+        state.weatherPredictionSet.forEach(element => {
+            if (element.getMax() !== undefined) {
+                avgMaxNumber += element.getMax();
+            }
+            return avgMaxNumber / state.weatherPredictionSet.length;
+        });
+    };
+    const getPredictions = () => state.weatherPredictionSet;
+    const setData = (forecastData) => state.weatherDataSet.concat(forecastData);
+    return Object.assign({}, ...state.weatherDataSet, {forPlace, getPredictions, setData, forType, forPeriod, including, convertToInternationalUnits, convertToUsUnits});
+}
+
+console.log('<==============================================================================================================================================>');
+const date11 = new Date('2000-01-01');
+const date12 = new Date('2004-02-02');
+const dateInterval4 = new DateInterval(date11, date12);
+const weatherData_4 = new WeatherData(new Date('2002-02-01'), 'Berlin', CELSIUS_TYPE, CELSIUS_UNIT, 100);
+const weatherData_5 = new WeatherData(new Date('2003-02-01'), 'Prague', CELSIUS_TYPE, CELSIUS_UNIT, 100);
+const weatherData_6 = new WeatherData(new Date('1980-02-01'), 'Berlin', CELSIUS_TYPE, CELSIUS_UNIT, 100);
+const weatherHistory_1 = new WeatherHistory([weatherData_4, weatherData_5, weatherData_6]);
+weatherHistory_1.setData(new WeatherData(new Date('1990-01-01'), 'Chicago', FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, 300));
+weatherHistory_1.forPlace('Berlin').getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+const weatherData_7 = new WeatherData(new Date('2003-02-01'), 'Manhattan', FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, 100);
+const weatherData_8 = new WeatherData(new Date('1980-02-01'), 'Chicago', FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, 100);
+const weatherData_9 = new WeatherData(new Date('2002-02-01'), 'Detroit', FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, 100);
+const weatherHistory_2 = new WeatherHistory([weatherData_7, weatherData_8, weatherData_9]);
+weatherHistory_2.forType(FAHRENHEIT_TYPE).getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+weatherHistory2.forPeriod(dateInterval4).getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+weatherHistory2.forPeriod(dateInterval4).getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+weatherHistory2.convertToInternationalUnits();
+weatherHistory2.forPeriod(dateInterval4).getData().forEach(element => console.log(
+        element.getTime() + NEW_LINE +
+        element.getType() + NEW_LINE +
+        element.getDate() + NEW_LINE +
+        element.getValue() + NEW_LINE +
+        element.getUnit() + NEW_LINE +
+        element.getPlace() + NEW_LINE +
+        element.getUnit() + NEW_LINE
+    )
+);
+console.log('<==============================================================================================================================================>');
+weatherHistory2.convertToUsUnits();
+weatherHistory2.forPeriod(dateInterval4).getData().forEach(element => console.log(
         element.getTime() + NEW_LINE +
         element.getType() + NEW_LINE +
         element.getDate() + NEW_LINE +
