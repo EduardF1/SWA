@@ -3,8 +3,8 @@ const {DataType} = require('../src/DataType');
 
 const WeatherPrediction = (unit, type, place, time, min, max) => {
     let state = {unit: unit, type: type, place: place, time:time, min: min, max: max};
-    let event = new Event(state.place);
-    let dataType = new DataType(state.unit, state.type);
+    let event =  Event(state.place, state.time);
+    let dataType =  DataType(state.unit, state.type);
     const getMin = () => state.min;
     const setMin = (newMin) => state.min = newMin;
     const getMax = () => state.max;
