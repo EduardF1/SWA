@@ -1,58 +1,70 @@
 const {WindPrediction} = require('../src/WindPrediction');
-const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS, MPH, DIRECTIONS} = require("../../Constants");
+const {PLACES, START_DATE, MM_TYPE, IN, IN_TYPE, MM, RAIN, FOG, SNOW, END_DATE, FAHRENHEIT_UNIT, DIRECTIONS, MPS_TYPE, MPS, MPH_TYPE, MPH} = require("../../Constants");
 
 describe("Wind Prediction", () => {
-    let windInMoscow = 30;
-    let wind1 = WindPrediction(PLACES[2],new Date(START_DATE), MPH_TYPE, MPH, windInMoscow, DIRECTIONS[0]);
-    describe(`When it has been initialized with values ${wind1.getTime()}, ${wind1.getPlace()}` +
-        `, ${wind1.getUnit()}, ${wind1.getType()}, ${wind1.getMin()}, ${wind1.getMax()}, ${wind1.getExpectedDirections()}`, () => {
+    let expectedDirections = DIRECTIONS;
+    let minTemperatureInStalingrad = 28.3;
+    let maxTemperatureInStalingrad = 11.7;
+    let windPrediction = WindPrediction(MPH, MPH_TYPE, PLACES[6], new Date(END_DATE), maxTemperatureInStalingrad, minTemperatureInStalingrad, expectedDirections);
+    describe(`When it has been initialized with values ${windPrediction.getTime()}, ${windPrediction.getPlace()}` +
+        `, ${windPrediction.getUnit()}, ${windPrediction.getType()}, ${windPrediction.getMin()}, ${windPrediction.getMax()}, ${windPrediction.getExpectedDirections()}`, () => {
         test("it should be created", () => {
             // Assert
-            expect(wind1).toBeDefined();
+            expect(windPrediction).toBeDefined();
         });
-        test(`it should have the place set to ${wind1.getPlace()}`, () => {
+        test(`it should have the place set to ${windPrediction.getPlace()}`, () => {
             // Assert
-            expect(wind1.getPlace()).toEqual(PLACES[2]);
+            expect(windPrediction.getPlace()).toEqual(PLACES[6]);
         });
-        test(`it should have the time set to ${wind1.getTime()}`, () => {
+        test(`it should have the time set to ${windPrediction.getTime()}`, () => {
             // Assert
-            expect(wind1.getTime()).toEqual(new Date(START_DATE));
+            expect(windPrediction.getTime()).toEqual(new Date(END_DATE));
         });
-        test(`it should have the type set to ${wind1.getType()}`, () => {
+        test(`it should have the type set to ${windPrediction.getType()}`, () => {
             // Assert
-            expect(wind1.getType()).toEqual(MPH_TYPE);
+            expect(windPrediction.getType()).toEqual(MPH_TYPE);
         });
-        test(`it should have the unit set to ${wind1.getUnit()}`, () => {
+        test(`it should have the unit set to ${windPrediction.getUnit()}`, () => {
             // Assert
-            expect(wind1.getUnit()).toEqual(MPH);
+            expect(windPrediction.getUnit()).toEqual(MPH);
         });
-        test(`it should have the value set to ${wind1.getValue()}`, () => {
+        test(`it should have the min value set to ${windPrediction.getMin()}`, () => {
             // Assert
-            expect(wind1.getValue()).toEqual(windInMoscow);
+            expect(windPrediction.getMin()).toEqual(minTemperatureInStalingrad);
         });
-        test(`it should have the value set to ${wind1.getDirection()}`, () => {
+        test(`it should have the max value set to ${windPrediction.getMax()}`, () => {
             // Assert
-            expect(wind1.getDirection()).toEqual(DIRECTIONS[0]);
+            expect(windPrediction.getMax()).toEqual(maxTemperatureInStalingrad);
         });
+        let index;
+        let testUtils = [expectedDirections, index = 0];
+        test.each(windPrediction.getExpectedDirections())(
+            '',
+            (element) => {
+                expect(element).toBe(testUtils[0][index++]);
+            },
+        );
     });
 
-    describe(`After it has been initialized with the values ${wind1.getTime()}, ${wind1.getPlace()}, ` +
-        `${wind1.getValue()}, ${wind1.getUnit()}, ${wind1.getType()}, ${wind1.getDirection()}`, () => {
-        test(`it should be possible to convert the values from ${wind1.getType()} to ${MPS_TYPE}`, () => {
+    describe(`After it has been initialized with the values ${windPrediction.getTime()}, ${windPrediction.getPlace()}, ` +
+        `${windPrediction.getMax()}, ${windPrediction.getMin()}, ${windPrediction.getUnit()}, ${windPrediction.getType()}, ${windPrediction.getExpectedDirections()}`, () => {
+        test(`it should be possible to convert the values from ${windPrediction.getType()} to ${MPS_TYPE}`, () => {
             // Act
-            wind1.convertToMS();
+            windPrediction.convertToMS();
             // Assert
-            expect(wind1.getType()).toEqual(MPS_TYPE);
-            expect(wind1.getUnit()).toEqual(MPS);
-            expect(wind1.getValue()).toBeCloseTo(13.41);
+            expect(windPrediction.getType()).toEqual(MPS_TYPE);
+            expect(windPrediction.getUnit()).toEqual(MPS);
+            expect(windPrediction.getMax()).toBeCloseTo(0.46);
+            expect(windPrediction.getMin()).toBeCloseTo(1.115);
         });
-        test(`it should be possible to convert the values from ${wind1.getType()} to ${MPH_TYPE}`, () => {
+        test(`it should be possible to convert the values from ${windPrediction.getType()} to ${MPH_TYPE}`, () => {
             // Act
-            wind1.convertToMPH();
+            windPrediction.convertToMPH();
             // Assert
-            expect(wind1.getType()).toEqual(MPH_TYPE);
-            expect(wind1.getUnit()).toEqual(MPH);
-            expect(wind1.getValue()).toBeCloseTo(30);
+            expect(windPrediction.getType()).toEqual(MPH_TYPE);
+            expect(windPrediction.getUnit()).toEqual(MPH);
+            expect(windPrediction.getMax()).toBeCloseTo(0.018);
+            expect(windPrediction.getMin()).toBeCloseTo(0.044);
         });
     });
 });

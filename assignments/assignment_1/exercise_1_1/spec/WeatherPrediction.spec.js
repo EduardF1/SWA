@@ -6,7 +6,7 @@ const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHE
 describe("Weather Prediction", () => {
     let minTemperatureInLosSantos = 50;
     let maxTemperatureInLosSantos = 30;
-    let weatherPrediction = WeatherPrediction(CELSIUS_UNIT, CELSIUS_TYPE, PLACES[9], new Date(START_DATE), CELSIUS_TYPE,  minTemperatureInLosSantos, maxTemperatureInLosSantos);
+    let weatherPrediction = WeatherPrediction(CELSIUS_UNIT, CELSIUS_TYPE, PLACES[9], new Date(START_DATE),  minTemperatureInLosSantos, maxTemperatureInLosSantos);
     describe(`When it has been initialized with values ${weatherPrediction.getTime()}, ${weatherPrediction.getPlace()}` +
         `, ${weatherPrediction.getUnit()}, ${weatherPrediction.getType()}, ${weatherPrediction.getMin()}, ${weatherPrediction.getMax()}.`, () => {
         test("it should be created", () => {
@@ -31,11 +31,11 @@ describe("Weather Prediction", () => {
         });
         test(`it should have the value set to ${weatherPrediction.getMin()}`, () => {
             // Assert
-            expect(weatherPrediction.getValue()).toEqual(minTemperatureInLosSantos);
+            expect(weatherPrediction.getMin()).toEqual(minTemperatureInLosSantos);
         });
         test(`it should have the value set to ${weatherPrediction.getMax()}`, () => {
             // Assert
-            expect(weatherPrediction.getValue()).toEqual(maxTemperatureInLosSantos);
+            expect(weatherPrediction.getMax()).toEqual(maxTemperatureInLosSantos);
         });
     });
 
