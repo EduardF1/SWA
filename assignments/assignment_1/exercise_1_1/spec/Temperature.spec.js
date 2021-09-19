@@ -1,4 +1,4 @@
-const {Temperature} = require('../src/Temperature');
+const {Temperature} = require('../src/factories/Temperature');
 const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../Constants");
 
 describe("Temperature", () => {

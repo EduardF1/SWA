@@ -1,4 +1,4 @@
-const {CloudCoverage} = require('../src/CloudCoverage');
+const {CloudCoverage} = require('../src/factories/CloudCoverage');
 const {PLACES, START_DATE, MPH_TYPE, MPH} = require("../../Constants");
 
 describe("Cloud Coverage", () => {

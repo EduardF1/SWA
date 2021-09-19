@@ -1,4 +1,4 @@
-const {Event} = require("../src/Event.js");
+const {Event} = require("../src/factories/Event.js");
 
 describe("Event", () => {
     describe("When it has been initialized with the arguments Milan (place) and 1999-10-12 (Time)", () => {

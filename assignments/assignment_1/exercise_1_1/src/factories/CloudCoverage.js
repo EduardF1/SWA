@@ -1,4 +1,4 @@
-const {WeatherData} = require('../src/WeatherData');
+const {WeatherData} = require('./WeatherData');
 
 const CloudCoverage = (place, time, type, unit, value) => {
     let state = {place: place, time: time, type: type, unit: unit, value: value};

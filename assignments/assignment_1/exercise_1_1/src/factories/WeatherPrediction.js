@@ -1,5 +1,5 @@
-const {Event} = require('../src/Event');
-const {DataType} = require('../src/DataType');
+const {Event} = require('./Event');
+const {DataType} = require('./DataType');
 
 const WeatherPrediction = (unit, type, place, time, min, max) => {
     let state = {unit: unit, type: type, place: place, time:time, min: min, max: max};

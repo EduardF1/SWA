@@ -1,4 +1,4 @@
-const {WindPrediction} = require('../src/WindPrediction');
+const {WindPrediction} = require('../src/factories/WindPrediction');
 const {PLACES, END_DATE, DIRECTIONS, MPS_TYPE, MPS, MPH_TYPE, MPH} = require("../../Constants");
 
 describe("Wind Prediction", () => {

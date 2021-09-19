@@ -1,4 +1,4 @@
-const {Precipitation} = require('../src/Precipitation');
+const {Precipitation} = require('../src/factories/Precipitation');
 const {PLACES, START_DATE, MM_TYPE,IN, IN_TYPE, MM, RAIN} = require("../../Constants");
 
 describe("Precipitation", () => {

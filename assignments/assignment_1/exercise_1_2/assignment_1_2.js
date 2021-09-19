@@ -493,8 +493,7 @@ class WeatherForecast {
     getAverageMaxValue = () => {
         let avgMaxNumber = 0;
         this.weatherForecastsSet.weatherPredictionSet.forEach(element => {
-            if (element.getMax() !== undefined) {
-                avgMaxNumber += element.getMax();
+            if (element.getMax() !== undefined) {                avgMaxNumber += element.getMax();
             }
             return avgMaxNumber / this.weatherForecastsSet.length;
         });

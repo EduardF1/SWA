@@ -1,5 +1,5 @@
-const {WeatherPrediction} = require('../src/WeatherPrediction');
-const {WeatherData} = require('../src/WeatherData');
+const {WeatherPrediction} = require('../src/factories/WeatherPrediction');
+const {WeatherData} = require('../src/factories/WeatherData');
 const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../../Constants");
 
 

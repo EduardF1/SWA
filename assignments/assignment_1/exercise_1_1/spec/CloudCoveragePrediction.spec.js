@@ -1,4 +1,4 @@
-const {CloudCoverage} = require('../src/CloudCoverage');
+const {CloudCoverage} = require('../src/factories/CloudCoverage');
 const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../../Constants");
 
 describe("Temperature", () => {

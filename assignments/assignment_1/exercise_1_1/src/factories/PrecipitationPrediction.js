@@ -1,7 +1,7 @@
-const {Event} = require('../src/Event');
-const {DataType} = require('../src/DataType');
-const {WeatherPrediction} = require('../src/WeatherPrediction');
-const {MM_TYPE, MM, IN_TYPE, IN} = require("../../Constants");
+const {Event} = require('./Event');
+const {DataType} = require('./DataType');
+const {WeatherPrediction} = require('./WeatherPrediction');
+const {MM_TYPE, MM, IN_TYPE, IN} = require("../../../Constants");
 
 const PrecipitationPrediction = (unit, type, place, time, max, min, expectedTypes) => {
     let state = {unit: unit, type: type, place: place, time: time, max: max, min: min, expectedTypes: expectedTypes};

@@ -1,4 +1,4 @@
-const {DataType} = require("../src/DataType.js");
+const {DataType} = require("../src/factories/DataType.js");
 const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../Constants");
 
 describe("DataType", () => {

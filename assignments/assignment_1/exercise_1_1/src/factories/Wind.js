@@ -1,5 +1,5 @@
-const {WeatherData} = require('../src/WeatherData');
-const {MPH_TYPE, MPH, MPS, MPS_TYPE} = require("../../Constants");
+const {WeatherData} = require('./WeatherData');
+const {MPH_TYPE, MPH, MPS, MPS_TYPE} = require("../../../Constants");
 
 const Wind = (place, time, type, unit, value, direction) => {
     let state = {time: time, place: place, type: type, unit: unit, value: value, direction: direction};
