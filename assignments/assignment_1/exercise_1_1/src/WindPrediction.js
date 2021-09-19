@@ -6,7 +6,7 @@ const {MPH_TYPE, MPH, MPS, MPS_TYPE} = require("../../Constants");
 const WindPrediction = (unit, type, place, time, max, min, expectedDirections) => {
     let state = {unit, type, place, time, max, min, expectedDirections: expectedDirections};
     let event = Event(place, time);
-    let dataType = DataType(unit, type);
+    let dataType = DataType(type,unit);
     let weatherPrediction = WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), event.getTime(), state.min, state.max);
     const getExpectedDirections = () => new Array(state.expectedDirections);
     const setExpectedTypes = (newExpectedTypes) => state.expectedTypes = newExpectedTypes;

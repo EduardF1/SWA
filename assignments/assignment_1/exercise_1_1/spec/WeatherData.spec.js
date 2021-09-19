@@ -1,5 +1,5 @@
 const {WeatherData} = require('../src/WeatherData');
-const {START_DATE, END_DATE, END_DATE_2, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES} = require('../../Constants');
+const {START_DATE, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES} = require('../../Constants');
 
 describe('Weather Data', () => {
     // Setup

@@ -4,9 +4,9 @@ const {WeatherPrediction} = require('../src/WeatherPrediction');
 const {MM_TYPE, MM, IN_TYPE, IN} = require("../../Constants");
 
 const PrecipitationPrediction = (unit, type, place, time, max, min, expectedTypes) => {
-    let state = {unit: unit, type: type, place: place,time:time, max: max, min: min, expectedTypes: expectedTypes};
-    let event = Event(state.place,state.time);
-    let dataType = DataType(state.unit, state.type);
+    let state = {unit: unit, type: type, place: place, time: time, max: max, min: min, expectedTypes: expectedTypes};
+    let event = Event(state.place, state.time);
+    let dataType = DataType(state.type, state.unit);
     let weatherPrediction = WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), event.getTime(), state.min, state.max);
     const getExpectedTypes = () => new Array(state.expectedTypes);
     const setExpectedTypes = (newExpectedTypes) => state.expectedTypes = newExpectedTypes;

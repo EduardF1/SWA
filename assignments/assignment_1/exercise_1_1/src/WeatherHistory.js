@@ -1,4 +1,4 @@
-const {PLACES, START_DATE, END_DATE, START_DATE_2, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, END_DATE_2, EMPTY_STRING} = require("../../Constants");
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../Constants");
 const {DateInterval} = require('../src/DateInterval');
 
 const WeatherHistory = ([...data], placeFilter, typeFilter, periodFilter) => {
