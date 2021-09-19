@@ -1,6 +1,6 @@
 const {WeatherHistory} = require('../src/WeatherHistory');
-const {DateInterval} = require('../../../assignments/assignment_1/exercise_1_1/src/factories/DateInterval');
-const {WeatherData} = require('../../../assignments/assignment_1/exercise_1_1/src/factories/WeatherData');
+const {DateInterval} = require('../../../assignments/assignment_1/src/factories/DateInterval');
+const {WeatherData} = require('../../../assignments/assignment_1/src/factories/WeatherData');
 
 const {START_DATE, END_DATE, END_DATE_2, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES} = require('../../../assignments/assignment_1/Constants');
 
