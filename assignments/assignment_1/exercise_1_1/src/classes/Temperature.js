@@ -1,4 +1,5 @@
 const {WeatherData} = require('../classes/WeatherData');
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE} = require('../../../Constants');
 
 class Temperature extends WeatherData {
     constructor(place, time, type, unit, value) {
@@ -7,15 +8,15 @@ class Temperature extends WeatherData {
 
     convertToF = () => {
         this.setValue(this.getValue() * (9 / 5) + 32);
-        this.setDataType(new DataType('Fahrenheit', '°F'));
+        this.setDataType(new DataType(FAHRENHEIT_TYPE, FAHRENHEIT_UNIT));
     }
 
     convertToC = () => {
         this.setValue((this.getValue() - 32) * (5 / 9));
-        this.setDataType(new DataType('Celsius', '°C'));
+        this.setDataType(new DataType(CELSIUS_TYPE, CELSIUS_UNIT));
     }
 }
 
 module.exports = {
-    WeatherData
+    Temperature
 }
