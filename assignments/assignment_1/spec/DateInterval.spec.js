@@ -1,5 +1,5 @@
 const {DateInterval} = require('../src/factories/DateInterval');
-const {START_DATE, END_DATE, END_DATE_2, START_DATE_2} = require('../Constants');
+const {START_DATE, END_DATE, END_DATE_2, START_DATE_2} = require('../../../Constants');
 
 
 describe('Date Interval', () => {

@@ -1,5 +1,5 @@
 const {Wind} = require('../src/factories/Wind');
-const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS, MPH, DIRECTIONS} = require("../Constants");
+const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS, MPH, DIRECTIONS} = require("../../../Constants");
 
 describe("Wind", () => {
     let windInMoscow = 30;

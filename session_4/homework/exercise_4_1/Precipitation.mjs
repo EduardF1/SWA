@@ -13,13 +13,13 @@ Precipitation.prototype.convertToInches = () => {
         this.unit = IN_TYPE;
         this.value = this.value / 25.4;
     }
-}
+};
 Precipitation.prototype.convertToMM = () => {
     if (this.unit === IN_TYPE) {
         this.unit = MM_TYPE;
         this.value = this.value * 25.4;
     }
-}
+};
 Object.freeze(Precipitation);
 
 export default Precipitation;

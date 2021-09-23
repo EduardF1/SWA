@@ -1,6 +1,6 @@
 const {WeatherPrediction} = require('../src/factories/WeatherPrediction');
 const {WeatherData} = require('../src/factories/WeatherData');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../../../Constants");
 
 
 describe("Weather Prediction", () => {

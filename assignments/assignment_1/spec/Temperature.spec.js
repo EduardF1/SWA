@@ -1,5 +1,5 @@
 const {Temperature} = require('../src/factories/Temperature');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../Constants");
 
 describe("Temperature", () => {
     let temperatureInMoscow = 20;

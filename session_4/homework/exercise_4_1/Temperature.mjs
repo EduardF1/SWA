@@ -12,13 +12,13 @@ Temperature.prototype.convertToC = () => {
         this.unit = FAHRENHEIT_UNIT;
         this.value = (this.value * 9 / 5) + 32;
     }
-}
+};
 Temperature.prototype.convertToF = () => {
     if (this.unit === FAHRENHEIT_UNIT) {
         this.unit = CELSIUS_UNIT;
         this.value = (this.value - 32) * 5 / 9;
     }
-}
+};
 Object.freeze(Temperature);
 
 export default Temperature;

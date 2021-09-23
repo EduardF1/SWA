@@ -4,9 +4,9 @@ const MM = 'MM';
 const MM_TYPE = 'Millimeters';
 const IN = 'IN';
 const IN_TYPE = 'Inches';
-const MPH = 'MPH';
+const MPH_UNIT = 'MPH';
 const MPH_TYPE = 'Miles per Hour';
-const MPS = 'MPS';
+const MPS_UNIT = 'MPS';
 const MPS_TYPE = 'Meters per Second';
 const FAHRENHEIT_TYPE = 'Fahrenheit';
 const FAHRENHEIT_UNIT = '*F';
@@ -31,9 +31,9 @@ module.exports = {
     MM_TYPE,
     IN,
     IN_TYPE,
-    MPH,
+    MPH: MPH_UNIT,
     MPH_TYPE,
-    MPS,
+    MPS: MPS_UNIT,
     MPS_TYPE,
     FAHRENHEIT_TYPE,
     FAHRENHEIT_UNIT,

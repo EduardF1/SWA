@@ -1,5 +1,5 @@
 const {TemperaturePrediction} = require('../src/factories/TemperaturePrediction');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../Constants");
 
 describe("Temperature Prediction", () => {
     let minTemperatureInSibiu = 15;

@@ -1,5 +1,5 @@
 const {WeatherData} = require('./WeatherData');
-const {IN, IN_TYPE, MM, MM_TYPE} = require('../../Constants');
+const {IN, IN_TYPE, MM, MM_TYPE} = require('../../../../Constants');
 
 class Precipitation extends WeatherData {
     constructor(time, place, value, type, unit, precipitationType) {

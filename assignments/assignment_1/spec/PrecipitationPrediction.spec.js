@@ -1,5 +1,5 @@
 const {PrecipitationPrediction} = require('../src/factories/PrecipitationPrediction');
-const {PLACES, MM_TYPE, IN, IN_TYPE, MM, RAIN, FOG, SNOW, END_DATE} = require("../Constants");
+const {PLACES, MM_TYPE, IN, IN_TYPE, MM, RAIN, FOG, SNOW, END_DATE} = require("../../../Constants");
 
 describe("Precipitation Prediction", () => {
     let expectedTypes = [RAIN, FOG, SNOW];

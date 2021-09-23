@@ -20,14 +20,14 @@ PrecipitationPrediction.prototype.convertToInches = () => {
         this.maxValue = this.maxValue / 25.4;
         this.unit = IN_UNIT;
     }
-}
+};
 PrecipitationPrediction.prototype.convertToMM = () => {
     if (this.unit === IN_UNIT) {
         this.minValue = this.minValue * 25.4;
         this.maxValue = this.maxValue * 25.4;
         this.unit = MM_UNIT;
     }
-}
+};
 Object.freeze(PrecipitationPrediction);
 
 export default PrecipitationPrediction;

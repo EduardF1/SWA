@@ -1,4 +1,4 @@
-const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../Constants");
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../../Constants");
 
 class WeatherForecast {
     constructor([...data], placeFilter, typeFilter, periodFilter) {

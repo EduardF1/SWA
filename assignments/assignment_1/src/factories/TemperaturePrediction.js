@@ -1,7 +1,7 @@
 const {Event} = require('./Event');
 const {DataType} = require('./DataType');
 const {WeatherPrediction} = require('./WeatherPrediction');
-const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../Constants");
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../../Constants");
 
 const TemperaturePrediction = (unit, type, place, time, min, max) => {
     let state = {unit: unit, type: type, place: place, time: time, min: min, max: max};

@@ -1,5 +1,5 @@
 const {CloudCoverage} = require('../src/factories/CloudCoverage');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../../../Constants");
 
 describe("Temperature", () => {
     let coverageInBurgas = 20;

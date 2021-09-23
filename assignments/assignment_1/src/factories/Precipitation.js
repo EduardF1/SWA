@@ -1,5 +1,5 @@
 const {WeatherData} = require('./WeatherData');
-const {MM_TYPE, MM, IN_TYPE, IN} = require("../../Constants");
+const {MM_TYPE, MM, IN_TYPE, IN} = require("../../../../Constants");
 
 const Precipitation = (place, time, type, unit, value, precipitationType) => {
     let state = {time: time, place: place, type: type, unit: unit, value: value, precipitationType: precipitationType};

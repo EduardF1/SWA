@@ -1,5 +1,5 @@
 const {MPH_UNIT, MPS_UNIT} = require('Constants');
-const Wind = require("./Wind");
+const Wind = require("./Wind.mjs");
 
 const WindPrediction = (unit, minValue, maxValue, expectedDirections) => {
     this.unit = unit;

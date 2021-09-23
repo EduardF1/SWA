@@ -1,7 +1,7 @@
 const {Event} = require('./Event');
 const {DataType} = require('./DataType');
 const {WeatherPrediction} = require('./WeatherPrediction');
-const {MPH_TYPE, MPH, MPS, MPS_TYPE} = require("../../Constants");
+const {MPH_TYPE, MPH, MPS, MPS_TYPE} = require("../../../../Constants");
 
 const WindPrediction = (unit, type, place, time, max, min, expectedDirections) => {
     let state = {unit, type, place, time, max, min, expectedDirections: expectedDirections};

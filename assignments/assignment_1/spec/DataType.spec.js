@@ -1,5 +1,5 @@
 const {DataType} = require("../src/factories/DataType.js");
-const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../Constants");
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../Constants");
 
 describe("DataType", () => {
     describe(`When it has been initialized with the arguments ${CELSIUS_TYPE} and ${CELSIUS_UNIT}`, () => {

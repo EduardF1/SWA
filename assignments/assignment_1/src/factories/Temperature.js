@@ -1,5 +1,5 @@
 const {WeatherData} = require('./WeatherData');
-const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../Constants");
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../../Constants");
 
 const Temperature = (place, time, type, unit, value) => {
     let state = {time: time, place: place, type: type, unit: unit, value: value};

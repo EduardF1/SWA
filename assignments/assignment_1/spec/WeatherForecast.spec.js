@@ -1,5 +1,5 @@
 const {WeatherForecast} = require('../src/factories/WeatherForecast');
-const {PLACES, START_DATE, END_DATE, START_DATE_2, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, END_DATE_2, EMPTY_STRING} = require("../Constants");
+const {PLACES, START_DATE, END_DATE, START_DATE_2, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, END_DATE_2, EMPTY_STRING} = require("../../../Constants");
 const {DateInterval} = require("../src/factories/DateInterval");
 const {WeatherData} = require("../src/factories/WeatherData");
 

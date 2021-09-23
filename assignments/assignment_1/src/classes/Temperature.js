@@ -1,5 +1,5 @@
 const {WeatherData} = require('./WeatherData');
-const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE} = require('../../Constants');
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE} = require('../../../../Constants');
 
 class Temperature extends WeatherData {
     constructor(place, time, type, unit, value) {

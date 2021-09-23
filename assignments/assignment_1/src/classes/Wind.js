@@ -2,7 +2,7 @@
 class Wind extends WeatherData {
     constructor(time, place, value, type, unit, direction) {
         super(time, place, value, type, unit)
-        this.direction = direction
+        this.direction = direction;
     }
 
     getDirection = () => this.direction;
