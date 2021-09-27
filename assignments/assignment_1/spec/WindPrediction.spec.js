@@ -1,9 +1,9 @@
 const {WindPrediction} = require('../src/factories/WindPrediction');
-const {PLACES, END_DATE, DIRECTIONS, MPS_TYPE, MPS, MPH_TYPE, MPH} = require("../../../Constants");
+const {PLACES, END_DATE, DIRECTIONS, MPS_TYPE, MPS, MPH_TYPE, MPH, VALUES} = require("../../../Constants");
 describe("Wind Prediction", () => {
     let expectedDirections = DIRECTIONS;
-    let minTemperatureInStalingrad = 28.3;
-    let maxTemperatureInStalingrad = 11.7;
+    let minTemperatureInStalingrad = VALUES[5];
+    let maxTemperatureInStalingrad = VALUES[1];
     let windPrediction = WindPrediction(MPH, MPH_TYPE, PLACES[6], new Date(END_DATE), maxTemperatureInStalingrad, minTemperatureInStalingrad, expectedDirections);
     describe(`When it has been initialized with values ${windPrediction.getTime()}, ${windPrediction.getPlace()}` +
         `, ${windPrediction.getUnit()}, ${windPrediction.getType()}, ${windPrediction.getMin()}, ${windPrediction.getMax()}, ${windPrediction.getExpectedDirections()}`, () => {

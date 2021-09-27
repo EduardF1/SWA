@@ -1,8 +1,8 @@
 const {CloudCoverage} = require('../src/factories/CloudCoverage');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../../../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, VALUES} = require("../../../Constants");
 
 describe("Temperature", () => {
-    let coverageInBurgas = 20;
+    let coverageInBurgas = VALUES[3];
     let cloudCoverage = CloudCoverage(PLACES[5], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, coverageInBurgas);
     describe(`When it has been initialized with values ${cloudCoverage.getTime()}, ${cloudCoverage.getPlace()}` +
         `, ${cloudCoverage.getUnit()}, ${cloudCoverage.getType()}, ${cloudCoverage.getValue()}.`, () => {

@@ -1,4 +1,4 @@
-const {IN_UNIT, MM_UNIT} = require('Constants');
+const {IN_UNIT, MM_UNIT} = require('Constants.js');
 
 const PrecipitationPrediction = (unit, minValue, maxValue, expectedTypes) => {
     this.unit = unit;

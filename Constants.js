@@ -22,6 +22,7 @@ const RAIN = 'Rain';
 const FOG = 'Fog';
 const SNOW = 'Snow';
 const DIRECTIONS = ['North', 'South', 'West', 'East'];
+const VALUES = [10, 11.7, 15, 20, 25, 28.3, 30, 35, 50, 100];
 
 module.exports = {
     RAIN,
@@ -45,5 +46,6 @@ module.exports = {
     START_DATE_2,
     PLACES,
     EMPTY_STRING,
-    DIRECTIONS
+    DIRECTIONS,
+    VALUES
 };

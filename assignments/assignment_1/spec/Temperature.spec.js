@@ -1,8 +1,8 @@
 const {Temperature} = require('../src/factories/Temperature');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES} = require("../../../Constants");
 
 describe("Temperature", () => {
-    let temperatureInMoscow = 20;
+    let temperatureInMoscow = VALUES[3];
     let temperature1 = Temperature(PLACES[2], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, temperatureInMoscow);
     describe(`When it has been initialized with values ${temperature1.getTime()}, ${temperature1.getPlace()}` +
         `, ${temperature1.getUnit()}, ${temperature1.getType()}, ${temperature1.getValue()}.`, () => {

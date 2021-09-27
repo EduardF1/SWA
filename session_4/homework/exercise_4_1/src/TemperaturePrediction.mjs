@@ -1,4 +1,4 @@
-const {CELSIUS_UNIT, FAHRENHEIT_UNIT} = require('Constants');
+const {CELSIUS_UNIT, FAHRENHEIT_UNIT} = require('Constants.js');
 
 const TemperaturePrediction = (unit, minValue, maxValue) => {
     this.unit = unit;

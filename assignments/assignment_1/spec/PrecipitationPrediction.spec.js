@@ -1,10 +1,10 @@
 const {PrecipitationPrediction} = require('../src/factories/PrecipitationPrediction');
-const {PLACES, MM_TYPE, IN, IN_TYPE, MM, RAIN, FOG, SNOW, END_DATE} = require("../../../Constants");
+const {PLACES, MM_TYPE, IN, IN_TYPE, MM, RAIN, FOG, SNOW, END_DATE, VALUES} = require("../../../Constants");
 
 describe("Precipitation Prediction", () => {
     let expectedTypes = [RAIN, FOG, SNOW];
-    let minTemperatureInStalingrad = 28.3;
-    let maxTemperatureInStalingrad = 11.7;
+    let minTemperatureInStalingrad = VALUES[5];
+    let maxTemperatureInStalingrad = VALUES[1];
     let precipitationPrediction = PrecipitationPrediction(MM, MM_TYPE, PLACES[6], new Date(END_DATE), maxTemperatureInStalingrad, minTemperatureInStalingrad, expectedTypes);
     describe(`When it has been initialized with values ${precipitationPrediction.getTime()}, ${precipitationPrediction.getPlace()}` +
         `, ${precipitationPrediction.getUnit()}, ${precipitationPrediction.getType()}, ${precipitationPrediction.getMin()}, ${precipitationPrediction.getMax()}, ${precipitationPrediction.getExpectedTypes()}`, () => {

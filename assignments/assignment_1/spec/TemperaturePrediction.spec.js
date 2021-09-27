@@ -1,9 +1,9 @@
 const {TemperaturePrediction} = require('../src/factories/TemperaturePrediction');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../Constants");
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES} = require("../../../Constants");
 
 describe("Temperature Prediction", () => {
-    let minTemperatureInSibiu = 15;
-    let maxTemperatureInSibiu = 25;
+    let minTemperatureInSibiu = VALUES[2];
+    let maxTemperatureInSibiu = VALUES[4];
     let temperaturePrediction = TemperaturePrediction(CELSIUS_UNIT, CELSIUS_TYPE, PLACES[3], new Date(START_DATE), minTemperatureInSibiu, maxTemperatureInSibiu);
     describe(`When it has been initialized with values ${temperaturePrediction.getTime()}, ${temperaturePrediction.getPlace()}` +
         `, ${temperaturePrediction.getUnit()}, ${temperaturePrediction.getType()}, ${temperaturePrediction.getMin()}, ${temperaturePrediction.getMax()}.`, () => {

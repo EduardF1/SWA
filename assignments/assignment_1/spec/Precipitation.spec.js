@@ -1,8 +1,8 @@
 const {Precipitation} = require('../src/factories/Precipitation');
-const {PLACES, START_DATE, MM_TYPE,IN, IN_TYPE, MM, RAIN} = require("../../../Constants");
+const {PLACES, START_DATE, MM_TYPE,IN, IN_TYPE, MM, RAIN, VALUES} = require("../../../Constants");
 
 describe("Precipitation", () => {
-    let precipitationsInMoscowInMM = 10;
+    let precipitationsInMoscowInMM = VALUES[0];
     let precipitation1 = Precipitation(PLACES[2],new Date(START_DATE), MM_TYPE, MM, precipitationsInMoscowInMM, RAIN);
     describe(`When it has been initialized with values ${precipitation1.getTime()}, ${precipitation1.getPlace()}` +
         `, ${precipitation1.getUnit()}, ${precipitation1.getType()}, ${precipitation1.getValue()}, ${precipitation1.getPrecipitationType()}`, () => {
