@@ -1,8 +1,8 @@
 // global constants
 const NEW_LINE = '\n';
-const MM = 'MM';
+const MM_UNIT = 'MM';
 const MM_TYPE = 'Millimeters';
-const IN = 'IN';
+const IN_UNIT = 'IN';
 const IN_TYPE = 'Inches';
 const MPH_UNIT = 'MPH';
 const MPH_TYPE = 'Miles per Hour';
@@ -28,9 +28,9 @@ module.exports = {
     RAIN,
     FOG,
     SNOW,
-    MM,
+    MM: MM_UNIT,
     MM_TYPE,
-    IN,
+    IN: IN_UNIT,
     IN_TYPE,
     MPH: MPH_UNIT,
     MPH_TYPE,
@@ -47,5 +47,6 @@ module.exports = {
     PLACES,
     EMPTY_STRING,
     DIRECTIONS,
-    VALUES
+    VALUES,
+    NEW_LINE
 };

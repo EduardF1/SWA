@@ -1,17 +1,17 @@
 const {Precipitation} = require('../src/Precipitation');
-const {IN, MM, RAIN, VALUES, SNOW} = require("../../../../Constants");
+const {IN_UNIT, MM, RAIN, VALUES, SNOW} = require("../../../../Constants");
 
 let precipitation1;
 describe('Precipitation', () => {
     beforeAll(() => {
-        precipitation1 = new Precipitation(IN, VALUES[0], RAIN)
+        precipitation1 = new Precipitation(IN_UNIT, VALUES[0], RAIN)
     });
 
     it('Should be initialized', () => {
         expect(precipitation1).toBeDefined();
     });
-    it(`Should have the unit set to ${IN}`, () => {
-        expect(precipitation1.getUnit()).toBe(IN);
+    it(`Should have the unit set to ${IN_UNIT}`, () => {
+        expect(precipitation1.getUnit()).toBe(IN_UNIT);
     });
     it('Should have the value set to 10', () => {
         expect(precipitation1.getValue()).toEqual(10);
@@ -30,7 +30,7 @@ describe('Precipitation', () => {
             // Act
             precipitation1.setUnit(MM);
             // Assert
-            expect(precipitation1.getUnit()).toEqual(IN);
+            expect(precipitation1.getUnit()).toEqual(IN_UNIT);
         });
         it('The precipitation type property should be immutable', () => {
             // Act
