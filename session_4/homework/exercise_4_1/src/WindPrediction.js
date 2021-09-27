@@ -1,24 +1,23 @@
-const {MPH_UNIT, MPS_UNIT} = require('Constants.js');
-const Wind = require("./Wind.mjs");
+const {MPH_UNIT, MPS_UNIT} = require('../../../../Constants');
 
 function WindPrediction(unit, minValue, maxValue, expectedDirections) {
     this.unit = unit;
     this.minValue = minValue;
     this.maxValue = maxValue;
     this.expectedDirections = expectedDirections;
-    Object.freeze(WindPrediction);
+    Object.freeze(this);
 }
 
 WindPrediction.prototype.setMinValue = function (newMinValue) {
     this.minValue = newMinValue;
 };
-WindPrediction.prototype.getMaxValue = function (newMaxValue) {
+WindPrediction.prototype.setMaxValue = function (newMaxValue) {
     this.maxValue = newMaxValue;
 };
 WindPrediction.prototype.setUnit = function (newUnit) {
     this.unit = newUnit;
 };
-WindPrediction.prototype.setExpectedDirection = function (newExpectedDirections) {
+WindPrediction.prototype.setExpectedDirections = function (newExpectedDirections) {
     this.expectedDirections = newExpectedDirections;
 };
 WindPrediction.prototype.getMinValue = function () {
@@ -30,7 +29,7 @@ WindPrediction.prototype.getMaxValue = function () {
 WindPrediction.prototype.getUnit = function () {
     return this.unit
 };
-WindPrediction.prototype.getExpectedDirection = function () {
+WindPrediction.prototype.getExpectedDirections = function () {
     return this.expectedDirections
 };
 WindPrediction.prototype.matches = (data) =>
