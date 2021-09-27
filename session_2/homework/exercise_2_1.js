@@ -1,12 +1,12 @@
 const NEW_LINE = '\n';
-const MPH = 'MPH';
+const MPH_UNIT = 'MPH';
 const MPH_TYPE = 'Miles per Hour';
-const MPS = 'MS';
+const MPS_UNIT = 'MS';
 const MPS_TYPE = 'Meters per Second';
 const FAHRENHEIT_TYPE = 'Fahrenheit';
-const MM = 'MM';
+const MM_UNIT = 'MM';
 const MM_TYPE ='Millimeters';
-const IN = 'IN';
+const IN_UNIT = 'IN';
 const IN_TYPE = 'Inches';
 const FAHRENHEIT_UNIT = '*F';
 const CELSIUS_UNIT = '*C';
@@ -178,17 +178,17 @@ function Wind(place, type, unit, value, direction) {
     let weatherData = new WeatherData(state.value, event.getPlace(), dataType.getType(), dataType.getUnit());
     const getDirection = () => state.direction;
     const convertToMPH = () => {
-        if (type === MPS) {
+        if (type === MPS_UNIT) {
             weatherData.getDataType().setUnit(MPH_TYPE);
             weatherData.setValue(Math.round(weatherData.getValue() * 2.24));
-            weatherData.getDataType().setType(MPH);
+            weatherData.getDataType().setType(MPH_UNIT);
         }
     }
     const convertToMS = () => {
-        if (weatherData.getDataType().getType() === MPH) {
+        if (weatherData.getDataType().getType() === MPH_UNIT) {
             weatherData.getDataType().setUnit(MPS_TYPE);
             weatherData.setValue(Math.round(weatherData.getValue() * 0.44704) - 1);
-            weatherData.getDataType().setType(MPS);
+            weatherData.getDataType().setType(MPS_UNIT);
         }
     }
     const getWeatherData = () => weatherData;
@@ -197,7 +197,7 @@ function Wind(place, type, unit, value, direction) {
 }
 
 console.log(NEW_LINE + '============== WIND OBJECT TEST 1 ===================>');
-const wind1 = new Wind('Chicago', MPS, MPS_TYPE, 1000, 'North');
+const wind1 = new Wind('Chicago', MPS_UNIT, MPS_TYPE, 1000, 'North');
 console.log(
     '-------------------------------' + NEW_LINE +
     wind1.getWeatherData().getValue() + NEW_LINE +
@@ -393,16 +393,16 @@ function WindPrediction(unit, type, place, max, min, expectedDirections) {
         data.getEvent().getTime() === weatherPrediction.getEvent().getTime()
     );
     const convertToMPH = () => {
-        if (weatherPrediction.getDataType().getUnit() === MPS) {
-            weatherPrediction.getDataType().setUnit(MPH);
+        if (weatherPrediction.getDataType().getUnit() === MPS_UNIT) {
+            weatherPrediction.getDataType().setUnit(MPH_UNIT);
             weatherPrediction.setMin(Math.round(weatherPrediction1.getMin() / 25.4));
             weatherPrediction.setMax(Math.round(weatherPrediction1.getMax() / 25.4));
             weatherPrediction.getDataType().setType(MPH_TYPE);
         }
     };
     const convertToMS = () => {
-        if (weatherPrediction.getDataType().getUnit() === MPH) {
-            weatherPrediction.getDataType().setUnit(MPS);
+        if (weatherPrediction.getDataType().getUnit() === MPH_UNIT) {
+            weatherPrediction.getDataType().setUnit(MPS_UNIT);
             weatherPrediction.setMin(Math.round(weatherPrediction.getMin() * 0.0393701));
             weatherPrediction.setMax(Math.round(weatherPrediction.getMax() * 0.0393701));
             weatherPrediction.getDataType().setType(MPS_TYPE);
@@ -411,7 +411,7 @@ function WindPrediction(unit, type, place, max, min, expectedDirections) {
     return {...weatherPrediction, getExpectedDirections, setExpectedTypes, matches, convertToMPH, convertToMS, getWeatherPrediction, setWeatherPrediction};
 }
 
-const windPrediction1 = new WindPrediction(MPH, MPH_TYPE, 'Santorini', 100, 10, ['North', 'South', 'West']);
+const windPrediction1 = new WindPrediction(MPH_UNIT, MPH_TYPE, 'Santorini', 100, 10, ['North', 'South', 'West']);
 console.log(NEW_LINE + '============== WIND PREDICTION TEST 1 ===================>');
 console.log(
     windPrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
@@ -422,7 +422,7 @@ console.log(
     windPrediction1.getWeatherPrediction().getMin() + NEW_LINE +
     windPrediction1.getExpectedDirections()
 );
-const weatherData4 = new WeatherData(55, 'Santorini', MPH_TYPE, MPH);
+const weatherData4 = new WeatherData(55, 'Santorini', MPH_TYPE, MPH_UNIT);
 console.log(windPrediction1.matches(weatherData4));
 windPrediction1.convertToMS();
 console.log(
@@ -443,7 +443,7 @@ function CloudCoveragePrediction(unit, type, place, max, min) {
 }
 
 console.log(NEW_LINE + '============== CLOUD COVERAGE PREDICTION TEST 1 ===================>');
-const cloudCoveragePrediction1 = new CloudCoveragePrediction(MPH, MPH_TYPE, 'Lisbon', 100, 20);
+const cloudCoveragePrediction1 = new CloudCoveragePrediction(MPH_UNIT, MPH_TYPE, 'Lisbon', 100, 20);
 console.log(
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
@@ -455,7 +455,7 @@ console.log(
 cloudCoveragePrediction1.getWeatherPrediction().setMin(15.22);
 cloudCoveragePrediction1.getWeatherPrediction().setMax(199.2);
 cloudCoveragePrediction1.getWeatherPrediction().setEvent(Event('Alanya'));
-cloudCoveragePrediction1.getWeatherPrediction().setDataType(DataType(MPS, MPS_TYPE));
+cloudCoveragePrediction1.getWeatherPrediction().setDataType(DataType(MPS_UNIT, MPS_TYPE));
 console.log(
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +

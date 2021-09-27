@@ -1,12 +1,12 @@
 // global constants
 const NEW_LINE = '\n';
-const MM = 'MM';
+const MM_UNIT = 'MM';
 const MM_TYPE = 'Millimeters';
-const IN = 'IN';
+const IN_UNIT = 'IN';
 const IN_TYPE = 'Inches';
-const MPH = 'MPH';
+const MPH_UNIT = 'MPH';
 const MPH_TYPE = 'Miles per Hour';
-const MPS = 'MS';
+const MPS_UNIT = 'MS';
 const MPS_TYPE = 'Meters per Second';
 const FAHRENHEIT_TYPE = 'Fahrenheit';
 const FAHRENHEIT_UNIT = '*F';
@@ -198,14 +198,14 @@ function Precipitation(time, place, type, unit, value, precipitationType) {
     const convertToInches = () => {
         if (weatherData.getType() === MM_TYPE) {
             weatherData.setType(IN_TYPE);
-            weatherData.setUnit(IN);
+            weatherData.setUnit(IN_UNIT);
             weatherData.setValue(weatherData.getValue() / 25.4);
         }
     }
     const convertToMM = () => {
         if (weatherData.getType() === IN_TYPE) {
             weatherData.setType(MM_TYPE);
-            weatherData.setUnit(MM);
+            weatherData.setUnit(MM_UNIT);
             weatherData.setValue(weatherData.getValue() * 25.4);
         }
     }
@@ -213,7 +213,7 @@ function Precipitation(time, place, type, unit, value, precipitationType) {
 }
 
 console.log('<====================================== PRECIPITATION OBJECT TEST ==================================================>');
-const precipitation1 = new Precipitation(new Date('1999-10-11'), 'Manhattan', IN_TYPE, IN, 100, 'rain');
+const precipitation1 = new Precipitation(new Date('1999-10-11'), 'Manhattan', IN_TYPE, IN_UNIT, 100, 'rain');
 console.log(
     precipitation1.getPrecipitationType() + NEW_LINE +
     precipitation1.getDate() + NEW_LINE +
@@ -242,16 +242,16 @@ function Wind(time, place, type, unit, value, direction) {
     const getDirection = () => state.direction;
     const setDirection = (newDirection) => state.direction = newDirection ? newDirection : state.direction;
     const convertToMPH = () => {
-        if (weatherData.getType() === MPS) {
+        if (weatherData.getType() === MPS_UNIT) {
             weatherData.setType(MPH_TYPE);
-            weatherData.setUnit(MPH);
+            weatherData.setUnit(MPH_UNIT);
             weatherData.setValue(weatherData.getValue() * 2.237);
         }
     }
     const convertToMS = () => {
-        if (weatherData.getType() === MPH) {
+        if (weatherData.getType() === MPH_UNIT) {
             weatherData.setType(MPS_TYPE);
-            weatherData.setUnit(MPS);
+            weatherData.setUnit(MPS_UNIT);
             weatherData.setValue(weatherData.getValue() / 2.237);
         }
     }
@@ -259,7 +259,7 @@ function Wind(time, place, type, unit, value, direction) {
 }
 
 console.log('<====================================== WIND OBJECT TEST ==================================================>');
-const wind1 = new Wind('1911-11-22', 'Berlin', MPH_TYPE, MPH, 100, 'North');
+const wind1 = new Wind('1911-11-22', 'Berlin', MPH_TYPE, MPH_UNIT, 100, 'North');
 console.log(
     wind1.getDirection() + NEW_LINE +
     wind1.getType() + NEW_LINE +
@@ -275,7 +275,7 @@ wind1.setValue(3221);
 wind1.setDirection('South');
 wind1.setType(MM_TYPE);
 wind1.setPlace('Jakarta');
-wind1.setUnit(MM);
+wind1.setUnit(MM_UNIT);
 console.log(
     wind1.getDirection() + NEW_LINE +
     wind1.getType() + NEW_LINE +
@@ -292,7 +292,7 @@ function CloudCoverage(time, place, type, unit, value) {
 }
 
 console.log('<====================================== CLOUD COVERAGE OBJECT TEST ==================================================>');
-const cloudCoverage1 = new CloudCoverage('1911-11-11', 'Stalingrad', MM_TYPE, MM, 100);
+const cloudCoverage1 = new CloudCoverage('1911-11-11', 'Stalingrad', MM_TYPE, MM_UNIT, 100);
 console.log(
     cloudCoverage1.getValue() + NEW_LINE +
     cloudCoverage1.getDate() + NEW_LINE +
@@ -305,7 +305,7 @@ cloudCoverage1.setDate('1922-10-10');
 cloudCoverage1.setPlace('Malmo <3');
 cloudCoverage1.setValue(1000);
 cloudCoverage1.setType(IN_TYPE);
-cloudCoverage1.setUnit(IN);
+cloudCoverage1.setUnit(IN_UNIT);
 
 function WeatherHistory(weatherDataSet) {
     let state = {weatherDataSet: weatherDataSet};
@@ -358,12 +358,12 @@ function WeatherHistory(weatherDataSet) {
                     element.setValue((element.getValue() * 9 / 5) + 32);
                     break;
                 case MM_TYPE:
-                    element.setUnit(IN);
+                    element.setUnit(IN_UNIT);
                     element.setType(IN_TYPE);
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPS_TYPE:
-                    element.setUnit(MPH)
+                    element.setUnit(MPH_UNIT)
                     element.setType(MPH_TYPE);
                     element.setValue(element.getValue() * 2.237)
                     break;
@@ -381,12 +381,12 @@ function WeatherHistory(weatherDataSet) {
                     element.setValue((element.getValue() * 9 / 5) + 32);
                     break;
                 case IN_TYPE:
-                    element.setUnit(MM);
+                    element.setUnit(MM_UNIT);
                     element.setType(MM_TYPE);
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPH_TYPE:
-                    element.setUnit(MPS)
+                    element.setUnit(MPS_UNIT)
                     element.setType(MPS_TYPE);
                     element.setValue(element.getValue() * 2.237)
                     break;
@@ -644,16 +644,16 @@ function WindPrediction(unit, type, place, max, min, expectedDirections) {
         data.getEvent().getTime() === weatherPrediction.getEvent().getTime()
     );
     const convertToMPH = () => {
-        if (weatherPrediction.getDataType().getUnit() === MPS) {
-            weatherPrediction.getDataType().setUnit(MPH);
+        if (weatherPrediction.getDataType().getUnit() === MPS_UNIT) {
+            weatherPrediction.getDataType().setUnit(MPH_UNIT);
             weatherPrediction.setMin(Math.round(weatherPrediction1.getMin() / 25.4));
             weatherPrediction.setMax(Math.round(weatherPrediction1.getMax() / 25.4));
             weatherPrediction.getDataType().setType(MPH_TYPE);
         }
     };
     const convertToMS = () => {
-        if (weatherPrediction.getDataType().getUnit() === MPH) {
-            weatherPrediction.getDataType().setUnit(MPS);
+        if (weatherPrediction.getDataType().getUnit() === MPH_UNIT) {
+            weatherPrediction.getDataType().setUnit(MPS_UNIT);
             weatherPrediction.setMin(Math.round(weatherPrediction.getMin() * 0.0393701));
             weatherPrediction.setMax(Math.round(weatherPrediction.getMax() * 0.0393701));
             weatherPrediction.getDataType().setType(MPS_TYPE);
@@ -662,7 +662,7 @@ function WindPrediction(unit, type, place, max, min, expectedDirections) {
     return {...weatherPrediction, getExpectedDirections, setExpectedTypes, matches, convertToMPH, convertToMS, getWeatherPrediction, setWeatherPrediction};
 }
 
-const windPrediction1 = new WindPrediction(MPH, MPH_TYPE, 'Santorini', 100, 10, ['North', 'South', 'West']);
+const windPrediction1 = new WindPrediction(MPH_UNIT, MPH_TYPE, 'Santorini', 100, 10, ['North', 'South', 'West']);
 console.log(NEW_LINE + '============== WIND PREDICTION TEST 1 ===================>');
 console.log(
     windPrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
@@ -673,7 +673,7 @@ console.log(
     windPrediction1.getWeatherPrediction().getMin() + NEW_LINE +
     windPrediction1.getExpectedDirections()
 );
-const weatherData10 = new WeatherData(55, 'Santorini', MPH_TYPE, MPH);
+const weatherData10 = new WeatherData(55, 'Santorini', MPH_TYPE, MPH_UNIT);
 console.log(windPrediction1.matches(weatherData10));
 windPrediction1.convertToMS();
 console.log(
@@ -694,7 +694,7 @@ function CloudCoveragePrediction(unit, type, place, max, min) {
 }
 
 console.log(NEW_LINE + '============== CLOUD COVERAGE PREDICTION TEST 1 ===================>');
-const cloudCoveragePrediction1 = new CloudCoveragePrediction(MPH, MPH_TYPE, 'Lisbon', 100, 20);
+const cloudCoveragePrediction1 = new CloudCoveragePrediction(MPH_UNIT, MPH_TYPE, 'Lisbon', 100, 20);
 console.log(
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
@@ -706,7 +706,7 @@ console.log(
 cloudCoveragePrediction1.getWeatherPrediction().setMin(15.22);
 cloudCoveragePrediction1.getWeatherPrediction().setMax(199.2);
 cloudCoveragePrediction1.getWeatherPrediction().setEvent(new Event('Alanya'));
-cloudCoveragePrediction1.getWeatherPrediction().setDataType(new DataType(MPS, MPS_TYPE));
+cloudCoveragePrediction1.getWeatherPrediction().setDataType(new DataType(MPS_UNIT, MPS_TYPE));
 console.log(
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getUnit() + NEW_LINE +
     cloudCoveragePrediction1.getWeatherPrediction().getDataType().getType() + NEW_LINE +
@@ -768,12 +768,12 @@ function WeatherForecast(weatherPredictionSet) {
                     element.setValue((element.getValue() * 9 / 5) + 32);
                     break;
                 case MM_TYPE:
-                    element.setUnit(IN);
+                    element.setUnit(IN_UNIT);
                     element.setType(IN_TYPE);
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPS_TYPE:
-                    element.setUnit(MPH)
+                    element.setUnit(MPH_UNIT)
                     element.setType(MPH_TYPE);
                     element.setValue(element.getValue() * 2.237)
                     break;
@@ -791,12 +791,12 @@ function WeatherForecast(weatherPredictionSet) {
                     element.setValue((element.getValue() * 9 / 5) + 32);
                     break;
                 case IN_TYPE:
-                    element.setUnit(MM);
+                    element.setUnit(MM_UNIT);
                     element.setType(MM_TYPE);
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPH_TYPE:
-                    element.setUnit(MPS)
+                    element.setUnit(MPS_UNIT)
                     element.setType(MPS_TYPE);
                     element.setValue(element.getValue() * 2.237)
                     break;

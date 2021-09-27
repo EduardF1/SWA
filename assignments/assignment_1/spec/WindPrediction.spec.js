@@ -1,5 +1,5 @@
 const {WindPrediction} = require('../src/factories/WindPrediction');
-const {PLACES, END_DATE, DIRECTIONS, MPS_TYPE, MPS, MPH_TYPE, MPH, VALUES} = require("../../../Constants");
+const {PLACES, END_DATE, DIRECTIONS, MPS_TYPE, MPS_UNIT, MPH_TYPE, MPH, VALUES} = require("../../../Constants");
 describe("Wind Prediction", () => {
     let expectedDirections = DIRECTIONS;
     let minTemperatureInStalingrad = VALUES[5];
@@ -52,7 +52,7 @@ describe("Wind Prediction", () => {
             windPrediction.convertToMS();
             // Assert
             expect(windPrediction.getType()).toEqual(MPS_TYPE);
-            expect(windPrediction.getUnit()).toEqual(MPS);
+            expect(windPrediction.getUnit()).toEqual(MPS_UNIT);
             expect(windPrediction.getMax()).toBeCloseTo(0.46);
             expect(windPrediction.getMin()).toBeCloseTo(1.115);
         });

@@ -21,5 +21,4 @@ g = (r) => r-1;
 const pipe1 = f => g => x => g(f(x));
 const pipe2 = (...fns) => (x) => fns.reduce((g,f) => f(g), x);
 
-console.log (pipe1(f)(g)(3));
-console.log (pipe2(f,g)(3));
+module.exports = {add, greater, get, pipe1, pipe2};

@@ -1,5 +1,5 @@
 const {Wind} = require('../src/factories/Wind');
-const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS, MPH, DIRECTIONS} = require("../../../Constants");
+const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS_UNIT, MPH, DIRECTIONS} = require("../../../Constants");
 
 describe("Wind", () => {
     let windInMoscow = 30;
@@ -43,7 +43,7 @@ describe("Wind", () => {
             wind1.convertToMS();
             // Assert
             expect(wind1.getType()).toEqual(MPS_TYPE);
-            expect(wind1.getUnit()).toEqual(MPS);
+            expect(wind1.getUnit()).toEqual(MPS_UNIT);
             expect(wind1.getValue()).toBeCloseTo(13.41);
         });
         test(`it should be possible to convert the values from ${wind1.getType()} to ${MPH_TYPE}`, () => {

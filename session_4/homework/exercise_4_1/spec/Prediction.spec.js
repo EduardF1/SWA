@@ -14,7 +14,7 @@ describe('Precipitation', () => {
         expect(precipitation1.getUnit()).toBe(IN_UNIT);
     });
     it('Should have the value set to 10', () => {
-        expect(precipitation1.getValue()).toEqual(10);
+        expect(precipitation1.getValue()).toEqual(VALUES[0]);
     });
     it('Should have the precipitation rain', () => {
         expect(precipitation1.getPrecipitationType()).toEqual(RAIN);

@@ -1,7 +1,7 @@
 const {Event} = require('./Event');
 const {DataType} = require('./DataType');
 const {WeatherPrediction} = require('./WeatherPrediction');
-const {MPH_TYPE, MPH, MPS, MPS_TYPE} = require("../../../../Constants");
+const {MPH_TYPE, MPH, MPS_UNIT, MPS_TYPE} = require("../../../../Constants");
 
 const WindPrediction = (unit, type, place, time, max, min, expectedDirections) => {
     let state = {unit, type, place, time, max, min, expectedDirections: expectedDirections};
@@ -19,7 +19,7 @@ const WindPrediction = (unit, type, place, time, max, min, expectedDirections) =
         data.getEvent().getTime() === weatherPrediction.getEvent().getTime()
     );
     const convertToMPH = () => {
-        if (weatherPrediction.getDataType().getUnit() === MPS) {
+        if (weatherPrediction.getDataType().getUnit() === MPS_UNIT) {
             weatherPrediction.getDataType().setUnit(MPH);
             weatherPrediction.setMin((weatherPrediction.getMin() / 25.4));
             weatherPrediction.setMax((weatherPrediction.getMax() / 25.4));
@@ -28,7 +28,7 @@ const WindPrediction = (unit, type, place, time, max, min, expectedDirections) =
     };
     const convertToMS = () => {
         if (weatherPrediction.getDataType().getUnit() === MPH) {
-            weatherPrediction.getDataType().setUnit(MPS);
+            weatherPrediction.getDataType().setUnit(MPS_UNIT);
             weatherPrediction.setMin((weatherPrediction.getMin() * 0.0393701));
             weatherPrediction.setMax((weatherPrediction.getMax() * 0.0393701));
             weatherPrediction.getDataType().setType(MPS_TYPE);

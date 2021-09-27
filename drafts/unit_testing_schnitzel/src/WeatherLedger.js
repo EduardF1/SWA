@@ -49,12 +49,12 @@ const WeatherLedger = (data) => {
                     element.setValue((element.getValue() * 9 / 5) + 32);
                     break;
                 case MM_TYPE:
-                    element.setUnit(IN);
+                    element.setUnit(IN_UNIT);
                     element.setType(IN_TYPE);
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPS_TYPE:
-                    element.setUnit(MPH)
+                    element.setUnit(MPH_UNIT)
                     element.setType(MPH_TYPE);
                     element.setValue(element.getValue() * 2.237)
                     break;
@@ -72,12 +72,12 @@ const WeatherLedger = (data) => {
                     element.setValue((element.getValue() * 9 / 5) + 32);
                     break;
                 case IN_TYPE:
-                    element.setUnit(MM);
+                    element.setUnit(MM_UNIT);
                     element.setType(MM_TYPE);
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPH_TYPE:
-                    element.setUnit(MPS)
+                    element.setUnit(MPS_UNIT)
                     element.setType(MPS_TYPE);
                     element.setValue(element.getValue() * 2.237)
                     break;
