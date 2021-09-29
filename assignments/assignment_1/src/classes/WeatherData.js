@@ -14,8 +14,11 @@ class WeatherData  {
     getValue = () => this.value;
     setValue = (newValue) => this.value = newValue;
 
-    getDataType = () => this.dataType;
-    setDataType = (newDataType) => this.dataType = newDataType;
+    getType = () => this.type;
+    setType = (newType) => this.type = newType;
+
+    getUnit = () => this.unit;
+    setUnit = (newUnit) => this.unit = newUnit;
 
     setTime = (newTime) => this.time = newTime;
     getTime = () => this.time;
