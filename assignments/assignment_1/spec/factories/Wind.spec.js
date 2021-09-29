@@ -1,9 +1,8 @@
-const {Wind} = require('../src/factories/Wind');
-const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS_UNIT, MPH, DIRECTIONS} = require("../../../Constants");
+const {Wind} = require('../../src/factories/Wind');
+const {PLACES, START_DATE, MPS_TYPE, MPH_TYPE, MPS_UNIT, MPH_UNIT, DIRECTIONS, VALUES} = require("../../../../Constants");
 
 describe("Wind", () => {
-    let windInMoscow = 30;
-    let wind1 = Wind(PLACES[2],new Date(START_DATE), MPH_TYPE, MPH, windInMoscow, DIRECTIONS[0]);
+    let wind1 = Wind({place: PLACES[2], time: new Date(START_DATE), unit: MPH_UNIT, type: MPH_TYPE, value: VALUES[6], direction: DIRECTIONS[0]});
     describe(`When it has been initialized with values ${wind1.getTime()}, ${wind1.getPlace()}` +
         `, ${wind1.getUnit()}, ${wind1.getType()}, ${wind1.getValue()}, ${wind1.getDirection()}`, () => {
         test("it should be created", () => {
@@ -24,11 +23,11 @@ describe("Wind", () => {
         });
         test(`it should have the unit set to ${wind1.getUnit()}`, () => {
             // Assert
-            expect(wind1.getUnit()).toEqual(MPH);
+            expect(wind1.getUnit()).toEqual(MPH_UNIT);
         });
         test(`it should have the value set to ${wind1.getValue()}`, () => {
             // Assert
-            expect(wind1.getValue()).toEqual(windInMoscow);
+            expect(wind1.getValue()).toEqual(VALUES[6]);
         });
         test(`it should have the value set to ${wind1.getDirection()}`, () => {
             // Assert
@@ -51,7 +50,7 @@ describe("Wind", () => {
             wind1.convertToMPH();
             // Assert
             expect(wind1.getType()).toEqual(MPH_TYPE);
-            expect(wind1.getUnit()).toEqual(MPH);
+            expect(wind1.getUnit()).toEqual(MPH_UNIT);
             expect(wind1.getValue()).toBeCloseTo(30);
         });
     });

@@ -1,5 +1,4 @@
-const Event = (place, time) => {
-    let state = {place: place, time: time};
+const Event = (state) => {
     const getTime = () => new Date(state.time);
     const setTime = (newTime) => state.time = newTime;
     const getPlace = () => state.place;

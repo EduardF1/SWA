@@ -1,12 +1,7 @@
-const {Event} = require('./Event');
-const {DataType} = require('./DataType');
 const {WeatherPrediction} = require('./WeatherPrediction');
 
-const CloudCoveragePrediction = (unit, type, place,time, max, min) => {
-    let state = {unit, type, place,time, max, min};
-    let event =  Event(state.place, state.time);
-    let dataType =  DataType(state.unit, state.type)
-    let weatherPrediction =  WeatherPrediction(dataType.getUnit(), dataType.getType(), event.getPlace(), event.getTime(), state.min, state.max);
+const CloudCoveragePrediction = (state) => {
+    let weatherPrediction =  WeatherPrediction(state);
     const setWeatherPrediction = (newWeatherPrediction) => weatherPrediction = newWeatherPrediction;
     const getWeatherPrediction = () => weatherPrediction;
     return {...weatherPrediction, setWeatherPrediction, getWeatherPrediction};

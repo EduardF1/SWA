@@ -1,7 +1,7 @@
-const {WeatherHistory} = require('../src/factories/WeatherHistory');
-const {PLACES, START_DATE, END_DATE, START_DATE_2, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, END_DATE_2, EMPTY_STRING} = require("../../../Constants");
-const {DateInterval} = require("../src/factories/DateInterval");
-const {WeatherData} = require("../src/factories/WeatherData");
+const {WeatherHistory} = require('../../src/factories/WeatherHistory');
+const {PLACES, START_DATE, END_DATE, START_DATE_2, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, END_DATE_2, EMPTY_STRING} = require("../../../../Constants");
+const {DateInterval} = require("../../src/factories/DateInterval");
+const {WeatherData} = require("../../src/factories/WeatherData");
 
 describe("Weather History", () => {
     // Setup
@@ -9,9 +9,9 @@ describe("Weather History", () => {
     const date2 = new Date(END_DATE);
     const dateInterval1 = DateInterval(date1, date2);
     const dateInterval2 = DateInterval(new Date(START_DATE_2), new Date(END_DATE_2));
-    const weatherData4 = WeatherData(PLACES[3], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 15);
-    const weatherData5 = WeatherData(PLACES[4], new Date(START_DATE_2), CELSIUS_TYPE, CELSIUS_UNIT, 25);
-    const weatherData6 = WeatherData(PLACES[5], new Date(END_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 35);
+    const weatherData4 = WeatherData({place: PLACES[3], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: 15});
+    const weatherData5 = WeatherData({place: PLACES[4], time: new Date(START_DATE_2), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: 25});
+    const weatherData6 = WeatherData({place: PLACES[5], time: new Date(END_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: 35});
     const weatherHistory = WeatherHistory([weatherData4, weatherData5, weatherData6], PLACES[4], CELSIUS_TYPE, dateInterval1);
     describe(`When it has been initialized.`, () => {
         test(`it should have a size of ${weatherHistory.getSize()}`, () => {
@@ -96,10 +96,10 @@ describe("Weather History", () => {
         });
 
         describe('and given a new set of weather data', () => {
-            const weatherData4 = WeatherData(PLACES[3], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 15);
-            const weatherData5 = WeatherData(PLACES[4], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 25);
-            const weatherData6 = WeatherData(PLACES[5], new Date(END_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 35);
-            const weatherData7 = WeatherData(PLACES[4], new Date(END_DATE), FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, 25);
+            const weatherData4 = WeatherData({place: PLACES[3], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: 15});
+            const weatherData5 = WeatherData({place: PLACES[4], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: 25});
+            const weatherData6 = WeatherData({place: PLACES[5], time: new Date(END_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: 35});
+            const weatherData7 = WeatherData({place: PLACES[4], time: new Date(END_DATE), type: FAHRENHEIT_TYPE, unit: FAHRENHEIT_UNIT, value: 25});
             let weatherHistory2 = WeatherHistory([weatherData4, weatherData5, weatherData6, weatherData7], PLACES[4], CELSIUS_TYPE, DateInterval(new Date(START_DATE), new Date(END_DATE)));
             test('it should be possible to get filtered data', () => {
                 // Assert

@@ -1,10 +1,10 @@
-const {DataType} = require("../src/factories/DataType.js");
-const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../Constants");
+const {DataType} = require("../../src/factories/DataType.js");
+const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../../Constants");
 
 describe("DataType", () => {
     describe(`When it has been initialized with the arguments ${CELSIUS_TYPE} and ${CELSIUS_UNIT}`, () => {
         // Setup
-        let dataType1 = DataType(CELSIUS_TYPE, CELSIUS_UNIT);
+        let dataType1 = DataType({unit: CELSIUS_UNIT, type: CELSIUS_TYPE});
         test("it should be created", () => {
             // Assert
             expect(dataType1).toBeDefined();
@@ -21,7 +21,7 @@ describe("DataType", () => {
 
     describe(`When it has been initialized with the arguments ${FAHRENHEIT_TYPE} and ${FAHRENHEIT_UNIT}`, () => {
         // Arrange & Act
-        let dataType2 = DataType(FAHRENHEIT_TYPE, FAHRENHEIT_UNIT);
+        let dataType2 = DataType({type:FAHRENHEIT_TYPE, unit:FAHRENHEIT_UNIT});
         test("it should be created", () => {
             // Assert
             expect(dataType2).toBeDefined();
@@ -38,7 +38,7 @@ describe("DataType", () => {
 
     describe(`When it has been initialized with the arguments ${CELSIUS_TYPE} and ${CELSIUS_UNIT}`, () => {
         // Arrange
-        let dataType3 =  DataType(CELSIUS_TYPE, CELSIUS_UNIT);
+        let dataType3 = DataType({ unit:CELSIUS_UNIT, type:CELSIUS_TYPE});
         test(`it should be possible to change the the type from ${CELSIUS_TYPE} to ${FAHRENHEIT_TYPE}`, () => {
             // Act
             dataType3.setType(FAHRENHEIT_TYPE);

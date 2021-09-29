@@ -1,15 +1,14 @@
 const {WeatherData} = require('./WeatherData');
-const {MPH_TYPE, MPH, MPS_UNIT, MPS_TYPE} = require("../../../../Constants");
+const {MPH_TYPE, MPH_UNIT, MPS_UNIT, MPS_TYPE} = require("../../../../Constants");
 
-const Wind = (place, time, type, unit, value, direction) => {
-    let state = {time: time, place: place, type: type, unit: unit, value: value, direction: direction};
-    const weatherData = WeatherData(state.place, state.time, state.type, state.unit, state.value);
+const Wind = (state) => {
+    const weatherData = WeatherData(state);
     const getDirection = () => state.direction;
     const setDirection = (newDirection) => state.direction = newDirection ? newDirection : state.direction;
     const convertToMPH = () => {
         if (weatherData.getType() === MPS_TYPE) {
             weatherData.setType(MPH_TYPE);
-            weatherData.setUnit(MPH);
+            weatherData.setUnit(MPH_UNIT);
             weatherData.setValue(weatherData.getValue() * 2.237);
         }
     }

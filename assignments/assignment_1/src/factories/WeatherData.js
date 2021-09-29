@@ -1,11 +1,10 @@
 const {Event} = require('./Event');
 const {DataType} = require('./DataType');
 
-function WeatherData(place, time,type, unit, value) {
-    let state = {place: place, time:time, type: type, unit: unit, value: value};
+function WeatherData(state) {
     const getValue = () => state.value;
     const setValue = (newValue) => state.value = newValue ? newValue : state.value;
-    return Object.assign({}, Event(state.place, state.time), DataType(state.type, state.unit), {getValue, setValue});
+    return Object.assign({}, Event(state), DataType(state), {getValue, setValue});
 }
 
 module.exports = {

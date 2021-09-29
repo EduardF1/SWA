@@ -1,10 +1,9 @@
 const DateInterval = (from, to) => {
-    let state = {from: from, to: to};
-    const setFrom = (newDateFrom) => state.from = newDateFrom;
-    const getFrom = () => state.from;
-    const setTo = (dateFrom) => state.to = dateFrom;
-    const getTo = () => state.to;
-    const contains = (d) => (state.from.getTime() <= d.getTime() && d.getTime() <= state.to.getTime());
+    const setFrom = (newDateFrom) => from = newDateFrom;
+    const getFrom = () => from;
+    const setTo = (dateFrom) => to = dateFrom;
+    const getTo = () => to;
+    const contains = (d) => (from.getTime() <= d.getTime() && d.getTime() <= to.getTime());
     return Object.assign({}, {setFrom, getFrom, setTo, getTo, contains});
 }
 

@@ -22,7 +22,7 @@ const RAIN = 'Rain';
 const FOG = 'Fog';
 const SNOW = 'Snow';
 const DIRECTIONS = ['North', 'South', 'West', 'East'];
-const VALUES = [10, 11.7, 15, 20, 25, 28.3, 30, 35, 50, 100];
+const VALUES = [10, 11.7, 15, 20, 25, 28.3, 30, 35, 50, 100, 40];
 
 module.exports = {
     RAIN,
@@ -32,9 +32,9 @@ module.exports = {
     MM_TYPE,
     IN_UNIT,
     IN_TYPE,
-    MPH: MPH_UNIT,
+    MPH_UNIT,
     MPH_TYPE,
-    MPS: MPS_UNIT,
+    MPS_UNIT,
     MPS_TYPE,
     FAHRENHEIT_TYPE,
     FAHRENHEIT_UNIT,

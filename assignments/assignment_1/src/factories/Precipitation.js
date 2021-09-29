@@ -1,9 +1,8 @@
 const {WeatherData} = require('./WeatherData');
 const {MM_TYPE, MM, IN_TYPE, IN} = require("../../../../Constants");
 
-const Precipitation = (place, time, type, unit, value, precipitationType) => {
-    let state = {time: time, place: place, type: type, unit: unit, value: value, precipitationType: precipitationType};
-    let weatherData = WeatherData(state.place, state.time, state.type, state.unit, state.value);
+const Precipitation = (state) => {
+    let weatherData = WeatherData(state);
     const getPrecipitationType = () => state.precipitationType;
     const convertToInches = () => {
         if (weatherData.getType() === MM_TYPE) {

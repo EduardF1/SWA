@@ -1,9 +1,8 @@
 const {WeatherData} = require('./WeatherData');
 const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../../Constants");
 
-const Temperature = (place, time, type, unit, value) => {
-    let state = {time: time, place: place, type: type, unit: unit, value: value};
-    let weatherData = WeatherData(state.place, state.time, state.type, state.unit, state.value)
+const Temperature = (state) => {
+    let weatherData = WeatherData(state)
     const convertToF = () => {
         if (weatherData.getType() === CELSIUS_TYPE) {
             weatherData.setType(FAHRENHEIT_TYPE);

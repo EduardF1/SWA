@@ -1,4 +1,4 @@
-const {WeatherForecast} = require('../src/factories/WeatherForecast');
+const {WeatherForecast} = require('../../src/factories/WeatherForecast');
 const {
     PLACES,
     START_DATE,
@@ -11,9 +11,9 @@ const {
     END_DATE_2,
     EMPTY_STRING,
     VALUES
-} = require("../../../Constants");
-const {DateInterval} = require("../src/factories/DateInterval");
-const {WeatherData} = require("../src/factories/WeatherData");
+} = require("../../../../Constants");
+const {DateInterval} = require("../../src/factories/DateInterval");
+const {WeatherData} = require("../../src/factories/WeatherData");
 
 describe("Weather Forecast", () => {
     // Setup
@@ -21,9 +21,9 @@ describe("Weather Forecast", () => {
     const date2 = new Date(END_DATE);
     const dateInterval1 = DateInterval(date1, date2);
     const dateInterval2 = DateInterval(new Date(START_DATE_2), new Date(END_DATE_2));
-    const weatherData4 = WeatherData(PLACES[3], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[3]);
-    const weatherData5 = WeatherData(PLACES[4], new Date(START_DATE_2), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[4]);
-    const weatherData6 = WeatherData(PLACES[5], new Date(END_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[6]);
+    const weatherData4 = WeatherData({place: PLACES[3], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[3]});
+    const weatherData5 = WeatherData({place: PLACES[4], time: new Date(START_DATE_2), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[4]});
+    const weatherData6 = WeatherData({place: PLACES[5], time: new Date(END_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[6]});
     const weatherForecast = WeatherForecast([weatherData4, weatherData5, weatherData6], PLACES[4], CELSIUS_TYPE, dateInterval1);
     describe(`When it has been initialized.`, () => {
         test(`it should have a size of ${weatherForecast.getSize()}`, () => {
@@ -98,7 +98,7 @@ describe("Weather Forecast", () => {
                 },
             );
             let index;
-            let testUtils = [[59, 77, 95], index = 0];
+            let testUtils = [[68, 77, 86], index = 0];
             test.each(weatherForecast.getData())(
                 '.getValue()',
                 (element) => {
@@ -108,10 +108,10 @@ describe("Weather Forecast", () => {
         });
 
         describe('and given a new set of weather data', () => {
-            const weatherData4 = WeatherData(PLACES[3], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[2]);
-            const weatherData5 = WeatherData(PLACES[4], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[4]);
-            const weatherData6 = WeatherData(PLACES[5], new Date(END_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[8]);
-            const weatherData7 = WeatherData(PLACES[4], new Date(END_DATE), FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES[4]);
+            const weatherData4 = WeatherData({place: PLACES[3], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[2]});
+            const weatherData5 = WeatherData({place: PLACES[4], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[4]});
+            const weatherData6 = WeatherData({place: PLACES[5], time: new Date(END_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[8]});
+            const weatherData7 = WeatherData({place: PLACES[4], time: new Date(END_DATE), type: FAHRENHEIT_TYPE, unit: FAHRENHEIT_UNIT, value: VALUES[4]});
             let weatherHistory2 = WeatherForecast([weatherData4, weatherData5, weatherData6, weatherData7], PLACES[4], CELSIUS_TYPE, DateInterval(new Date(START_DATE), new Date(END_DATE)));
             test('it should be possible to get filtered data', () => {
                 // Assert

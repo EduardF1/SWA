@@ -1,10 +1,8 @@
-const {TemperaturePrediction} = require('../src/factories/TemperaturePrediction');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES} = require("../../../Constants");
+const {TemperaturePrediction} = require('../../src/factories/TemperaturePrediction');
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES} = require("../../../../Constants");
 
 describe("Temperature Prediction", () => {
-    let minTemperatureInSibiu = VALUES[2];
-    let maxTemperatureInSibiu = VALUES[4];
-    let temperaturePrediction = TemperaturePrediction(CELSIUS_UNIT, CELSIUS_TYPE, PLACES[3], new Date(START_DATE), minTemperatureInSibiu, maxTemperatureInSibiu);
+    let temperaturePrediction = TemperaturePrediction({unit:CELSIUS_UNIT, type:CELSIUS_TYPE, place:PLACES[3], time:new Date(START_DATE), min:VALUES[2], max:VALUES[4]});
     describe(`When it has been initialized with values ${temperaturePrediction.getTime()}, ${temperaturePrediction.getPlace()}` +
         `, ${temperaturePrediction.getUnit()}, ${temperaturePrediction.getType()}, ${temperaturePrediction.getMin()}, ${temperaturePrediction.getMax()}.`, () => {
         test("it should be created", () => {
@@ -29,11 +27,11 @@ describe("Temperature Prediction", () => {
         });
         test(`it should have the min value set to ${temperaturePrediction.getMin()}`, () => {
             // Assert
-            expect(temperaturePrediction.getMin()).toEqual(minTemperatureInSibiu);
+            expect(temperaturePrediction.getMin()).toEqual(VALUES[2]);
         });
         test(`it should have the max value set to ${temperaturePrediction.getMax()}`, () => {
             // Assert
-            expect(temperaturePrediction.getMax()).toEqual(maxTemperatureInSibiu);
+            expect(temperaturePrediction.getMax()).toEqual(VALUES[4]);
         });
     });
 

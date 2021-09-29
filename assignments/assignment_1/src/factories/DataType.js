@@ -1,5 +1,4 @@
-const DataType = (type, unit) => {
-    let state = {type:type, unit:unit};
+const DataType = (state) => {
     const setType = (newType) => state.type = newType;
     const getType = () => state.type;
     const getUnit = () => state.unit

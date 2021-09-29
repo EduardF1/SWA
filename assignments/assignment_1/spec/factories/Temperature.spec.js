@@ -1,9 +1,8 @@
-const {Temperature} = require('../src/factories/Temperature');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES} = require("../../../Constants");
+const {Temperature} = require('../../src/factories/Temperature');
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, VALUES} = require("../../../../Constants");
 
 describe("Temperature", () => {
-    let temperatureInMoscow = VALUES[3];
-    let temperature1 = Temperature(PLACES[2], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, temperatureInMoscow);
+    let temperature1 = Temperature({place: PLACES[2], time: new Date(START_DATE), type: CELSIUS_TYPE, unit: CELSIUS_UNIT, value: VALUES[3]});
     describe(`When it has been initialized with values ${temperature1.getTime()}, ${temperature1.getPlace()}` +
         `, ${temperature1.getUnit()}, ${temperature1.getType()}, ${temperature1.getValue()}.`, () => {
         test("it should be created", () => {
@@ -28,7 +27,7 @@ describe("Temperature", () => {
         });
         test(`it should have the value set to ${temperature1.getValue()}`, () => {
             // Assert
-            expect(temperature1.getValue()).toEqual(temperatureInMoscow);
+            expect(temperature1.getValue()).toEqual(VALUES[3]);
         });
     });
 

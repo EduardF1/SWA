@@ -1,11 +1,14 @@
 const {Event} = require('./Event');
 const {DataType} = require('./DataType');
 
-class WeatherData extends Event {
+class WeatherData  {
     constructor(place, time, type, unit, value) {
-        super(place, time);
+        Object.assign(
+            this,
+            new Event(place, time),
+            new DataType(type, unit)
+        )
         this.value = value;
-        this.dataType = new DataType(type, unit);
     }
 
     getValue = () => this.value;

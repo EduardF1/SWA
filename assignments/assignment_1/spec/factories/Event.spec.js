@@ -1,9 +1,9 @@
-const {Event} = require("../src/factories/Event.js");
+const {Event} = require("../../src/factories/Event.js");
 
 describe("Event", () => {
     describe("When it has been initialized with the arguments Milan (place) and 1999-10-12 (Time)", () => {
         // Setup
-        let event1 = Event('Milan', new Date('1999-10-12'));
+        let event1 = Event({place:'Milan', time:new Date('1999-10-12')});
         test("it should be created", () => {
             // Assert
             expect(event1).toBeDefined();
@@ -20,7 +20,7 @@ describe("Event", () => {
 
     describe("When the values are changed", () => {
         // Arrange
-        let event2 = Event('London', new Date('2000-01-01'));
+        let event2 = Event({place:'London', time:new Date('2000-01-01')});
         test(`it should have the place changed from ${event2.getPlace()} to Munich and date from ${event2.getTime()} to 2021-11-10`, () => {
             expect(event2.getPlace()).toBe('London');
             // Act

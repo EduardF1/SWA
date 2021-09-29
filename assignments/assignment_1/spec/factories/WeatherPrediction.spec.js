@@ -1,12 +1,10 @@
-const {WeatherPrediction} = require('../src/factories/WeatherPrediction');
-const {WeatherData} = require('../src/factories/WeatherData');
-const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT} = require("../../../Constants");
+const {WeatherPrediction} = require('../../src/factories/WeatherPrediction');
+const {WeatherData} = require('../../src/factories/WeatherData');
+const {PLACES, START_DATE, CELSIUS_TYPE, CELSIUS_UNIT, VALUES} = require("../../../../Constants");
 
 
 describe("Weather Prediction", () => {
-    let minTemperatureInLosSantos = 50;
-    let maxTemperatureInLosSantos = 30;
-    let weatherPrediction = WeatherPrediction(CELSIUS_UNIT, CELSIUS_TYPE, PLACES[9], new Date(START_DATE),  minTemperatureInLosSantos, maxTemperatureInLosSantos);
+    let weatherPrediction = WeatherPrediction({unit: CELSIUS_UNIT, type: CELSIUS_TYPE, place: PLACES[9], time: new Date(START_DATE), min: VALUES[6], max: VALUES[8]});
     describe(`When it has been initialized with values ${weatherPrediction.getTime()}, ${weatherPrediction.getPlace()}` +
         `, ${weatherPrediction.getUnit()}, ${weatherPrediction.getType()}, ${weatherPrediction.getMin()}, ${weatherPrediction.getMax()}.`, () => {
         test("it should be created", () => {
@@ -31,11 +29,11 @@ describe("Weather Prediction", () => {
         });
         test(`it should have the value set to ${weatherPrediction.getMin()}`, () => {
             // Assert
-            expect(weatherPrediction.getMin()).toEqual(minTemperatureInLosSantos);
+            expect(weatherPrediction.getMin()).toEqual(VALUES[6]);
         });
         test(`it should have the value set to ${weatherPrediction.getMax()}`, () => {
             // Assert
-            expect(weatherPrediction.getMax()).toEqual(maxTemperatureInLosSantos);
+            expect(weatherPrediction.getMax()).toEqual(VALUES[8]);
         });
     });
 
@@ -43,7 +41,7 @@ describe("Weather Prediction", () => {
         `${weatherPrediction.getMin()}, ${weatherPrediction.getMax()}, ${weatherPrediction.getUnit()}, ${weatherPrediction.getType()}.`, () => {
         test(`it should match the weather data object with the same parameters`, () => {
             // Arrange
-            let weatherData1 = WeatherData(PLACES[9], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 40);
+            let weatherData1 = WeatherData({place:PLACES[9], time:new Date(START_DATE), type:CELSIUS_TYPE, unit:CELSIUS_UNIT, value:VALUES[10]});
             // Act
             // Assert
             expect(weatherPrediction.matches(weatherData1)).toEqual(true);

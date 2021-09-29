@@ -1,9 +1,9 @@
-const {WeatherData} = require('../src/factories/WeatherData');
-const {START_DATE, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES, VALUES} = require('../../../Constants');
+const {WeatherData} = require('../../src/factories/WeatherData');
+const {START_DATE, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES, VALUES} = require('../../../../Constants');
 
 describe('Weather Data', () => {
     // Setup
-    let weatherData1 = new WeatherData(PLACES[0], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[9]);
+    let weatherData1 = WeatherData({place:PLACES[0], time:new Date(START_DATE), type:CELSIUS_TYPE,unit: CELSIUS_UNIT, value:VALUES[9]});
     describe(`When it has been initialized with the values ${weatherData1.getTime()}, ${weatherData1.getPlace()}, ` +
         `${weatherData1.getValue()}, ${weatherData1.getUnit()}, ${weatherData1.getType()}`, () => {
         test('it should be created', () => {
