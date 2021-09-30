@@ -47,4 +47,11 @@ const oldest_person = (persons) => Math.max(...persons.map(element => element.ag
             return total
         }
  */
-const total_salaries_of_seniors = (employees) => employees.reduce(employees.filter(employee => employee.age >= 60));
+const total_salaries_of_seniors = (employees) =>employees.filter(employee => employee.age >= 60).reduce((salaries, employee) => (salaries += employee.salary), 0);
+
+module.exports = {
+    names,
+    adults,
+    oldest_person,
+    total_salaries_of_seniors
+}

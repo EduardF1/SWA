@@ -107,4 +107,4 @@ describe("Weather History", () => {
             });
         });
     });
-})
+});

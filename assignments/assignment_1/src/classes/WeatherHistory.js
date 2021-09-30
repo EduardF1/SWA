@@ -1,5 +1,4 @@
 const {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} = require("../../../../Constants");
-const {DateInterval} = require('./DateInterval');
 
 class WeatherHistory {
     constructor([...data], placeFilter, typeFilter, periodFilter) {

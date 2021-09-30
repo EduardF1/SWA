@@ -8,12 +8,14 @@ class Temperature extends WeatherData {
 
     convertToF = () => {
         this.setValue(this.getValue() * (9 / 5) + 32);
-        this.setDataType(new DataType(FAHRENHEIT_TYPE, FAHRENHEIT_UNIT));
+        this.setType(FAHRENHEIT_TYPE);
+        this.setUnit(FAHRENHEIT_UNIT);
     }
 
     convertToC = () => {
         this.setValue((this.getValue() - 32) * (5 / 9));
-        this.setDataType(new DataType(CELSIUS_TYPE, CELSIUS_UNIT));
+        this.setType(CELSIUS_TYPE);
+        this.setUnit(CELSIUS_UNIT);
     }
 }
 
