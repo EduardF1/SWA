@@ -13,18 +13,20 @@ import { FormsModule } from '@angular/forms';
 
 // Components
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
-import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeesListComponent } from './employees-list/employees-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import { PersonsListComponent } from './persons-list/persons-list.component';
+import { PersonEditComponent } from './person-edit/person-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeCreateComponent,
-    EmployeeEditComponent,
-    EmployeesListComponent
+    EmployeesListComponent,
+    PersonsListComponent,
+    PersonEditComponent
   ],
   imports: [
     BrowserModule,

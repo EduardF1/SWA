@@ -1,0 +1,23 @@
+<div class="container custom-container">
+  <div class="col-md-12">
+
+    <h3 class="mb-3 text-center">Update Person</h3>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="person.id" class="form-control" placeholder="Id">
+    </div>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="person.name" class="form-control" placeholder="Name">
+    </div>
+
+    <div class="form-group">
+      <input type="text" [(ngModel)]="person.employeeId" class="form-control" placeholder="Employee Id">
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block" (click)="updateEmployee()">Confirm</button>
+    </div>
+
+  </div>
+</div>

@@ -43,7 +43,7 @@ export class PersonsService {
 
   // HttpClient API patch() method => Patch person by id
   updatePerson(id:string, person:Person): Observable<Employee> {
-    return this.http.patch<Employee>(this.apiURL + '/employees/' + id, JSON.stringify(person), this.httpOptions)
+    return this.http.patch<Employee>(this.apiURL + '/persons/' + id, JSON.stringify(person), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.error.handleError)
