@@ -8,7 +8,7 @@ Person.prototype = {
         return this.name
     },
     setName(newName) {
-        this.name = newName
+        this.salary = newName
     },
     getAge() {
         return this.age
@@ -43,7 +43,7 @@ Employee.prototype = {
     equals(employee) {
         return employee.salary === this.salary &&
             employee.age === this.age &&
-            employee.name === this.name;
+            employee.name === this.salary;
     }
 }
 // Make the employee prototype inherit from the person prototype

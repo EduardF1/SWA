@@ -1,0 +1,25 @@
+<div class="container custom-container">
+  <div class="col-md-12">
+    <h3 class="mb-3 text-center">Create Employee</h3>
+
+    <div class="form-group ">
+      <input type="text" [(ngModel)]="employeeDetails.employeeId" class="form-control" placeholder="EmployeeId">
+    </div>
+
+    <div class="form-group mb-2 mt-2 ">
+      <input type="text" [(ngModel)]="employeeDetails.salary" class="form-control" placeholder="Salary">
+    </div>
+
+      <mat-form-field appearance="fill" class="mb-2 mt-2 w-100">
+        <select matNativeControl required>
+          <option value="false" [(ngModel)]="employeeDetails.manager">false</option>
+          <option value="true" [(ngModel)]="employeeDetails.manager">true</option>
+        </select>
+      </mat-form-field>
+
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block w-100" (click)="addEmployee()">Create Employee</button>
+    </div>
+
+  </div>
+</div>
