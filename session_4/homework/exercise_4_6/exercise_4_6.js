@@ -20,12 +20,6 @@ Array.prototype.customReduce = function (callback, initialValue) {
     }
     return accumulator;
 }
-
-const sum = [1, 2, 3].customReduce((acc, elem) => acc + elem, 5);
-
-
-console.log(sum);
-
 // b) map
 Array.prototype.customMap = function (callback) {
     if (!callback || typeof callback !== 'function') {
