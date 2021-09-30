@@ -5,6 +5,7 @@ import { EmployeesListComponent } from './employees-list/employees-list.componen
 import {PersonsListComponent} from "./persons-list/persons-list.component";
 import {PersonEditComponent} from "./person-edit/person-edit.component";
 import {PersonInfoComponent} from "./person-info/person-info.component";
+import {EmployeeInfoComponent} from "./employee-info/employee-info.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'create-employee' },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'persons-list', component: PersonsListComponent },
   { path: 'person-edit/:id', component: PersonEditComponent },
   { path: 'person-info/:id', component: PersonInfoComponent },
+  { path: 'employee-info/:id', component: EmployeeInfoComponent },
 
 
 ];

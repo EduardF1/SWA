@@ -21,6 +21,7 @@ import { PersonsListComponent } from './persons-list/persons-list.component';
 import { PersonEditComponent } from './person-edit/person-edit.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import { PersonInfoComponent } from './person-info/person-info.component';
+import { EmployeeInfoComponent } from './employee-info/employee-info.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PersonInfoComponent } from './person-info/person-info.component';
     EmployeesListComponent,
     PersonsListComponent,
     PersonEditComponent,
-    PersonInfoComponent
+    PersonInfoComponent,
+    EmployeeInfoComponent
   ],
   imports: [
     BrowserModule,

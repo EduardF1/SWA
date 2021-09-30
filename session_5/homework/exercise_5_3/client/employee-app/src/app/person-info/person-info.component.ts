@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PersonsService} from "../shared/services/persons/persons.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {Person} from "../shared/models/person";
 
 @Component({
@@ -13,8 +13,7 @@ export class PersonInfoComponent implements OnInit {
   public person: Person = {id: 0, name: ""};
 
   constructor(private personsService: PersonsService,
-              private actRoute: ActivatedRoute,
-              private router: Router) {
+              private actRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {
