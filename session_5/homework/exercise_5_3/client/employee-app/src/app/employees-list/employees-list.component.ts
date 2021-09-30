@@ -9,6 +9,7 @@ import { EmployeeService } from "../shared/services/employee/employee.service";
 export class EmployeesListComponent implements OnInit {
 
   public employees: any = [];
+  public id: string = '';
 
   constructor(
     private employeeService: EmployeeService

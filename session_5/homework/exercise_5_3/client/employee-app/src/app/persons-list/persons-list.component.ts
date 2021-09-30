@@ -10,6 +10,7 @@ import { PersonsService } from "../shared/services/persons/persons.service";
 export class PersonsListComponent implements OnInit {
 
   public persons: any = [];
+  public id: string = '';
 
   constructor(
     private personsService: PersonsService

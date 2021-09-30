@@ -12,9 +12,9 @@ export class PersonEditComponent implements OnInit {
   person: any = {};
 
   constructor(
-    public personsService: PersonsService,
-    public actRoute: ActivatedRoute,
-    public router: Router
+    private personsService: PersonsService,
+    private actRoute: ActivatedRoute,
+    private router: Router
   ) {
   }
 

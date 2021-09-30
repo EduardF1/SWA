@@ -19,6 +19,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { PersonsListComponent } from './persons-list/persons-list.component';
 import { PersonEditComponent } from './person-edit/person-edit.component';
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+import { PersonInfoComponent } from './person-info/person-info.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { PersonEditComponent } from './person-edit/person-edit.component';
     EmployeeCreateComponent,
     EmployeesListComponent,
     PersonsListComponent,
-    PersonEditComponent
+    PersonEditComponent,
+    PersonInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { PersonEditComponent } from './person-edit/person-edit.component';
     FormsModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
