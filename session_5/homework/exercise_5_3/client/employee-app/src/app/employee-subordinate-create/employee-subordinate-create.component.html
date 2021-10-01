@@ -10,12 +10,15 @@
       <input type="text" [(ngModel)]="employeeDetails.salary" class="form-control" placeholder="Salary" name="salary" ngDefaultControl>
     </div>
 
-    <div class="form-group mb-2 mt-2 ">
-      <input type="text" [(ngModel)]="employeeDetails.manager" class="form-control" placeholder="Manager" name="manager" ngDefaultControl>
-    </div>
+    <mat-form-field appearance="fill" class="mb-2 mt-2 w-100">
+      <select matNativeControl required>
+        <option value="false" [(ngModel)]="employeeDetails.manager" name="manger" ngDefaultControl>false</option>
+        <option value="true" [(ngModel)]="employeeDetails.manager" name="manger" ngDefaultControl>true</option>
+      </select>
+    </mat-form-field>
 
     <div class="form-group">
-      <button class="btn btn-success btn-lg btn-block w-100" (click)="addEmployee()">Create Employee</button>
+      <button class="btn btn-success btn-lg btn-block w-100" (click)="addSubordinate()">Add Subordinate</button>
     </div>
 
   </div>

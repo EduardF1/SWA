@@ -9,19 +9,28 @@ import { EmployeeService } from "../shared/services/employee/employee.service";
 })
 export class EmployeeCreateComponent implements OnInit {
 
-  @Input() employeeDetails = { employeeId: '', salary: '', manager: false }
+  @Input() employeeDetails:any = { }
 
   constructor(
-    public restApi: EmployeeService,
+    public employeeService: EmployeeService,
     public router: Router
   ) { }
 
   ngOnInit() { }
 
   addEmployee(dataEmployee?:any) {
-    this.restApi.createEmployee(this.employeeDetails).subscribe((data: {}) => {
+
+    this.employeeService.createEmployee(this.getPayload()).subscribe((data: {}) => {
       this.router.navigate(['/employees-list'])
     })
   }
 
+  private getPayload() {
+     let payload:any = {
+       employeeId: parseInt(this.employeeDetails.employeeId),
+       salary: parseInt(this.employeeDetails.salary),
+       manager:this.employeeDetails.manager
+     }
+     return payload;
+  }
 }

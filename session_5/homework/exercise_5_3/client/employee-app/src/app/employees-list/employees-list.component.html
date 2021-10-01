@@ -3,7 +3,7 @@
   <!-- Show it when there is no employee -->
   <div class="no-data text-center" *ngIf="employees.length == 0">
     <p>There is no employee added yet!</p>
-    <button class="btn btn-outline-primary" routerLink="/create-employee">Add Empoyee</button>
+    <button class="btn btn-outline-primary" routerLink="/create-employee">Add Employee</button>
   </div>
 
   <!-- Employees list table, it hides when there is no employee -->
@@ -33,7 +33,10 @@
             <td>{{employee.salary}}</td>
             <td>{{employee.manager}}</td>
             <td class="buttons-row">
-              <span class="btn btn-primary edit-button" routerLink="/employee-edit/{{employee.employeeId}}">Edit</span>
+              <span class="btn btn-primary edit-button mb-2" routerLink="/employee-edit/{{employee.employeeId}}">Edit</span>
+              <span class="btn btn-secondary edit-button view-subordinates-button" routerLink="/employee-subordinates/{{employee.employeeId}}">View Subordinates</span>
+              <span class="btn btn-success edit-button view-subordinates-button mt-2" routerLink="/employee-subordinate-create/{{employee.employeeId}}">Add Subordinate</span>
+
             </td>
           </tr>
         </tbody>

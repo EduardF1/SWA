@@ -22,7 +22,10 @@ import { PersonEditComponent } from './person-edit/person-edit.component';
 import {Ng2SearchPipeModule} from "ng2-search-filter";
 import { PersonInfoComponent } from './person-info/person-info.component';
 import { EmployeeInfoComponent } from './employee-info/employee-info.component';
+import { EmployeeSubordinatesComponent } from './employee-subordinates/employee-subordinates.component';
+import { EmployeeSubordinateCreateComponent } from './employee-subordinate-create/employee-subordinate-create.component';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +34,9 @@ import { EmployeeInfoComponent } from './employee-info/employee-info.component';
     PersonsListComponent,
     PersonEditComponent,
     PersonInfoComponent,
-    EmployeeInfoComponent
+    EmployeeInfoComponent,
+    EmployeeSubordinatesComponent,
+    EmployeeSubordinateCreateComponent
   ],
   imports: [
     BrowserModule,

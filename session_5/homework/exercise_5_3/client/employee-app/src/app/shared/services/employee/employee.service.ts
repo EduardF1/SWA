@@ -34,6 +34,7 @@ export class EmployeeService {
 
   // HttpClient API post() method => Create employee
   createEmployee(employee: Employee): Observable<Employee> {
+    console.log(employee)
     return this.http.post<Employee>(this.apiURL + '/employees', JSON.stringify(employee), this.httpOptions)
       .pipe(
         retry(1),
@@ -52,6 +53,15 @@ export class EmployeeService {
 
   getEmployeeSubordinates(id:number): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.apiURL + '/employees/' + id + '/subordinates')
+      .pipe(
+        retry(1),
+        catchError(this.error.handleError)
+      )
+  }
+
+  // HttpClient API post() method => Create employee
+  addSubordinate(employee: Employee, employeeId:string): Observable<Employee> {
+    return this.http.post<Employee>(this.apiURL + `/employees/${employeeId}/subordinates`, JSON.stringify(employee), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.error.handleError)

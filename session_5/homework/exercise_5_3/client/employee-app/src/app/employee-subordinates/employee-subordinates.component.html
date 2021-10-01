@@ -1,0 +1,18 @@
+<div class="col-md-12">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Employee Id</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Manager</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subordinate of subordinates">
+        <td>{{subordinate.employeeId}}</td>
+        <td>{{subordinate.salary}}</td>
+        <td>{{subordinate.manager}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

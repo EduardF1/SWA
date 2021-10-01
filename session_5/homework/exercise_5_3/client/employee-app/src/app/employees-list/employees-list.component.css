@@ -1,7 +1,11 @@
 .edit-button {
-  width: 4rem;
+  width: 8rem;
 }
 
 .buttons-row {
-  width: 4.5rem;
+  width: 10rem;
+}
+
+.view-subordinates-button {
+  width: 8rem;
 }
