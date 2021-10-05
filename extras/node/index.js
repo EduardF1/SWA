@@ -1,7 +1,41 @@
-const Logger = require('./logger');
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
 
-const logger = new Logger();
-logger.on('message', (data) => console.log('Called Listener: ', data));
-logger.log('Hello from the other side...');
-logger.log('Japan extends overseas...');
-logger.log('Unser liebe fraue...');
+const SERVER_PORT = parseInt(process.env.PORT) || 4200;
+
+
+server = http.createServer((request, response) => {
+    if (request.url === '/') {
+        fs.readFile(path.join(__dirname, 'public', 'index.html'), (error, content) => {
+            if (!error) {
+                response.writeHead(200, {'Content-Type': 'text/html'});
+                response.end(content);
+            } else {
+                console.error(error);
+            }
+        });
+    }
+
+    if (request.url === '/about') {
+        fs.readFile(path.join(__dirname, 'public', 'about.html'), (error, content) => {
+            if (!error) {
+                response.writeHead(200, {'Content-Type': 'text/html'});
+                response.end(content);
+            } else {
+                console.error(error);
+            }
+        });
+    }
+
+    if (request.url === '/api/users') {
+       const users = [
+           {name: 'Bob Doe', age:30},
+           {name: 'Carl Luther', age: 40}
+       ];
+       response.writeHead(200, {'Content-Type': 'application/json'});
+       response.end(JSON.stringify(users));
+    }
+});
+
+server.listen(SERVER_PORT, () => console.log(`Server running on port: ${SERVER_PORT}`));
