@@ -1,8 +1,8 @@
 const {WeatherHistory} = require('../src/WeatherHistory');
-const {DateInterval} = require('../../../assignments/assignment_1/src/factories/DateInterval');
-const {WeatherData} = require('../../../assignments/assignment_1/src/factories/WeatherData');
+const {DateInterval} = require('../../../../assignments/assignment_1/src/factories/DateInterval');
+const {WeatherData} = require('../../../../assignments/assignment_1/src/factories/WeatherData');
 
-const {START_DATE, END_DATE, END_DATE_2, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES} = require('../../../Constants');
+const {START_DATE, END_DATE, END_DATE_2, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT, CELSIUS_TYPE, PLACES} = require('../../../../Constants');
 
 describe('Weather History', () => {
     // Setup
