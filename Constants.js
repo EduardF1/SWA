@@ -48,8 +48,5 @@ module.exports = {
     EMPTY_STRING,
     DIRECTIONS,
     VALUES,
-    NEW_LINE,
-    RESPONSE_ERROR,
-    URLS,
-    REQUEST_TYPES
+    NEW_LINE
 };

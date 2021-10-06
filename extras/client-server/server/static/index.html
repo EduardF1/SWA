@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+    <title>Weather</title>
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+<!--    <script type="text/javascript" src="script_callback.js"></script>-->
+    <style>
+        td {
+            height: 40px;
+            width: auto;
+            border: 1px solid black;
+        }
+        table {
+            table-layout: auto;
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+    </style>
+</head>
+<body onload="init()">
+<div id='base'>
+    <h1>Latest weather measurements</h1>
+    <table id='weather_measurements'>
+        <thead>
+        <tr>
+            <td>Place</td>
+            <td>Temperature</td>
+            <td>Precipitation</td>
+            <td>Wind Speed</td>
+            <td>Cloud coverage</td>
+        </tr>
+        </thead>
+        <tbody id='weather_measurements_data'></tbody>
+    </table>
+
+    <h1>Temperature for last 5 days</h1>
+    <table id='minimum_temperature'>
+        <thead>
+        <tr>
+            <td>Place</td>
+            <td>Minimum Temperature</td>
+            <td>Maximum Temperature</td>
+        </tr>
+        </thead>
+        <tbody id='minimum_temperature_data'></tbody>
+    </table>
+
+    <h1>Total precipitation for last 5 days</h1>
+    <table id='total_precipitation'>
+        <thead>
+        <tr>
+            <td>Place</td>
+            <td>Precipitation</td>
+        </tr>
+        </thead>
+        <tbody id='total_precipitation_data'></tbody>
+    </table>
+
+    <h1>Average Wind Speed for last 5 days</h1>
+    <table id='average_wind_speed'>
+        <thead>
+        <tr>
+            <td>Place</td>
+            <td>Average wind speed</td>
+        </tr>
+        </thead>
+        <tbody id='average_wind_speed_data'></tbody>
+    </table>
+
+    <h1>Dominant wind direction for last 5 days</h1>
+    <table id='wind_direction'>
+        <thead>
+        <tr>
+            <td>Place</td>
+            <td>Wind direction</td>
+        </tr>
+        </thead>
+        <tbody id='wind_direction_data'></tbody>
+    </table>
+
+    <h1>Average cloud coverage for the last 5 day</h1>
+    <table id='average_cloud_coverage'>
+        <thead>
+        <tr>
+            <td>Place</td>
+            <td>Cloud coverage</td>
+        </tr>
+        </thead>
+        <tbody id='average_cloud_coverage_data'></tbody>
+    </table>
+
+    <h1>Hourly predictions for the next 24 hours</h1>
+    <h2>Horsens</h2>
+    <table id='hourly_prediction_horsens'>
+        <thead>
+        <tr>
+            <td>Hour</td>
+            <td>Temperature</td>
+            <td>Precipitation</td>
+            <td>Wind Speed</td>
+            <td>Cloud coverage</td>
+        </tr>
+        </thead>
+        <tbody id='hourly_prediction_horsens_data'></tbody>
+    </table>
+
+    <h2>Aarhus</h2>
+    <table id='hourly_prediction_aarhus'>
+        <thead>
+        <tr>
+            <td>Hour</td>
+            <td>Temperature</td>
+            <td>Precipitation</td>
+            <td>Wind Speed</td>
+            <td>Cloud coverage</td>
+        </tr>
+        </thead>
+        <tbody id='hourly_prediction_aarhus_data'></tbody>
+    </table>
+
+    <h2>Copenhagen</h2>
+    <table id='hourly_prediction_copenhagen'>
+        <thead>
+        <tr>
+            <td>Hour</td>
+            <td>Temperature</td>
+            <td>Precipitation</td>
+            <td>Wind Speed</td>
+            <td>Cloud coverage</td>
+        </tr>
+        </thead>
+        <tbody id='hourly_prediction_copenhagen_data'></tbody>
+    </table>
+</div>
+</body>
+</html>
