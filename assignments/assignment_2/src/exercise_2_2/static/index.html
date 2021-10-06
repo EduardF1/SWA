@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            td {
+                width: 4rem;
+                height: 3.5rem;
+                border: 1px solid black;
+            }
+
+            table {
+                border: 1px solid black;
+                border-spacing: 0;
+            }
+        </style>
+        <script src="XMLHttpRequest.js"></script>
+    </head>
+    <!-- Upon loading the page, call init() -->
+    <body onload="init()">
+        <div id='root'>
+            <h1>Latest Weather Data</h1>
+            <table id='weather_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='weather_table_body'></tbody>
+            </table>
+            <h1>Minimum Temperature Horsens</h1>
+            <table id='minimum_temperature_horsens_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='minimum_temperature_horsens_table_body'></tbody>
+            </table>
+            <h1>Maximum Temperature Horsens</h1>
+            <table id='maximum_temperature'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='maximum_temperature_horsens_table_body'></tbody>
+            </table>
+            <h1>Minimum Temperature Aarhus</h1>
+            <table id='minimum_temperature_aarhus_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='minimum_temperature_aarhus_table_body'></tbody>
+            </table>
+            <h1>Maximum Temperature Aarhus</h1>
+            <table id='maximum_temperature_aarhus_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='maximum_temperature_aarhus_table_body'></tbody>
+            </table>
+            <h1>Minimum Temperature Copenhagen</h1>
+            <table id='minimum_temperature_copenhagen_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='minimum_temperature_copenhagen_table_body'></tbody>
+            </table>
+            <h1>Maximum Temperature Copenhagen</h1>
+            <table id='maximum_temperature_copenhagen_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Value</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='maximum_temperature_copenhagen_table_body'></tbody>
+            </table>
+            <h1>Total precipitation</h1>
+            <table id='precipitation_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Total</td>
+                    </tr>
+                </thead>
+                <tbody id='precipitation_table_body'></tbody>
+            </table>
+            <h1>Average Wind Speed</h1>
+            <table id='wind_average_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Average</td>
+                    </tr>
+                </thead>
+                <tbody id='wind_average_table_body'></tbody>
+            </table>
+            <h1>Dominant Wind Direction</h1>
+            <table id='wind_direction_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Direction</td>
+                    </tr>
+                </thead>
+                <tbody id='wind_direction_table_body'></tbody>
+            </table>
+            <h1>Average Cloud Coverage</h1>
+            <table id='cloud_coverage_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>Average</td>
+                    </tr>
+                </thead>
+                <tbody id='cloud_coverage_table_body'></tbody>
+            </table>
+            <h1>Hourly predictions for the next 24 hours</h1>
+            <table id='forecast_table'>
+                <thead>
+                    <tr>
+                        <td>Place</td>
+                        <td>From</td>
+                        <td>To</td>
+                        <td>Type</td>
+                        <td>Unit</td>
+                        <td>Time</td>
+                    </tr>
+                </thead>
+                <tbody id='forecast_table_body'></tbody>
+            </table>
+        </div>
+    </body>
+</html>
