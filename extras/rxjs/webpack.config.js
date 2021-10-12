@@ -1,7 +1,7 @@
 const path = require('path');
-
+// below in entry: 'path' change the path to the file you want to compile
 module.exports = {
-    entry: './src/index.ts',
+    entry: './src/operators.ts',
     devtool: 'inline-source-map',
     module: {
         rules: [

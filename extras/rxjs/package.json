@@ -1,7 +1,8 @@
 {
   "name": "rxjs",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "_comment": "The below key's value should be modified to run the other files.",
+  "main": "src/operators.ts",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --port 3000 --mode development"
