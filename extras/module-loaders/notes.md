@@ -1,0 +1,1 @@
+- run the build script from `package.json` to generate the minified bundle.
