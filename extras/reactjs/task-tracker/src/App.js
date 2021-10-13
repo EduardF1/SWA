@@ -3,6 +3,9 @@ import Tasks from "./components/Tasks";
 import {useEffect, useState} from "react";
 import AddTask from "./components/AddTask";
 import axios from "axios";
+import Footer from "./components/Footer";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import About from "./components/About";
 
 function App() {
     const [showAddTask, setShowAddTask] = useState(false);
@@ -25,7 +28,7 @@ function App() {
 
     // Add task
     const addTask = async (task) => {
-       const response = await axios.post(`${apiUrl}`,task);
+        const response = await axios.post(`${apiUrl}`, task);
         setTasks([...tasks, response.data]);
     }
 
@@ -44,29 +47,38 @@ function App() {
     // Toggle Reminder
     const toggleReminder = async (id) => {
         const taskToToggle = await fetchTask(id);
-        const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+        const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
-        const response = await axios.put(`${apiUrl}/${id}`,updatedTask);
+        const response = await axios.put(`${apiUrl}/${id}`, updatedTask);
 
         setTasks(
             tasks.map((task) =>
-                task.id === id ? { ...task, reminder: response.data.reminder } : task
+                task.id === id ? {...task, reminder: response.data.reminder} : task
             )
         )
     }
 
     return (
-        <div className="container">
-            <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
-            {
-                showAddTask && <AddTask onAdd={addTask}/>
-            }
-            {
-                tasks.length > 0 ?
-                    <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> :
-                    ('No tasks to show.')
-            }
-        </div>
+        <Router>
+            <div className="container">
+                <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
+                <Route path={'/'} exact render={(props) => (
+                    <>
+                        {
+                            showAddTask && <AddTask onAdd={addTask}/>
+                        }
+                        {
+                            tasks.length > 0 ?
+                                <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> :
+                                ('No tasks to show.')
+                        }
+                    </>
+                )
+                }/>
+                <Route path={'/about'} component={About}/>
+                <Footer/>
+            </div>
+        </Router>
     );
 }
 
