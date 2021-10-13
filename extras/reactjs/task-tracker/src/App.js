@@ -1,30 +1,27 @@
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddTask from "./components/AddTask";
+import axios from "axios";
 
 function App() {
     const [showAddTask, setShowAddTask] = useState(false);
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            text: "Lunch at Baba's",
-            day: 'Dec 7th at 4:30pm',
-            reminder: false
-        },
-        {
-            id: 2,
-            text: 'Meeting at University',
-            day: 'Dec 6th at 1:30pm',
-            reminder: true
-        },
-        {
-            id: 3,
-            text: 'Meeting at HQ',
-            day: 'Dec 6th at 6:20pm',
-            reminder: true
-        },
-    ]);
+    const [tasks, setTasks] = useState([]);
+    const apiUrl = 'http://localhost:4300/tasks';
+
+    useEffect(() => {
+        const getTasks = async () => {
+            const tasksFromServer = await fetchTasks()
+            setTasks(tasksFromServer)
+        }
+        getTasks().then(() => console.log('Avoid warnings.'));
+    }, [])
+
+    // Fetch Tasks
+    const fetchTasks = async () => {
+        const res = await axios.get(`${apiUrl}`);
+        return await res.data;
+    }
 
     // Add task
     const addTask = (task) => {
