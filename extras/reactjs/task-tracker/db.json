@@ -1,22 +1,10 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Lunch at Baba's",
-      "day": "Dec 7th at 4:30pm",
-      "reminder": false
-    },
-    {
-      "id": 2,
-      "text": "Meeting at University",
-      "day": "Dec 6th at 1:30pm",
-      "reminder": true
-    },
-    {
-      "id": 3,
-      "text": "Meeting at HQ",
-      "day": "Dec 6th at 6:20pm",
-      "reminder": true
+      "text": "f",
+      "day": "a",
+      "reminder": true,
+      "id": 1
     }
   ]
 }

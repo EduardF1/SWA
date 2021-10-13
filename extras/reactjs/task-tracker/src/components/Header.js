@@ -19,8 +19,8 @@ Header.propTypes = {
 }
 
 // to add inline styling add this property `style={headingStyle}` on the h1
-const headingStyle = {
-    color: 'orange',
-    backgroundColor: 'grey'
-}
+// const headingStyle = {
+//     color: 'orange',
+//     backgroundColor: 'grey'
+// }
 export default Header;

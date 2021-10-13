@@ -19,25 +19,40 @@ function App() {
 
     // Fetch Tasks
     const fetchTasks = async () => {
-        const res = await axios.get(`${apiUrl}`);
-        return await res.data;
+        const response = await axios.get(`${apiUrl}`);
+        return await response.data;
     }
 
     // Add task
-    const addTask = (task) => {
-      const id = Math.floor(Math.random() * 1000) + 1;
-      const newTask = {id, ...task};
-      setTasks([...tasks, newTask]);
+    const addTask = async (task) => {
+       const response = await axios.post(`${apiUrl}`,task);
+        setTasks([...tasks, response.data]);
     }
 
     // Delete task
-    const deleteTask = (id) => {
+    const deleteTask = async (id) => {
+        await axios.delete(`${apiUrl}/${id}`);
         setTasks(tasks.filter(task => task.id !== id));
     }
 
+    // Fetch Task
+    const fetchTask = async (id) => {
+        const response = await axios.get(`${apiUrl}/${id}`);
+        return await response.data;
+    }
+
     // Toggle Reminder
-    const toggleReminder = (id) => {
-        setTasks(tasks.map(task => task.id === id ? {...task, reminder: !task.reminder} : task));
+    const toggleReminder = async (id) => {
+        const taskToToggle = await fetchTask(id);
+        const updatedTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+
+        const response = await axios.put(`${apiUrl}/${id}`,updatedTask);
+
+        setTasks(
+            tasks.map((task) =>
+                task.id === id ? { ...task, reminder: response.data.reminder } : task
+            )
+        )
     }
 
     return (
@@ -48,8 +63,8 @@ function App() {
             }
             {
                 tasks.length > 0 ?
-                <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> :
-                ('No tasks to show.')
+                    <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> :
+                    ('No tasks to show.')
             }
         </div>
     );
