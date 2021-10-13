@@ -1,10 +1,12 @@
+import {useEffect, useState} from "react";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+
+import axios from "axios";
+
+import Footer from "./components/Footer";
+import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import {useEffect, useState} from "react";
-import AddTask from "./components/AddTask";
-import axios from "axios";
-import Footer from "./components/Footer";
-import {BrowserRouter as Router, Route} from "react-router-dom";
 import About from "./components/About";
 
 function App() {
