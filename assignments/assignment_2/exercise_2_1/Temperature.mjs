@@ -1,13 +1,13 @@
-import {WeatherPrediction} from "./WeatherPrediction.mjs";
-import {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT} from "../../../../Constants";
+const {CELSIUS_TYPE} = require('../../../Constants.js');
+const {WeatherData} = require('assignments/assignment_2/exercise_2_1/WeatherData.mjs');
 
-function TemperaturePrediction(time, place, type, unit, min, max) {
-    WeatherPrediction.call(this, time, place, type, unit, min, max);
+export function Temperature(time, place, type, unit, value) {
+    WeatherData.call(this,time, place, type, unit, value);
 }
 
-Object.setPrototypeOf(TemperaturePrediction.prototype, WeatherPrediction.prototype);
+Object.setPrototypeOf(Temperature.prototype, WeatherData.prototype);
 
-TemperaturePrediction.prototype = {
+Temperature.prototype = {
     convertToF: function () {
         if (this.getType() === CELSIUS_TYPE) {
             this.setType(FAHRENHEIT_TYPE);

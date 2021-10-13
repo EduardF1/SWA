@@ -1,5 +1,5 @@
 import {WeatherData} from "./WeatherData.mjs";
-const {MPS_TYPE, MPS_UNIT, MPH_TYPE, MPH_UNIT} = require('../../../../Constants');
+const {MPS_TYPE, MPS_UNIT, MPH_TYPE, MPH_UNIT} = require('../../../Constants.js');
 
 export function Wind(time, place, type, unit, value, direction) {
     WeatherData.call(this, time, place, type, unit, value);

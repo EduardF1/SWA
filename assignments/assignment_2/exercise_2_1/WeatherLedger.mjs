@@ -1,4 +1,4 @@
-import {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, MM_TYPE, MM_UNIT, MPS_TYPE, MPS_UNIT} from "../../../../Constants";
+import {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, MM_TYPE, MM_UNIT, MPS_TYPE, MPS_UNIT} from "../../../Constants.js";
 
 export function WeatherLedger(data) {
     this.data = data;

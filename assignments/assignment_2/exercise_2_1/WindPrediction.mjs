@@ -1,5 +1,5 @@
 import {WeatherPrediction} from "./WeatherPrediction.mjs";
-import {MPH_TYPE, MPH_UNIT, MPS_TYPE, MPS_UNIT} from "../../../../Constants";
+import {MPH_TYPE, MPH_UNIT, MPS_TYPE, MPS_UNIT} from "../../../Constants.js";
 
 function WindPrediction(time, place, type, unit, min, max, expectedDirections) {
     WeatherPrediction.call(this, time, place, type, unit, min, max);
