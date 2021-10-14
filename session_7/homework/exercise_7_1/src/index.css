@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    font-family: montserrat, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+input, button {
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.App {
+    align-items: center;
+    background: #53565A;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.form_title {
+    margin-bottom: 10px;
+}
+
+form {
+    display: block;
+    position: relative;
+}
+
+form:after {
+    background-image: linear-gradient(to bottom right, #FFCE00, #FE4880);
+    bottom: -5px;
+    content: '';
+    display: block;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    z-index: 1;
+}
+
+form .form-inner {
+    background-color: white;
+    display: block;
+    padding: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+form .h2 {
+    color: #888;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+form .form-inner .form-group {
+    display: block;
+    width: 300px;
+    margin-bottom: 15px;
+}
+
+.form-inner .form-group label {
+    color: #666;
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    transition: 0.4s;
+}
+
+.form-inner .form-group:focus-within label {
+    color: #FE4880;
+}
+
+form .form-inner .form-group input {
+    background-color: #F8F8F8;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    transition: 0.4s;
+}
+
+form .form-inner .form-group input:focus {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+form .form-inner input[type="submit"], .welcome button {
+    border-radius: 8px;
+    background-image: linear-gradient(to right, #FFCE00 50%, #FFCE00 50%, #FE4880);
+    background-size: 200%;
+    background-position: 0;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    padding: 10px 15px;
+    transition: 0.4s;
+}
+
+form .form-inner input[type="submit"]:hover, .welcome button:hover {
+    background-position: 100% 0;
+}
+
+.welcome {
+    width: 100%;
+    max-width: 480px;
+    background-color: #fff;
+    padding: 15px 30px;
+}
+
+.welcome h2 {
+    color: #888;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.welcome h2 span {
+    color: #FE4880;
+    font-weight: 700;
+}

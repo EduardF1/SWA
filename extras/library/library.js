@@ -19,4 +19,4 @@ function $(selector) {
     return self;
 }
 
-$('h1').attr('class', 'new-class');
+$('h1').attr('class', 'new-class');w
