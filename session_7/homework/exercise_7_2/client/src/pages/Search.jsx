@@ -26,7 +26,7 @@ const Search = () => {
                 <TextField id="standard-basic" label="city" value={city} type="text" onChange={handleInputChange}/><br/>
                 <Button style={buttonStyle} variant="contained" color="primary" type="submit" onClick={() => history.push({pathname: '/result', state: {_city: city}})}>Search</Button>
             </form>
-            <GoBackButton style={buttonStyle}/>
+            <GoBackButton/>
         </div>
     )
 };
