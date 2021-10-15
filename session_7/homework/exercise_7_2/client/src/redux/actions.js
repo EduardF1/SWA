@@ -15,19 +15,19 @@ const getWeatherDataForCity = (weatherDataForCity) => ({
 
 // dispatchers
 export const loadWeatherData = () => {
-    return function (dispatch) {
-        axios.get(`${weatherDataUrl}`).then(response => {
-            console.log("response",response.data);
+    return async function (dispatch) {
+        await axios.get(`${weatherDataUrl}`).then(response => {
+            console.log("response", response.data);
             dispatch(getWeatherData(response.data));
         }).catch(error => console.error(error));
     };
 };
 
 export const loadWeatherDataForCity = (_city) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         console.log(_city)
-        axios.get(`${weatherDataUrl}/${_city}`).then(response => {
-            console.log("response",response.data);
+        await axios.get(`${weatherDataUrl}/${_city}`).then(response => {
+            console.log("response", response.data);
             dispatch(getWeatherDataForCity(response.data));
         }).catch(error => console.error(error));
     };

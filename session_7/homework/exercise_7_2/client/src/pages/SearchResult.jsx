@@ -4,7 +4,7 @@ import {useEffect} from "react";
 import {loadWeatherDataForCity} from "../redux/actions";
 import {useHistory} from "react-router-dom";
 
-const SearchResults = () => {
+const SearchResult = () => {
     const history = useHistory();
     const city = history.location.state._city;
 
@@ -15,12 +15,11 @@ const SearchResults = () => {
     }, []);
     return (
         <div>
-            <h2>The weather data for {city} is:</h2>
             {weatherDataForCity !== undefined && <>
-                <DataTable data={weatherDataForCity.slice(0, 200)}/>
+                <DataTable data={weatherDataForCity.slice(0, 200)} city={city} backButton={{'key':true}}/>
             </>}
         </div>
     );
 };
 
-export default SearchResults;
+export default SearchResult;
