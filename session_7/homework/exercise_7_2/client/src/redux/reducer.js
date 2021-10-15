@@ -14,7 +14,12 @@ const weatherDataReducers = (state = initialState, action) => {
                 weatherData: action.payload,
                 loading: false
             }
-
+        case actionTypes.GET_WEATHER_DATA_FOR_CITY:
+            return {
+                ...state,
+                weatherDataForCity: action.payload,
+                loading: false
+            }
         default:
             return state;
     }
