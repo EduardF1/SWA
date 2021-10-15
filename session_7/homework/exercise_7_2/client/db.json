@@ -1,0 +1,30 @@
+{
+  "weather-data": [
+    {
+      "id": 1,
+      "value": 18,
+      "type": "temperature",
+      "unit": "C",
+      "time": "2021-10-07T22:00:00.000Z",
+      "place": "Horsens"
+    },
+    {
+      "id": 2,
+      "value": 16.5,
+      "precipitation_type": "hail",
+      "type": "precipitation",
+      "unit": "mm",
+      "time": "2021-10-07T22:00:00.000Z",
+      "place": "Horsens"
+    },
+    {
+      "id": 3,
+      "value": 3.6,
+      "direction": "Northwest",
+      "type": "wind speed",
+      "unit": "m/s",
+      "time": "2021-10-07T22:00:00.000Z",
+      "place": "Horsens"
+    }
+  ]
+}
