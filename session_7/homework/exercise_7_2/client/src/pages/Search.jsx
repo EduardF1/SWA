@@ -1,28 +1,33 @@
-import {Box, TextField} from "@material-ui/core";
-import {useState} from "react";
+import {Button, TextField} from "@material-ui/core";
+import { useState} from "react";
+import {useHistory} from "react-router-dom";
 
 const Search = () => {
-    const [state, setState] = useState([]);
-    const {weatherData} = state;
+    const [city, setCity] = useState('');
+    const [error, setError] = useState('');
+    let history = useHistory();
 
+    const handleInputChange = (event) => {
+        let city = event.target.value;
+        setCity(city);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (!city) setError('Please select a city.');
+    }
     return (
         <div>
-            <div>
-                <h2>Search for a the weather report of a city.</h2>
-                <p>Please choose one of the following, Aarhus, Copenhagen or Horsens.</p>
-            </div>
-            <Box
-                component="form"
-                sx={{
-                    '& > :not(style)': { m: 1, width: '58ch' },
-                }}
-                noValidate
-                autoComplete="off"
-            >
-                <TextField id="filled-basic" label="Filled" variant="filled" />
-            </Box>
+            <h2>Search for the weather data of a specific city</h2>
+            <p>Please choose either Aarhus, Copenhagen or Horsens.</p>
+            <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <TextField id="standard-basic" label="city" value={city} type="text" onChange={handleInputChange}/><br/>
+                <Button style={{width: "200px", marginTop: "20px"}} variant="contained" color="primary" type="submit" onClick={() => history.push({pathname: '/results', state: {_city: city}})}>Search</Button>
+            </form>
         </div>
-    );
+    )
 };
 
 export default Search;
+
+

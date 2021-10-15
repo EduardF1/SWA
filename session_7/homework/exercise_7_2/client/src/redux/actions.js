@@ -23,11 +23,12 @@ export const loadWeatherData = () => {
     };
 };
 
-export const loadWeatherDataForCity = (place) => {
+export const loadWeatherDataForCity = (_city) => {
     return function (dispatch) {
-        axios.get(`${weatherDataUrl}/${place}`).then(response => {
+        console.log(_city)
+        axios.get(`${weatherDataUrl}/${_city}`).then(response => {
             console.log("response",response.data);
-            dispatch(getWeatherData(response.data));
+            dispatch(getWeatherDataForCity(response.data));
         }).catch(error => console.error(error));
     };
 }

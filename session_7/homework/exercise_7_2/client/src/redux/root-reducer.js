@@ -3,7 +3,8 @@ import weatherDataReducers from "./reducer";
 
 
 const rootReducer = combineReducers({
-    weatherData: weatherDataReducers
+    weatherData: weatherDataReducers,
+    weatherDataForCity: weatherDataReducers
 })
 
 export default rootReducer;
