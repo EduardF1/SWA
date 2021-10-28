@@ -40,38 +40,43 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
     },
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
+    async addTask(task) {
+      const request = await fetch('api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(task)
+      });
+
+      const data = await request.json();
+      this.tasks = [...this.tasks, data];
     },
-    deleteTask(id) {
-      if (confirm('Are you sure ?')) this.tasks = this.tasks.filter((task) => task.id !== id);
+    async deleteTask(id) {
+      if (confirm('Are you sure ?')){
+        const request = await fetch(`api/tasks/${id}`, {
+          method: 'DELETE'
+        });
+        request.status === 200 ?
+            (this.tasks = this.tasks.filter((task) => task.id !== id)) :
+            alert('Something went wrong while trying to delete a task.')
+      }
     },
     toggleReminder(id) {
       this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task);
+    },
+    async fetchTasks() {
+      const res = await fetch('api/tasks');
+      return await res.json();
+    },
+    async fetchTask(id) {
+      const res = await fetch(`api/tasks/${id}`);
+      return await res.json();
     }
   },
   // lifecycle hook for when the component is loaded
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: 'Doctors Appointment',
-        day: 'March 1st at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: 'Meeting at School',
-        day: 'March 3rd at 1:30pm',
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: 'Gardening',
-        day: 'March 3rd at 11:00am',
-        reminder: false,
-      }
-    ]
+  async created() {
+    this.tasks = await this.fetchTasks()
   }
 };
 </script>

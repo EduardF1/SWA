@@ -1,7 +1,22 @@
 {
   "tasks": [
-    { "id": 1, "text": "random text 1", "day": "October 28th at 19:30pm", "reminder":true},
-    { "id": 2, "text": "random text 2", "day": "October 27th at 18:30pm", "reminder": false },
-    { "id": 3, "text": "random text 3", "day": "October 29th at 15:30pm", "reminder": true }
+    {
+      "id": 1,
+      "text": "random text 1",
+      "day": "October 28th at 19:30pm",
+      "reminder": true
+    },
+    {
+      "id": 3,
+      "text": "random text 3",
+      "day": "October 29th at 15:30pm",
+      "reminder": true
+    },
+    {
+      "id": 72793,
+      "text": "Dentist appointment",
+      "day": "March 3rd at 10.00 pm",
+      "reminder": true
+    }
   ]
 }
