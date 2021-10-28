@@ -62,8 +62,20 @@ export default {
             alert('Something went wrong while trying to delete a task.')
       }
     },
-    toggleReminder(id) {
-      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task);
+    async toggleReminder(id) {
+      const taskToToggle = await this.fetchTask(id);
+      const taskToUpdate = {...taskToToggle, reminder: !taskToToggle.reminder};
+      const request = await fetch(`api/tasks/${id}`, {
+        method:'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(taskToUpdate)
+      });
+
+      const data = await request.json();
+
+      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: data.reminder} : task);
     },
     async fetchTasks() {
       const res = await fetch('api/tasks');
