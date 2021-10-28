@@ -1,6 +1,15 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker"></Header>
+    <Header
+        @toggle-add-task="toggleAddTask"
+        title="Task Tracker"
+        :showAddTask="showAddTask"
+    />
+    <div v-show="showAddTask">
+      <AddTask
+          @add-task="addTask"
+      />
+    </div>
     <Tasks
         @toggle-reminder="toggleReminder"
         @delete-task="deleteTask"
@@ -12,25 +21,33 @@
 <script>
 import Header from "./components/Header";
 import Tasks from './components/Tasks';
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
   components: {
+    AddTask,
     Tasks,
     Header
   },
   data() {
     return {
-      tasks: []
+      tasks: [],
+      showAddTask: false
     }
   },
   methods: {
-    deleteTask(id) {
-      if(confirm('Are you sure ?')) this.tasks = this.tasks.filter((task) => task.id !== id);
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask
     },
-    toggleReminder(id){
-      console.log(id)
-      this.tasks= this.tasks.map((task)=> task.id === id ? {...task, reminder: !task.reminder} : task);
+    addTask(task) {
+      this.tasks = [...this.tasks, task]
+    },
+    deleteTask(id) {
+      if (confirm('Are you sure ?')) this.tasks = this.tasks.filter((task) => task.id !== id);
+    },
+    toggleReminder(id) {
+      this.tasks = this.tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task);
     }
   },
   // lifecycle hook for when the component is loaded
