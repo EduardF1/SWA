@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>{{ title }}</h1>
+
+    <input v-model.lazy="inputFieldText" type="text">
+    {{ inputFieldText }}<br><br>
+
+    <textarea v-model="textAreaInput" id="text-area"></textarea>
+    <p>{{ textAreaInput }}</p>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      title: "Simple v-model study page",
+      inputFieldText: 'Type in something.',
+      textAreaInput: 'What are you thinking of ?'
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: #175dc5;
+}
+
+p {
+  white-space: pre;
 }
 </style>
+
+
