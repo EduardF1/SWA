@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "TableData",
+  name: "TableBase",
   props: {
     columns: Array,
     entries: Array
