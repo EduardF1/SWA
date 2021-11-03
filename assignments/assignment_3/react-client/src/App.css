@@ -1,38 +1,33 @@
-.App {
-  text-align: center;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    background: #e97070;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.outline-btn {
+    border-radius: 25%;
+    border-color: rgb(141, 0, 235) !important;
+    background-color: transparent !important;
+    color: rgb(0, 199, 235) !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.outline-btn:hover {
+    border-color: rgb(235, 0, 196) !important;
+    background-color: #61dafb !important;
+    color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.background-style {
+    background: linear-gradient(rgba(129, 172, 238, 0.7),
+    rgba(2, 17, 49, 0.7)),
+    url(assets/horsens.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

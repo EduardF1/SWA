@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import HomePage from './components/HomePage';
+import Button from "react-bootstrap/Button";
+import {getData, postWeatherData} from "./api-handler/ApiHandler";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <HomePage />
+        <div> <Button variant="outline-info" class="" onClick={() => getData("data")}>GET DATA</Button>
+          <Button variant="outline-info" onClick={() => postWeatherData("type", "value", "unit", "time", "place", "extras")}>POST DATA</Button></div>
     </div>
   );
 }
