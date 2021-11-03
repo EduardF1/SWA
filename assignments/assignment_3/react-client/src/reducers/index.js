@@ -1,5 +1,5 @@
-import weatherDataReducer from './weatherData';
-import weatherForecastReducer from './weatherForecast';
+import weatherDataReducer from './weatherDataReducer';
+import weatherForecastReducer from './weatherForecastReducer';
 import {combineReducers} from 'redux';
 
 /**
