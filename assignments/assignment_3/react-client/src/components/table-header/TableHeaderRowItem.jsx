@@ -1,7 +1,1 @@
-function TableHeaderRowItem({label}) {
-    return (
-        <th>{label}</th>
-    )
-}
-
-export default TableHeaderRowItem;
+export const TableHeaderRowItem = ({label}) => (<th>{label}</th>)

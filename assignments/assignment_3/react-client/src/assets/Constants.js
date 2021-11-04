@@ -27,5 +27,10 @@ export const LABELS = [
   'Wind Directions'
 ];
 
+export const FILTER_LABELS = [
+  'Set start time',
+  'Set end time'
+];
+
 export const MODAL_OPEN_BUTTON_LABEL = "Post History Data";
 export const OPEN = 'Add new weather data';

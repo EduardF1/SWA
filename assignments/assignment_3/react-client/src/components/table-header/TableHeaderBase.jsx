@@ -1,12 +1,9 @@
-import TableHeaderRowItem from "./TableHeaderRowItem";
+import {TableHeaderRowItem} from "./TableHeaderRowItem";
 import {LABELS} from "../../assets/Constants";
 
-function TableHeaderBase() {
-    return (
+export const TableHeaderBase = () =>
+    (
         <>
-            {LABELS.map(element => <TableHeaderRowItem label={element}/>)}
+            {LABELS.map((element, index) => <TableHeaderRowItem key={index} label={element}/>)}
         </>
     )
-}
-
-export default TableHeaderBase;

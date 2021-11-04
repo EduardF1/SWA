@@ -1,5 +1,5 @@
-function TableRow({item, index, label}) {
-    function getSeparatedArrayElements(arrayOfStrings) {
+export const TableRow = ({item, index, label}) => {
+    const getSeparatedArrayElements = (arrayOfStrings) => {
         let separatedArrayOfStrings = [];
         arrayOfStrings.forEach(element => separatedArrayOfStrings.push(element + ', '));
         if(separatedArrayOfStrings[separatedArrayOfStrings.length - 1] !== undefined){
@@ -9,9 +9,7 @@ function TableRow({item, index, label}) {
         return separatedArrayOfStrings;
     }
 
-    function removeLastComma(str) {
-        return str.replace(/,(\s+)?$/, '');
-    }
+    const removeLastComma = (str) => str.replace(/,(\s+)?$/, '');
 
     return (
         <tr key={index}>
@@ -42,5 +40,3 @@ function TableRow({item, index, label}) {
         </tr>
     )
 }
-
-export default TableRow;

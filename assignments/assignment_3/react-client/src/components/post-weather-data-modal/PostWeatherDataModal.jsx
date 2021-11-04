@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import {store} from '../../store';
@@ -13,7 +13,7 @@ import Body from "./body/Body";
 import {OpenModalButton} from "./open-button/OpenModalButton";
 
 
-function PostWeatherDataModal() {
+export const PostWeatherDataModal = () => {
     const [show, setShow] = useState(false);
     const [type, setType] = useState("temperature");
     const [unit, setUnit] = useState("°C");
@@ -57,16 +57,16 @@ function PostWeatherDataModal() {
             >
                 <Header/>
                 <Modal.Body>
-                   <Body
-                       setPlace={setPlace}
-                       setType={setType}
-                       setDirection={setDirection}
-                       setUnit={setUnit}
-                       setValue={setValue}
-                       setPrecipitationType={setPrecipitationType}
-                       onChange={onChange}
-                       dateTime={dateTime}
-                   />
+                    <Body
+                        setPlace={setPlace}
+                        setType={setType}
+                        setDirection={setDirection}
+                        setUnit={setUnit}
+                        setValue={setValue}
+                        setPrecipitationType={setPrecipitationType}
+                        onChange={onChange}
+                        dateTime={dateTime}
+                    />
                 </Modal.Body>
                 <Footer
                     togglePostDialog={togglePostDialog}
@@ -75,5 +75,3 @@ function PostWeatherDataModal() {
         </>
     );
 }
-
-export default PostWeatherDataModal;

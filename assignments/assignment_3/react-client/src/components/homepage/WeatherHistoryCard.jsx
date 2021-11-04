@@ -1,8 +1,8 @@
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Table from "react-bootstrap/Table";
-import TableHeader from "../table-header/TableHeader";
-import TableRow from "../table-row/TableRow";
+import {TableHeader} from "../table-header/TableHeader";
+import {TableRow} from "../table-row/TableRow";
 
 function WeatherHistoryCard({historicData, selectedCity}) {
     return (

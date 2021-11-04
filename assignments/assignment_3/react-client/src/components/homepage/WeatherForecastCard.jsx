@@ -1,8 +1,8 @@
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
-import TableHeader from "../table-header/TableHeader";
-import TableRow from "../table-row/TableRow";
+import {TableHeader} from "../table-header/TableHeader";
+import {TableRow} from "../table-row/TableRow";
 
 function WeatherForecastCard({forecastData, selectedCity, label}) {
     return (

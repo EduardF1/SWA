@@ -10,7 +10,7 @@ import AccordionContainer from "./homepage/AccordionContainer";
 import JumbotronContainer from "./homepage/JumbotronContainer";
 import {CITIES} from "../assets/Constants";
 
-function HomePage() {
+export const HomePage = () => {
     // Button state management hooks
     const [debounce, setDebounce] = useState(false);
     const [selectedCity, setSelectedCity] = useState(CITIES[0]);
@@ -69,4 +69,3 @@ function HomePage() {
         </div>
     )
 }
-export default HomePage;

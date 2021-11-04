@@ -1,8 +1,8 @@
-import TableHeaderRowItem from "./TableHeaderRowItem";
-import TableHeaderBase from "./TableHeaderBase";
+import {TableHeaderRowItem} from "./TableHeaderRowItem";
+import {TableHeaderBase} from "./TableHeaderBase";
 
-function TableHeader({label}) {
-    return (
+export const TableHeader = ({label}) =>
+    (
         <thead className="text-center">
             <tr>
                 {
@@ -19,6 +19,3 @@ function TableHeader({label}) {
             </tr>
         </thead>
     );
-}
-
-export default TableHeader;
