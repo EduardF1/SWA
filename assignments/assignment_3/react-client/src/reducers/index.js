@@ -1,9 +1,9 @@
-import weatherDataReducer from './weatherDataReducer';
-import weatherForecastReducer from './weatherForecastReducer';
+import weatherDataReducer from './weatherData';
+import weatherForecastReducer from './weatherForecast';
 import {combineReducers} from 'redux';
 
 /**
- * Merge all reducers
+ * this class is merging all reducers into one reducer
  */
 const combinedReducers = combineReducers({
     historicData: weatherDataReducer,

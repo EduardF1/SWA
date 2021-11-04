@@ -1,33 +1,134 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #e97070;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.6;
+  background: #fdfdfd;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+
+
+
+
+.btn-info {
+  border-color: #06aad8 !important;
+  background-color: transparent !important;
+  color: white !important;
+
+
+}
+
+.btn-info:not(.disabled).active {
+  border-color: #06aad8 !important;
+  background-color: #06aad8 !important;
+  color: white !important;
+}
+
+.btn-info:hover {
+  border-color: #06aad8 !important;
+  background-color: #06aad8 !important;
+  color: white !important;
+}
+
+.myCard {
+  border-color: transparent !important;
 }
 
 .outline-btn {
-    border-radius: 25%;
-    border-color: rgb(141, 0, 235) !important;
-    background-color: transparent !important;
-    color: rgb(0, 199, 235) !important;
+  border-color: #06aad8 !important;
+  background-color: transparent !important;
+  color: white !important;
 }
+
+
+.outline-link {
+
+  background-color: white !important;
+  color: #06aad8 !important;
+  font-weight: 600 !important;
+  border-color: #06aad8 !important;
+
+
+}
+
+.outline-link:hover {
+  border-color: #06aad8 !important;
+  background-color: #06aad8 !important;
+  color: white !important;
+}
+
+.outline-link:focus {
+  border-color: #06aad8 !important;
+  background-color: #06aad8 !important;
+  color: white !important;
+}
+
+
 
 .outline-btn:hover {
-    border-color: rgb(235, 0, 196) !important;
-    background-color: #61dafb !important;
-    color: white;
+  border-color: #06aad8 !important;
+  background-color: #06aad8 !important;
+  color: white !important;
 }
 
-.background-style {
-    background: linear-gradient(rgba(129, 172, 238, 0.7),
-    rgba(2, 17, 49, 0.7)),
-    url(assets/horsens.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.react-datetime-picker__inputGroup__input {
+  color: white !important;
+
+}
+
+svg {
+  stroke: white;
+}
+
+.react-datetime-picker__wrapper {
+  color: white !important;
+  border: 1px solid #06aad8 !important;
+  border-radius: 4px;
+
+}
+
+.post-modal .react-datetime-picker__wrapper {
+  color: black !important;
+  border: 1px solid #06aad8 !important;
+  border-radius: 4px;
+}
+
+.post-modal svg {
+  stroke: black;
+}
+
+.post-modal .react-datetime-picker__inputGroup__input {
+  color: rgb(0, 0, 0) !important;
+}
+
+
+.background-style-horsens {
+  background: linear-gradient(rgba(129, 172, 238, 0.7),
+      rgba(2, 17, 49, 0.7)),
+    url(assets/images/Horsens.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background-style-copenhagen {
+  background: linear-gradient(rgba(47, 222, 162, 0.7),
+  rgba(2, 17, 49, 0.7)),
+  url(assets/images/Copenhagen.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background-style-aarhus {
+  background: linear-gradient(rgba(137, 39, 217, 0.7),
+  rgba(2, 17, 49, 0.7)),
+  url(assets/images/Aarhus.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
