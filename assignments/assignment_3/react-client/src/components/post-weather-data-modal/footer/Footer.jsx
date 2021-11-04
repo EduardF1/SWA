@@ -3,19 +3,18 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-function Footer({togglePostDialog, handleSaveData}) {
-    return (
+import {FOOTER_LABELS} from "../../../assets/Constants";
+
+export const Footer = ({togglePostDialog, handleSaveData}) =>
+    (
         <>
             <Modal.Footer>
                 <Button variant="secondary" onClick={togglePostDialog}>
-                    Close
+                    {FOOTER_LABELS[0]}
                 </Button>
                 <Button variant="primary" onClick={handleSaveData}>
-                    Add value
+                    {FOOTER_LABELS[1]}
                 </Button>
             </Modal.Footer>
         </>
     )
-}
-
-export default Footer;

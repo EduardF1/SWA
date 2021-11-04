@@ -7,9 +7,9 @@ import {store} from '../../store';
 
 import {postHistoricData} from '../../reducers/weatherData';
 
-import Footer from "./footer/Footer";
+import {Footer} from "./footer/Footer";
 import {Header} from "./header/Header";
-import Body from "./body/Body";
+import {Body} from "./body/Body";
 import {OpenModalButton} from "./open-button/OpenModalButton";
 import {API_RESOURCES, DATA_TYPES, INITIAL_POST_WEATHER_DATA_MODAL_VALUES} from "../../assets/Constants";
 

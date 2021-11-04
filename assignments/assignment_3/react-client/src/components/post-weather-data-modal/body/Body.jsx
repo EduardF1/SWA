@@ -11,8 +11,8 @@ import {SelectDateTime} from "../form-groups/SelectDateTime";
 import {SelectWindDirection} from "../form-groups/SelectWindDirection";
 import {SelectPrecipitationType} from "../form-groups/SelectPrecipitationType";
 
-function Body({setPlace, setType, setDirection, setUnit, setValue, setPrecipitationType, onChange, dateTime}) {
-    return (
+export const Body = ({setPlace, setType, setDirection, setUnit, setValue, setPrecipitationType, onChange, dateTime}) =>
+    (
         <>
             <Form>
                 <Row>
@@ -31,6 +31,3 @@ function Body({setPlace, setType, setDirection, setUnit, setValue, setPrecipitat
             </Form>
         </>
     )
-}
-
-export default Body;

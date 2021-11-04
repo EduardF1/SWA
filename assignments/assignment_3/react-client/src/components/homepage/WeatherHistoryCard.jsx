@@ -4,8 +4,8 @@ import Table from "react-bootstrap/Table";
 import {TableHeader} from "../table-header/TableHeader";
 import {TableRow} from "../table-row/TableRow";
 
-function WeatherHistoryCard({historicData, selectedCity}) {
-    return (
+export const WeatherHistoryCard =({historicData, selectedCity}) =>
+    (
         <>
             <Card>
                 <Accordion.Collapse eventKey="1">
@@ -22,6 +22,3 @@ function WeatherHistoryCard({historicData, selectedCity}) {
             </Card>
         </>
     )
-}
-
-export default WeatherHistoryCard;

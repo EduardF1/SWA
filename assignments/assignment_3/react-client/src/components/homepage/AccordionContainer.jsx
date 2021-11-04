@@ -1,7 +1,7 @@
 import Accordion from "react-bootstrap/Accordion";
 import ToggleButtonsCard from "./ToggleButtonsCard";
-import WeatherForecastCard from "./WeatherForecastCard";
-import WeatherHistoryCard from "./WeatherHistoryCard";
+import {WeatherForecastCard} from "./WeatherForecastCard";
+import {WeatherHistoryCard} from "./WeatherHistoryCard";
 
 function AccordionContainer({forecastData, historicData,selectedCity}) {
     return (
