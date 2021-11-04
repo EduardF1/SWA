@@ -2,10 +2,10 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import React from 'react';
 import {retrieveAllData} from "../../utility/StoreHandler";
-import DateTimePickerRow from "./DateTimePickerRow";
-import {FILTER_LABELS} from "../../assets/Constants";
+import {DateTimePickerRow} from "./DateTimePickerRow";
+import {FILTER_BUTTONS_CONTAINER_LABELS, FILTER_LABELS} from "../../assets/Constants";
 
-function Filter(props) {
+export const Filter = (props) => {
 
     // Filter state hooks
     const [endDate, setEndDate] = useState(new Date());
@@ -48,10 +48,9 @@ function Filter(props) {
             <DateTimePickerRow onChange={onChangeStartDate} value={startDate} label={FILTER_LABELS[0]}/>
             <DateTimePickerRow onChange={onChangeEndDate} value={endDate} label={FILTER_LABELS[1]}/>
             <div className="mt-2">
-                <Button className="outline-btn" onClick={handleApplyFilter}>Apply filter</Button>{' '}
-                <Button className="outline-btn" onClick={handleResetFilter}>Reset filter</Button>{' '}
+                <Button className="outline-btn" onClick={handleApplyFilter}>{FILTER_BUTTONS_CONTAINER_LABELS[0]}</Button>{' '}
+                <Button className="outline-btn" onClick={handleResetFilter}>{FILTER_BUTTONS_CONTAINER_LABELS[1]}</Button>{' '}
             </div>
         </div>
     );
 }
-export default Filter;

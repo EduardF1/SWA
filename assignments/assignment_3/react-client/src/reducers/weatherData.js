@@ -1,7 +1,7 @@
 import {setHistoricData} from '../actions';
 import {instance} from "../network/AxiosInstance";
 import {getDataFromInterval} from "../utility/DateIntervalFilter";
-import {NEW_LINE} from "../assets/Constants";
+import {DATA_TYPES, NEW_LINE, REQUEST_ALERTS} from "../assets/Constants";
 
 /**
  * Weather Forecast reducer, determines changes in state for the weather forecast data set.
@@ -61,21 +61,21 @@ export function postHistoricData(requestType, type, value, unit, time, place, ex
         async function sendPostRequest(requestType, payload) {
             await instance.post(requestType, {...payload})
                 .then(function (response) {
-                    (response.status === 201) ? alert("Data was successfully added to server") : alert("Problem with adding data to server");
+                    (response.status === 201) ? alert(REQUEST_ALERTS[0]) : alert(REQUEST_ALERTS[1]);
                 })
                 .catch(function (error) {
                     alert(error);
                 });
         }
         switch (type) {
-            case 'temperature':
-            case 'cloud coverage':
+            case DATA_TYPES[0]:
+            case DATA_TYPES[1]:
                 await sendPostRequest(requestType, {value: parseInt(value), type: type, unit: unit, time: time, place: place});
                 break;
-            case 'precipitation':
+            case DATA_TYPES[2]:
                 await sendPostRequest(requestType, {value: parseInt(value), precipitation_type: extras, type: type, unit: unit, time: time, place: place});
                 break;
-            case 'wind speed':
+            case DATA_TYPES[3]:
                 await sendPostRequest(requestType, {value: parseInt(value), direction: extras, type: type, unit: unit, time: time, place: place})
                 break;
             default:

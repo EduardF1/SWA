@@ -5,7 +5,7 @@ import {combineReducers} from 'redux';
 /**
  * Root reducer, merges all the individual application reducers.
  */
-const combinedReducers = combineReducers({
+export const combinedReducers = combineReducers({
     historicData: weatherDataReducer,
     forecastData: weatherForecastReducer
 });

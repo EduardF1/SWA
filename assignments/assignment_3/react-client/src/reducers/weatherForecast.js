@@ -1,6 +1,7 @@
 import {setForecastData} from '../actions';
 import {getDataFromInterval} from '../utility/DateIntervalFilter';
 import {instance} from "../network/AxiosInstance";
+import {NEW_LINE} from "../assets/Constants";
 
 /**
  * Weather Forecast reducer, determines changes in state for the weather forecast data set.
@@ -35,7 +36,7 @@ export function retrieveForecastData(type, filter, startDate, endDate)
         const data = await instance.get(type)
         .then(({data}) => data)
         .catch((err) =>{
-            if(err.response || err.request) console.log(err.response.data + '\n' + err.response.status);
+            if(err.response || err.request) console.log(err.response.data + NEW_LINE + err.response.status);
         });
     if(data !== undefined) (!filter) ? dispatch(setForecastData(data)) : dispatch(setForecastData(getDataFromInterval(data,startDate,endDate)));
     }

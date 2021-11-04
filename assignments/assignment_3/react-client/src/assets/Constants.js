@@ -1,7 +1,6 @@
 export const baseURL = 'http://localhost:8080/';
 export const NEW_LINE = '\n';
 export const NOT_APPLICABLE = '-';
-export const NBSP = '&nbsp;';
 
 export const CITIES = [
     'Horsens',
@@ -113,11 +112,6 @@ export const TOGGLE_BUTTONS_CARD_LABELS = [
     'SEE WEATHER HISTORY'
 ];
 
-export const TOGGLE_BUTTONS_INDEXES = [
-    0,
-    1
-];
-
 export const FILTER_BUTTONS_CONTAINER_LABELS = [
     'Apply filter',
     'Reset filter'
@@ -126,4 +120,9 @@ export const FILTER_BUTTONS_CONTAINER_LABELS = [
 export const FILTER_LABELS = [
   'Set start date:',
   'Set end date:'
+];
+
+export const REQUEST_ALERTS = [
+  'Data was successfully added to server',
+  'An error occurred while trying to post data to the server.'
 ];

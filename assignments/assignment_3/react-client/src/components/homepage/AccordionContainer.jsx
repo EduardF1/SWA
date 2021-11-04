@@ -1,5 +1,5 @@
 import Accordion from "react-bootstrap/Accordion";
-import ToggleButtonsCard from "./ToggleButtonsCard";
+import {ToggleButtonsCard} from "./ToggleButtonsCard";
 import {WeatherForecastCard} from "./WeatherForecastCard";
 import {WeatherHistoryCard} from "./WeatherHistoryCard";
 
@@ -9,7 +9,6 @@ function AccordionContainer({forecastData, historicData,selectedCity}) {
             <Accordion>
                 <ToggleButtonsCard/>
                 <WeatherForecastCard
-                    label={'Weather Forecast For'}
                     forecastData={forecastData}
                     selectedCity={selectedCity}
                 />

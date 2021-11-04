@@ -1,20 +1,15 @@
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import {CITIES} from "../../assets/Constants";
 
-function SelectCityHorizontalButtonGroup({onSelectedCityChange}) {
-    return (
+export const SelectCityHorizontalButtonGroup = ({onSelectedCityChange}) =>
+    (
         <>
             <div className="my-3">
                 <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                    <ToggleButton variant="info" value={1} onClick={() => onSelectedCityChange('Horsens')}>Horsens</ToggleButton>
-                    <ToggleButton variant="info" value={2} onClick={() => onSelectedCityChange('Aarhus')}>Aarhus</ToggleButton>
-                    <ToggleButton variant="info" value={3} onClick={() => onSelectedCityChange('Copenhagen')}>Copenhagen</ToggleButton>
+                    {CITIES.map((cityName, index) => (<ToggleButton key={index} variant="info" value={index} onClick={() => onSelectedCityChange(cityName)}>{cityName}</ToggleButton>))}
                 </ToggleButtonGroup>
-
-                <br />
+                <br/>
             </div>
         </>
     )
-}
-
-export default SelectCityHorizontalButtonGroup;

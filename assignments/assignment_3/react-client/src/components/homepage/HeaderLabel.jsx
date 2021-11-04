@@ -1,9 +1,3 @@
-function HeaderLabel() {
-    return (
-        <>
-            <h4 className="h4 mt-2 mb-5">Weather Forecast and Weather History</h4>
-        </>
-    )
-}
+import {HEADER_LABEL} from "../../assets/Constants";
 
-export default HeaderLabel;
+export const HeaderLabel = () => <><h4 className="h4 mt-2 mb-5">{HEADER_LABEL}</h4></>;
