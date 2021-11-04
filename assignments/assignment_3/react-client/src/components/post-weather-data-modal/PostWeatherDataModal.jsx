@@ -11,16 +11,31 @@ import Footer from "./footer/Footer";
 import {Header} from "./header/Header";
 import Body from "./body/Body";
 import {OpenModalButton} from "./open-button/OpenModalButton";
+import {API_RESOURCES, DATA_TYPES, INITIAL_POST_WEATHER_DATA_MODAL_VALUES} from "../../assets/Constants";
 
 
 export const PostWeatherDataModal = () => {
-    const [show, setShow] = useState(false);
-    const [type, setType] = useState("temperature");
-    const [unit, setUnit] = useState("°C");
-    const [place, setPlace] = useState("Horsens");
-    const [value, setValue] = useState(0);
-    const [precipitationType, setPrecipitationType] = useState("-");
-    const [direction, setDirection] = useState("-");
+    const [show, setShow] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.show
+    );
+    const [type, setType] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.type
+    );
+    const [unit, setUnit] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.unit
+    );
+    const [place, setPlace] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.place
+    );
+    const [value, setValue] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.value
+    );
+    const [precipitationType, setPrecipitationType] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.precipitationType
+    );
+    const [direction, setDirection] = useState(
+        INITIAL_POST_WEATHER_DATA_MODAL_VALUES.direction
+    );
     const [dateTime, setDateTime] = useState(new Date());
 
 
@@ -29,15 +44,15 @@ export const PostWeatherDataModal = () => {
 
     const handleSaveData = () => {
         switch (type) {
-            case "temperature":
-            case "cloud coverage":
-                store.dispatch(postHistoricData("data", type, value, unit, dateTime, place, null));
+            case DATA_TYPES[0]:
+            case DATA_TYPES[1]:
+                store.dispatch(postHistoricData(API_RESOURCES[0], type, value, unit, dateTime, place, null));
                 break;
-            case "precipitation":
-                store.dispatch(postHistoricData("data", type, value, unit, dateTime, place, precipitationType));
+            case DATA_TYPES[2]:
+                store.dispatch(postHistoricData(API_RESOURCES[0], type, value, unit, dateTime, place, precipitationType));
                 break;
-            case "wind speed":
-                store.dispatch(postHistoricData("data", type, value, unit, dateTime, place, direction));
+            case DATA_TYPES[3]:
+                store.dispatch(postHistoricData(API_RESOURCES[0], type, value, unit, dateTime, place, direction));
                 break;
             default:
                 break;

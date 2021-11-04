@@ -1,5 +1,6 @@
 import {TableHeaderRowItem} from "./TableHeaderRowItem";
 import {TableHeaderBase} from "./TableHeaderBase";
+import {FROM_AND_TO_LABELS, VALUE_LABEL} from "../../assets/Constants";
 
 export const TableHeader = ({label}) =>
     (
@@ -7,11 +8,11 @@ export const TableHeader = ({label}) =>
             <tr>
                 {
                     (label === "History") ? (
-                        <TableHeaderRowItem label="Value"/>
+                        <TableHeaderRowItem label={VALUE_LABEL}/>
                     ) : (
                         <>
-                            <TableHeaderRowItem label="From"/>
-                            <TableHeaderRowItem label="To"/>
+                            <TableHeaderRowItem label={FROM_AND_TO_LABELS[0]}/>
+                            <TableHeaderRowItem label={FROM_AND_TO_LABELS[1]}/>
                         </>
                     )
                 }

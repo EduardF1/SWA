@@ -1,9 +1,9 @@
 import {TableHeaderRowItem} from "./TableHeaderRowItem";
-import {LABELS} from "../../assets/Constants";
+import {TABLE_HEADER_LABELS} from "../../assets/Constants";
 
 export const TableHeaderBase = () =>
     (
         <>
-            {LABELS.map((element, index) => <TableHeaderRowItem key={index} label={element}/>)}
+            {TABLE_HEADER_LABELS.map((element, index) => <TableHeaderRowItem key={index} label={element}/>)}
         </>
     )

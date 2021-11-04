@@ -1,24 +1,16 @@
 import React from "react";
 
 import Form from "react-bootstrap/Form";
+import {FORM_GROUP_LABELS, UNIT_TYPE_OPTIONS} from "../../../assets/Constants";
 
-function SelectUnit({setUnit}) {
-    return (
+export const SelectUnit = ({setUnit}) =>
+    (
         <>
             <Form.Group controlId="add-data-form.select-unit">
-                <Form.Label>Select unit for data</Form.Label>
+                <Form.Label>{FORM_GROUP_LABELS.UNIT_LABEL}</Form.Label>
                 <Form.Control as="select" onChange={e => setUnit(e.target.value)}>
-                    <option>°C</option>
-                    <option>F</option>
-                    <option>km/h</option>
-                    <option>m/s</option>
-                    <option>%</option>
-                    <option>mm</option>
-                    <option>inch</option>
+                    {UNIT_TYPE_OPTIONS.map((unitType, index) => (<option key={index}>{unitType}</option>))}
                 </Form.Control>
             </Form.Group>
         </>
     )
-}
-
-export default SelectUnit;

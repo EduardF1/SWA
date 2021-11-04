@@ -1,22 +1,16 @@
 import React from "react";
 
 import Form from "react-bootstrap/Form";
+import {FORM_GROUP_LABELS, PRECIPITATION_TYPE_OPTIONS} from "../../../assets/Constants";
 
-function SelectPrecipitationType({setPrecipitationType}) {
-    return (
+export const SelectPrecipitationType = ({setPrecipitationType}) =>
+    (
         <>
             <Form.Group controlId="add-data-form.select-precipitation-type">
-                <Form.Label>Type (Only for the precipitation type of data)</Form.Label>
+                <Form.Label>{FORM_GROUP_LABELS.PRECIPITATION_TYPE_LABEL}</Form.Label>
                 <Form.Control as="select" onChange={e => setPrecipitationType(e.target.value)}>
-                    <option>-</option>
-                    <option>rain</option>
-                    <option>snow</option>
-                    <option>sleet</option>
-                    <option>hail</option>
+                    {PRECIPITATION_TYPE_OPTIONS.map((precipitationType, index) => (<option key={index}>{precipitationType}</option>))}
                 </Form.Control>
             </Form.Group>
         </>
     )
-}
-
-export default SelectPrecipitationType;
