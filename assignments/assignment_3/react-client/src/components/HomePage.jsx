@@ -8,16 +8,17 @@ import { retrieveAllData } from '../utility/StoreHandler'
 
 import AccordionContainer from "./homepage/AccordionContainer";
 import JumbotronContainer from "./homepage/JumbotronContainer";
+import {CITIES} from "../assets/Constants";
 
 function HomePage() {
-    //react useState for checking buttons state
-    const [selectedCity, setSelectedCity] = useState('Horsens');
+    // Button state management hooks
     const [debounce, setDebounce] = useState(false);
+    const [selectedCity, setSelectedCity] = useState(CITIES[0]);
     const [filterSet, setFilterSet] = useState(false);
-    const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
+    const [selectedStartDate, setSelectedStartDate] = useState(null);
 
-    //data reducers
+    // Data reducers
     const historicData = useSelector(state => state.historicData);
     const forecastData = useSelector(state => state.forecastData);
 
@@ -33,6 +34,10 @@ function HomePage() {
         setSelectedEndDate(endDate);
     }
 
+    /**
+     * Callback function to handle the change in the selection of a city.
+     * @param city String value of the city which has been changed to.
+     */
     const onSelectedCityChange = (city) => {
         if (!debounce) {
             setSelectedCity(city);
@@ -40,6 +45,12 @@ function HomePage() {
         }
         setDebounce(!debounce)
     }
+
+    /**
+     * Sets the background style class depending on the current city.
+     * @param selectedCity Current selected city.
+     * @returns {`background-style-${string}`} The background css class depending on the selected city.
+     */
     const getSelectedCityBackground = (selectedCity) => `background-style-${_.lowerFirst(selectedCity)}`;
 
     return (

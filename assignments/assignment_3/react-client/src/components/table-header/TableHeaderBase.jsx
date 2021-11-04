@@ -1,14 +1,10 @@
 import TableHeaderRowItem from "./TableHeaderRowItem";
+import {LABELS} from "../../assets/Constants";
 
 function TableHeaderBase() {
     return (
         <>
-            <TableHeaderRowItem label="Type"/>
-            <TableHeaderRowItem label="Unit"/>
-            <TableHeaderRowItem label="Date"/>
-            <TableHeaderRowItem label="Place"/>
-            <TableHeaderRowItem label="Precipitation Types"/>
-            <TableHeaderRowItem label="Wind Directions"/>
+            {LABELS.map(element => <TableHeaderRowItem label={element}/>)}
         </>
     )
 }

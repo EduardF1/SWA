@@ -3,7 +3,7 @@ import weatherForecastReducer from './weatherForecast';
 import {combineReducers} from 'redux';
 
 /**
- * this class is merging all reducers into one reducer
+ * Root reducer, merges all the individual application reducers.
  */
 const combinedReducers = combineReducers({
     historicData: weatherDataReducer,

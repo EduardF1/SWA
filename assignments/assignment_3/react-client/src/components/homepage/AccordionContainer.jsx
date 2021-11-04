@@ -9,6 +9,7 @@ function AccordionContainer({forecastData, historicData,selectedCity}) {
             <Accordion>
                 <ToggleButtonsCard/>
                 <WeatherForecastCard
+                    label={'Weather Forecast For'}
                     forecastData={forecastData}
                     selectedCity={selectedCity}
                 />

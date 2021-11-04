@@ -1,16 +1,16 @@
-import {postHistoricData} from '../../reducers/weatherData';
-import {useState} from 'react';
-import Modal from 'react-bootstrap/Modal';
-
-import store from '../../store';
-import React from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import React,{useState} from 'react';
+import Modal from 'react-bootstrap/Modal';
+
+import {store} from '../../store';
+
+import {postHistoricData} from '../../reducers/weatherData';
+
 import Footer from "./footer/Footer";
-import Header from "./header/Header";
+import {Header} from "./header/Header";
 import Body from "./body/Body";
-import OpenModalButton from "./open-button/OpenModalButton";
+import {OpenModalButton} from "./open-button/OpenModalButton";
 
 
 function PostWeatherDataModal() {
@@ -24,7 +24,7 @@ function PostWeatherDataModal() {
     const [dateTime, setDateTime] = useState(new Date());
 
 
-    //handles closing and opening modal popup dialog window
+    // Handles closing and opening modal popup dialog window
     const togglePostDialog = () => setShow(!show);
 
     const handleSaveData = () => {

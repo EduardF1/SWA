@@ -1,7 +1,7 @@
 import HeaderLabel from "./HeaderLabel";
 import PostWeatherDataModal from "../post-weather-data-modal/PostWeatherDataModal";
 import SelectCityHorizontalButtonGroup from "./SelectCityHorizontalButtonGroup";
-import Filter from "../Filter";
+import Filter from "../filter/Filter";
 import ReloadDataButton from "./ReloadDataButton";
 import Jumbotron from "react-bootstrap/Jumbotron";
 

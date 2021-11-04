@@ -14,7 +14,7 @@ function WeatherHistoryCard({historicData, selectedCity}) {
                         <Table id="weatherHistory" responsive striped bordered hover>
                             <TableHeader label={"History"}/>
                             <tbody className="text-center">
-                                {historicData.map((item, index) =>  <TableRow item={item} index={index} label={"History"}/>)}
+                                {historicData.map((item, index) =>  <TableRow key={index} item={item} index={index} label={"History"}/>)}
                             </tbody>
                         </Table >
                     </Card.Body>

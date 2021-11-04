@@ -1,24 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+
 import './index.css';
 import {App} from './App';
-import store from './store'
-import { Provider } from 'react-redux'
+import {store} from './store'
+
 import { retrieveHistoricData } from './reducers/weatherData'
 import { retrieveForecastData } from './reducers/weatherForecast';
 
+import {API_RESOURCES, CITIES, DEFAULT_FILTER_VALUES} from "./assets/Constants";
+
 /**
- * Getting default data from the server 
+ * Default requests (web app initialization)
  */
-store.dispatch(retrieveHistoricData("data/Horsens", false, null, null));
-store.dispatch(retrieveForecastData("forecast/Horsens", false, null, null));
+store.dispatch(retrieveHistoricData(`${API_RESOURCES[0]}/${CITIES[0]}`, ...DEFAULT_FILTER_VALUES));
+store.dispatch(retrieveForecastData(`${API_RESOURCES[1]}/${CITIES[0]}`, ...DEFAULT_FILTER_VALUES));
 
 ReactDOM.render(
-  //added provider for react-redux
   <Provider store = {store}>
-    <React.StrictMode>
       <App />
-    </React.StrictMode>
   </Provider>,
   document.getElementById('root')
 );

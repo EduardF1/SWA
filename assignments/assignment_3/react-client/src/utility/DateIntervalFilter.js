@@ -5,11 +5,8 @@
  * @param endDate upper bound of the date interval.
  * @returns {array} An array of filtered elements based on the date interval.
  */
-export const getDataFromInterval = (data, startDate, endDate) => {
-    return data.filter(element =>
+export const getDataFromInterval = (data, startDate, endDate) =>
+    data.filter(element =>
         (new Date(element.time)) >= new Date(startDate) &&
         (new Date(element.time)) <= new Date(endDate)
     );
-}
-
-
