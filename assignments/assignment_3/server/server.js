@@ -1,4 +1,4 @@
-const express = require('express')
+ const express = require('express')
 const body_parser = require('body-parser')
 const WebSocket = require('ws')
 const generator = require('./model/generate.js')

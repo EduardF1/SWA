@@ -18,7 +18,8 @@
       <tbody>
         <tr v-for="td in tableData" :key="td">
           <td>{{td.id}}</td>
-          <td>{{td.value}}</td>
+          <td>{{td.from}}</td>
+          <td>{{td.to}}</td>
           <td>{{td.type}}</td>
           <td>{{td.unit}}</td>
           <td>{{td.time}}</td>
@@ -31,11 +32,10 @@
 
 <script>
 export default {
-  name: "TableBase",
+  name: "TableBase2",
   props: {
     columns: Array,
-    entries: Array,
-    label: String
+    entries: Array
   },
   computed: {
     tableHeader() {

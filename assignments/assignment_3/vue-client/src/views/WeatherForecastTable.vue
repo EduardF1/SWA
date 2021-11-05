@@ -6,19 +6,20 @@
     <input type="search" class="input px:width-25" placeholder="Search here..." v-model="searchInputValue"
            @change="onSearchInputChange">
   </div>
-  <TableBase :columns="columns" :entries="this.isFilteringByCity() || this.isFilteringByType()  ? filteredEntries : entries"/>
+  <TableBase2 :columns="columns" :entries="this.isFilteringByCity() || this.isFilteringByType()  ? filteredEntries : entries"/>
 </template>
 
 <script>
-import TableBase from "../components/table/TableBase";
+import TableBase2 from "../components/table/TableBase2";
 
 export default {
-  name: "DataTable",
+  name: "WeatherForecastTable",
   data() {
     return {
       columns: [
         {name: 'id', text: 'ID'},
-        {name: 'value', text: 'Value'},
+        {name: 'from', text: 'From'},
+        {name: 'to', text: 'To'},
         {name: 'type', text: 'Type'},
         {name: 'unit', text: 'Unit'},
         {name: 'time', text: 'Time'},
@@ -32,14 +33,16 @@ export default {
     }
   },
   components: {
-    TableBase
+    TableBase2
   },
   created() {
     let id = 0;
-    this.getAllWeatherData().then(response => {
+    this.getAllForecastData().then(response => {
+      console.log(response)
       this.entries = response.map(element => ({
         id: id++,
-        value: element.value,
+        from: element.from,
+        to: element.to,
         type: element.type,
         unit: element.unit,
         time: element.time,
@@ -48,8 +51,8 @@ export default {
     });
   },
   methods: {
-    async getAllWeatherData() {
-      const response = await fetch('http://localhost:8080/data');
+    async getAllForecastData() {
+      const response = await fetch('http://localhost:9090/forecast');
       return response.json();
     },
     isFilteringByCity() {
