@@ -1,4 +1,4 @@
-# v_for_victory
+# vue-client
 
 ## Project setup
 ```
