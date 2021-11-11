@@ -3,14 +3,13 @@ import {
   fromEvent,
   from,
   Observable,
-  Subscriber,
   interval,
   timer,
   range,
   merge,
   concat
 } from "rxjs";
-import { map, scan, take, pluck, delay, mergeMap } from "rxjs/operators";
+import { map, scan, take, delay, mergeMap } from "rxjs/operators";
 
 of(1, 2, 3)
   .pipe(map((x) => x * x))
