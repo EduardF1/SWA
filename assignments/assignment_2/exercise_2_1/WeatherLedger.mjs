@@ -1,4 +1,4 @@
-import {CELSIUS_TYPE, CELSIUS_UNIT, FAHRENHEIT_TYPE, FAHRENHEIT_UNIT, MM_TYPE, MM_UNIT, MPS_TYPE, MPS_UNIT} from "../../../Constants.js";
+import {CELSIUS_TYPE, FAHRENHEIT_TYPE, MM_TYPE, MPS_TYPE} from "../../../Constants.js";
 
 export function WeatherLedger(data) {
     this.data = data;
@@ -6,62 +6,48 @@ export function WeatherLedger(data) {
 
 WeatherLedger.prototype = {
     forPlace: function (place) {
-        return this.data.filter(element => element.getPlace() === place);
+        return new WeatherLedger(this.data.filter(element => element.getPlace() === place));
     },
     forType: function (type) {
-        return this.data.filter(element => element.getType() === type);
+        return new WeatherLedger(this.data.filter(element => element.getType() === type));
     },
     forPeriod: function (period) {
-        return this.data.filter(element => period.contains(element.getTime()));
+        return new WeatherLedger(this.data.filter(element => period.contains(element.getTime())));
     },
     including: function (data) {
-        return data.every(element => this.data.includes(element));
+        return new WeatherLedger(data.every(element => this.data.includes(element)));
     },
     convertToUsUnits: function () {
-        this.data.forEach(element => {
-            switch (element.getType()) {
-                case CELSIUS_TYPE:
-                    element.setUnit(FAHRENHEIT_UNIT);
-                    element.setType(FAHRENHEIT_TYPE);
-                    element.setValue((element.getValue() * 1.8) + 32);
-                    break;
-                case MM_TYPE:
-                    element.setUnit(IN_UNIT);
-                    element.setType(IN_TYPE);
-                    element.setValue(element.getValue() * 25.4);
-                    break;
-                case MPS_TYPE:
-                    element.setUnit(MPH_UNIT)
-                    element.setType(MPH_TYPE);
-                    element.setValue(element.getValue() * 2.237)
-                    break;
-                default:
-                    break;
-            }
-        })
+        return new WeatherLedger(
+            this.data.forEach(element => {
+                switch (element.getType()) {
+                    case CELSIUS_TYPE:
+                        return element.convertToF();
+                    case MM_TYPE:
+                        return element.convertToInches();
+                    case MPS_TYPE:
+                        return element.convertToMPH();
+                    default:
+                        break;
+                }
+            })
+        )
     },
     convertToInternationalUnits: function () {
-        this.data.forEach(element => {
-            switch (element.getType()) {
-                case FAHRENHEIT_TYPE:
-                    element.setUnit(CELSIUS_UNIT);
-                    element.setType(CELSIUS_TYPE);
-                    element.setValue((element.getValue() * 9 / 5) + 32);
-                    break;
-                case IN_TYPE:
-                    element.setUnit(MM_UNIT);
-                    element.setType(MM_TYPE);
-                    element.setValue(element.getValue() * 25.4);
-                    break;
-                case MPH_TYPE:
-                    element.setUnit(MPS_UNIT)
-                    element.setType(MPS_TYPE);
-                    element.setValue(element.getValue() * 2.237)
-                    break;
-                default:
-                    break;
-            }
-        })
+        return new WeatherLedger(
+            this.data.forEach(element => {
+                switch (element.getType()) {
+                    case FAHRENHEIT_TYPE:
+                        return element.convertToC();
+                    case IN_TYPE:
+                        return element.convertToMM();
+                    case MPH_TYPE:
+                        return element.convertToMPS();
+                    default:
+                        break;
+                }
+            })
+        )
     },
     getData: function () {
         return this.data;
