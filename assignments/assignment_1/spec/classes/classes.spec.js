@@ -20,17 +20,21 @@ const {WeatherHistory} = require("../../src/factories/WeatherHistory");
 
 // Suites covering the class implementations
 describe('Event', () => {
+    // Arrange
     let event = new Event(PLACES[0], new Date(START_DATE));
 
     it('should be initialized', () => {
+        // Assert
         expect(event).toBeDefined();
     });
 
     it(`should have the place set to ${PLACES[0]}`, () => {
+        // Assert
         expect(event.getPlace()).toEqual(PLACES[0]);
     });
 
     it(`should have the date set to ${START_DATE}`, () => {
+        // Assert
         expect(event.getTime()).toEqual(new Date(START_DATE));
     });
 
@@ -50,17 +54,21 @@ describe('Event', () => {
 });
 
 describe('Data Type', () => {
+    // Arrange
     let dataType = new DataType(CELSIUS_TYPE, CELSIUS_UNIT);
 
     it('should be initialized', () => {
+        // Assert
         expect(dataType).toBeDefined();
     });
 
     it(`should have the type set to ${CELSIUS_TYPE}`, () => {
+        // Assert
         expect(dataType.getType()).toEqual(CELSIUS_TYPE);
     });
 
     it(`should have the unit set to ${CELSIUS_UNIT}`, () => {
+        // Assert
         expect(dataType.getUnit()).toEqual(CELSIUS_UNIT);
     });
 
@@ -80,17 +88,21 @@ describe('Data Type', () => {
 });
 
 describe('Date Interval', () => {
+    // Arrange
     let dateInterval1 = new DateInterval(new Date(START_DATE), new Date(END_DATE))
 
     it('should be initialized', () => {
+        // Assert
         expect(dateInterval1).toBeDefined();
     });
 
     it(`should have from set to ${START_DATE}`, () => {
+        // Assert
         expect(dateInterval1.getFrom()).toEqual(START_DATE);
     });
 
     it(`should have to set to ${END_DATE}`, () => {
+        // Assert
         expect(dateInterval1.getTo()).toEqual(END_DATE);
     });
 
@@ -110,29 +122,36 @@ describe('Date Interval', () => {
 });
 
 describe('Weather Data', () => {
+    // Arrange
     let weatherData = new WeatherData(PLACES[0], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[0]);
 
     it('should be initialized', () => {
+        // Assert
         expect(weatherData).toBeDefined();
     });
 
     it(`should have the place set to ${PLACES[0]}`, () => {
+        // Assert
         expect(weatherData.getPlace()).toEqual(PLACES[0]);
     });
 
     it(`should have time set to ${START_DATE}`, () => {
+        // Assert
         expect(weatherData.getTime()).toEqual(new Date(START_DATE));
     });
 
     it(`should have the type set to ${CELSIUS_TYPE}`, () => {
+        // Assert
         expect(weatherData.getType()).toEqual(CELSIUS_TYPE);
     });
 
     it(`should have the unit set to ${CELSIUS_UNIT}`, () => {
+        // Assert
         expect(weatherData.getUnit()).toEqual(CELSIUS_UNIT);
     });
 
     it(`should have the value set to ${VALUES[0]}`, () => {
+        // Assert
         expect(weatherData.getValue()).toEqual(VALUES[0]);
     });
 
@@ -172,7 +191,9 @@ describe('Weather Data', () => {
     });
 });
 
+// Arrange
 let temperature1 = new Temperature(PLACES[2], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, VALUES[3]);
+
 describe(`When it has been initialized with values ${temperature1.getTime()}, ${temperature1.getPlace()}` +
     `, ${temperature1.getUnit()}, ${temperature1.getType()}, ${temperature1.getValue()}.`, () => {
     test("it should be created", () => {

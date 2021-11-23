@@ -18,7 +18,7 @@ window.init = function () {
             // obtain the data for the latest (current) date
             const latestData = responseData.filter(element => new Date(element.time).getTime() === latestDate.getTime());
 
-            const weatherTableBody = document.getElementById('weather_table_body');
+            const weatherTableBody = document.getElementById('weather-table-body');
             latestData.map(element => {
                 const row = weatherTableBody.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -61,7 +61,7 @@ window.init = function () {
                 }
             }
 
-            const minimumTemperatureTableBodyHorsens = document.getElementById('minimum_temperature_horsens_table_body');
+            const minimumTemperatureTableBodyHorsens = document.getElementById('minimum-temperature-horsens-table-body');
             temperaturesInCities['Horsens'].filter(element => element.value === temperaturesLedger['Horsens']['minimum']).map(element => {
                 const row = minimumTemperatureTableBodyHorsens.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -71,7 +71,7 @@ window.init = function () {
                 row.insertCell().appendChild(document.createTextNode(element.time));
             });
 
-            const maximumTemperatureTableBodyHorsens = document.getElementById('maximum_temperature_horsens_table_body');
+            const maximumTemperatureTableBodyHorsens = document.getElementById('maximum-temperature-horsens-table-body');
             temperaturesInCities['Horsens'].filter(element => element.value === temperaturesLedger['Horsens']['maximum']).map(element => {
                 const row = maximumTemperatureTableBodyHorsens.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -81,7 +81,7 @@ window.init = function () {
                 row.insertCell().appendChild(document.createTextNode(element.time));
             });
 
-            const minimumTemperatureTableBodyAarhus = document.getElementById('minimum_temperature_aarhus_table_body');
+            const minimumTemperatureTableBodyAarhus = document.getElementById('minimum-temperature-aarhus-table-body');
             temperaturesInCities['Aarhus'].filter(element => element.value === temperaturesLedger['Aarhus']['minimum']).map(element => {
                 const row = minimumTemperatureTableBodyAarhus.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -91,7 +91,7 @@ window.init = function () {
                 row.insertCell().appendChild(document.createTextNode(element.time));
             });
 
-            const maximumTemperatureTableBodyAarhus = document.getElementById('maximum_temperature_aarhus_table_body');
+            const maximumTemperatureTableBodyAarhus = document.getElementById('maximum-temperature-aarhus-table-body');
             temperaturesInCities['Aarhus'].filter(element => element.value === temperaturesLedger['Aarhus']['maximum']).map(element => {
                 const row = maximumTemperatureTableBodyAarhus.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -101,7 +101,7 @@ window.init = function () {
                 row.insertCell().appendChild(document.createTextNode(element.time));
             });
 
-            const minimumTemperatureTableBodyCopenhagen = document.getElementById('minimum_temperature_copenhagen_table_body');
+            const minimumTemperatureTableBodyCopenhagen = document.getElementById('minimum-temperature-copenhagen-table-body');
             temperaturesInCities['Copenhagen'].filter(element => element.value === temperaturesLedger['Copenhagen']['minimum']).map(element => {
                 const row = minimumTemperatureTableBodyCopenhagen.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -111,7 +111,7 @@ window.init = function () {
                 row.insertCell().appendChild(document.createTextNode(element.time));
             });
 
-            const maximumTemperatureTableBodyCopenhagen = document.getElementById('maximum_temperature_copenhagen_table_body');
+            const maximumTemperatureTableBodyCopenhagen = document.getElementById('maximum-temperature-copenhagen-table-body');
             temperaturesInCities['Copenhagen'].filter(element => element.value === temperaturesLedger['Copenhagen']['maximum']).map(element => {
                 const row = maximumTemperatureTableBodyCopenhagen.insertRow(0);
                 row.insertCell().appendChild(document.createTextNode(element.place));
@@ -129,7 +129,7 @@ window.init = function () {
                 'Copenhagen': precipitations.filter(element => element.place === 'Copenhagen'),
             }
 
-            const precipitationTable = document.getElementById('precipitation_table_body');
+            const precipitationTable = document.getElementById('precipitation-table-body');
             // Horsens
             const precipitationTableRow1 = precipitationTable.insertRow(0);
             precipitationTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
@@ -152,7 +152,7 @@ window.init = function () {
                 'Copenhagen': winds.filter(element => element.place === 'Copenhagen')
             }
 
-            const windSpeedTable = document.getElementById('wind_average_table_body');
+            const windSpeedTable = document.getElementById('wind-average-table-body');
 
             const windSpeedTableRow1 = windSpeedTable.insertRow(0);
             windSpeedTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
@@ -199,7 +199,7 @@ window.init = function () {
                 'Copenhagen': windsInCities['Copenhagen'].map(element => element.direction)
             }
 
-            const windDirectionsTable = document.getElementById('wind_direction_table_body');
+            const windDirectionsTable = document.getElementById('wind-direction-table-body');
 
             const windDirectionsTableRow1 = windDirectionsTable.insertRow(0);
             windDirectionsTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
@@ -221,7 +221,7 @@ window.init = function () {
                 'Copenhagen': cloudCoverages.filter(element => element.place === 'Copenhagen'),
             }
 
-            const averageCloudCoverageTable = document.getElementById('cloud_coverage_table_body');
+            const averageCloudCoverageTable = document.getElementById('cloud-coverage-table-body');
             const averageCloudCoverageTableRow1 = averageCloudCoverageTable.insertRow(0);
             averageCloudCoverageTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
             averageCloudCoverageTableRow1.insertCell().appendChild(document.createTextNode(
@@ -265,7 +265,7 @@ window.init = function () {
     request.send()
     request.onload = () => {
         if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            const forecastTable = document.getElementById('forecast_table_body');
+            const forecastTable = document.getElementById('forecast-table-body');
             const weatherData = JSON.parse(request.responseText)
             weatherData.sort((a, b) => a.place.localeCompare(b.place)).reverse().map(element => {
                 const forecastTableRow = forecastTable.insertRow(0);

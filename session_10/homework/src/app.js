@@ -11,13 +11,16 @@ import {
 import axios from 'axios';
 
 // UI elements
-const button = document.querySelector('button')
+const h6 = document.querySelector('h6');
+const ul = document.querySelector('ul');
+const paragraph = document.querySelector('p');
+const button = document.querySelector('button');
+const inputField = document.querySelector('input');
 const subscribeButton = document.getElementById('subscribe');
 const unsubscribeButton = document.getElementById('unsubscribe');
-const inputField = document.querySelector('input')
-const paragraph = document.querySelector('p')
-const ul = document.querySelector('ul')
-const h6 = document.querySelector('h6');
+
+// Api endpoint
+const apiResource = 'http://localhost:9090/warnings';
 
 // Polling interval observable, polls every 1 second
 const pollingInterval = timer(1000, 1000);
@@ -50,7 +53,7 @@ function formatResponse(warning) {
 subscribeClick$.subscribe(() => {
     // Handle polling subscription
     pollingInterval.subscribe(() =>
-        axios.get('http://localhost:9090/warnings')
+        axios.get(apiResource)
             .then((response) => {
                 from(response.data.warnings).pipe(
                     takeWhile(() => unsubscribeFlag !== true),
