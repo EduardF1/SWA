@@ -1,12 +1,12 @@
- const express = require('express')
+const express = require('express')
 const body_parser = require('body-parser')
 const WebSocket = require('ws')
 const generator = require('./model/generate.js')
 const { alert } = require('./model/model.js')
 const { partition, findLast } = require('./util/utils.js')
 
-const web_service_port = 5050
-const web_socket_port = 5000
+const web_service_port = 8080
+const web_socket_port = 8090
 
 const app = express()
 app.use(body_parser.json())
@@ -26,7 +26,7 @@ const create_alerts = predictions => {
     alert_id += alerts.length
     return alerts
 }
-  
+
 const start_time = new Date()
 const data = generator.generate_historic_data(start_time)
 let forecast = generator.generate_forecast(start_time)
@@ -63,7 +63,7 @@ app.get('/data/:place', (req, res) => {
 })
 
 app.post('/data', (req, res) => {
-    data.push(...[].concat(req.body))
+    data.push([].concat(req.body))
     res.status(201)
     res.send()
 })
@@ -117,7 +117,7 @@ function update_periodically() {
         if (old_alerts) {
             alerts
                 .filter(a => !old_alerts.some(a.equals))
-                .forEach(alert => 
+                .forEach(alert =>
                     [...wss.clients]
                         .filter(client => client.readyState === WebSocket.OPEN && client.subscribed)
                         .forEach( client => client.send(JSON.stringify(alert)) )
@@ -130,15 +130,18 @@ update_periodically()
 
 wss.on('connection', (ws, req) => {
     ws.on('message', message => {
-        switch(message) {
+        const { command } = JSON.parse(message);
+        switch(command) {
             case 'subscribe':
                 if (!ws.subscribed) {
                     ws.subscribed = true
                     ws.send(JSON.stringify(warnings(alerts)))
                 }
+                console.log("Server: subscribed")
                 break;
             case 'unsubscribe':
                 ws.subscribed = false
+                console.log("Server: unsubscribed")
                 break;
             default:
                 console.error(`Incorrect message: '${message}' from ${req.connection.remoteAddress} (${req.connection.remoteFamily})`)

@@ -54,7 +54,7 @@ export const Homepage = () => {
                 clearTable('changes-table-body');
                 displayWarnings('changes-table-body', changedWarnings);
             },
-            error: error => console.error(`[${new Date().toISOString()}]: ${error}`)
+            error: error => console.log(`[${new Date().toISOString()}]: ${error}`)
         });
         isSubscribed = true;
         console.log(`[${new Date().toISOString()}]: Subscribed`)
