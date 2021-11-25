@@ -9,9 +9,4 @@ const renderItem = (id, onclick, type, name, value, checked) => {
         return <input id={id} type={type}  onClick={onclick} name={name}/>;
 }
 
-export const Input = ({id, onclick, type, name, value, checked, label}) =>
-    (
-        <>
-            {renderItem(id, onclick, type, name, value, checked, label)}
-        </>
-    );
+export const Input = ({id, onclick, type, name, value, checked, label}) => (<>{renderItem(id, onclick, type, name, value, checked, label)}</>);

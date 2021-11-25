@@ -31,14 +31,14 @@ export const displayWarnings = (tableId, warnings) => {
         const placeCell = row.insertCell(8);
 
         timeCell.innerHTML = warning.prediction.time;
-        severityCell.innerHTML = warning.severity
-        fromCell.innerHTML = warning.prediction.from
-        toCell.innerHTML = warning.prediction.to
+        severityCell.innerHTML = warning.severity;
+        fromCell.innerHTML = warning.prediction.from;
+        toCell.innerHTML = warning.prediction.to;
         if (warning.prediction['precipitation_types'] !== undefined) {
-            precipitationTypesCell.innerHTML = warning.prediction.precipitation_types.join('\n')
+            precipitationTypesCell.innerHTML = warning.prediction.precipitation_types.join('\n');
         }
         if (warning.prediction['directions'] !== undefined) {
-            directionsCell.innerHTML = warning.prediction.directions.join('\n')
+            directionsCell.innerHTML = warning.prediction.directions.join('\n');
         }
         typeCell.innerHTML = warning.prediction.type
         unitCell.innerHTML = warning.prediction.unit;

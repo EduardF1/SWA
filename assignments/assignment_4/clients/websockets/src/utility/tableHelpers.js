@@ -19,7 +19,6 @@ export const displayWarnings = (tableId, warnings) => {
 
     warnings.forEach(warning => {
         const row = table.insertRow();
-
         const timeCell = row.insertCell(0);
         const severityCell = row.insertCell(1)
         const fromCell = row.insertCell(2);
@@ -30,19 +29,21 @@ export const displayWarnings = (tableId, warnings) => {
         const unitCell = row.insertCell(7);
         const placeCell = row.insertCell(8);
 
-        timeCell.innerHTML = warning.prediction.time;
-        severityCell.innerHTML = warning.severity
-        fromCell.innerHTML = warning.prediction.from
-        toCell.innerHTML = warning.prediction.to
-        if (warning.prediction['precipitation_types'] !== undefined) {
-            precipitationTypesCell.innerHTML = warning.prediction.precipitation_types.join('\n')
+        if(warning.prediction){
+            timeCell.innerHTML = warning.prediction.time;
+            severityCell.innerHTML = warning.severity
+            fromCell.innerHTML = warning.prediction.from
+            toCell.innerHTML = warning.prediction.to
+            if (warning.prediction['precipitation_types'] !== undefined) {
+                precipitationTypesCell.innerHTML = warning.prediction.precipitation_types.join('\n')
+            }
+            if (warning.prediction['directions'] !== undefined) {
+                directionsCell.innerHTML = warning.prediction.directions.join('\n')
+            }
+            typeCell.innerHTML = warning.prediction.type
+            unitCell.innerHTML = warning.prediction.unit;
+            placeCell.innerHTML = warning.prediction.place;
         }
-        if (warning.prediction['directions'] !== undefined) {
-            directionsCell.innerHTML = warning.prediction.directions.join('\n')
-        }
-        typeCell.innerHTML = warning.prediction.type
-        unitCell.innerHTML = warning.prediction.unit;
-        placeCell.innerHTML = warning.prediction.place;
     })
     console.log(`Appended to ${tableId}: ${JSON.stringify(warnings)}`)
 }
