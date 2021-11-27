@@ -1,13 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {PARTS, webSocketResource} from '../utility/constants';
+import {PARTS, warningsSinceUrl, webSocketResource} from '../utility/constants';
 import axios from 'axios';
-import Part1 from "./part1/Part1";
-import Part2 from "./part2/Part2";
-import Part3 from "./part3/Part3";
-import Part4 from "./part4/Part4";
+import Part1 from './part1/Part1';
+import Part2 from './part2/Part2';
+import Part3 from './part3/Part3';
+import Part4 from './part4/Part4';
 
-
-const warningsSinceUrl = 'http://localhost:8080/warnings/since/';
 let warningData = [];
 let warningsSince = [];
 
@@ -21,17 +19,16 @@ const Homepage = () => {
      * consists of two properties:
      *  - time (check performed to see if a time exists)
      *  - warnings (if there is a warnings' report time, display each warning)
-     * @param data Response data from the web socket.
      */
     function createTable() {
-        if(warningData.length !== 0){
+        if (warningData.length !== 0) {
             warningData.forEach(warning => displayWarning(warning));
         }
     }
 
+    // Initial component mount
     useEffect(() => {
         createTable();
-        console.log('S')
     }, [warningsData])
 
     useEffect(() => {
@@ -71,7 +68,6 @@ const Homepage = () => {
             .then(warnings => {
                 warningsSince = warnings;
             });
-        //console.log(warningsSince);
 
         let paragraph = document.createElement('p');
         paragraph.setAttribute('id', 'onoff');
@@ -100,7 +96,7 @@ const Homepage = () => {
 
     function createRowAndSetItsId(warning) {
         const tableRow = document.createElement('tr');
-        tableRow.setAttribute("id", warning.id)
+        tableRow.setAttribute('id', warning.id)
         return tableRow;
     }
 
@@ -110,9 +106,7 @@ const Homepage = () => {
      */
     function displayWarning(warning) {
         if (warning !== null) {
-            //console.log(warning)
             warningData.push(warning);
-            //console.log('hit')
             const id = document.getElementById(warning.id);
             if (id !== null) {
                 id.remove();
@@ -120,7 +114,7 @@ const Homepage = () => {
             if (warning.prediction !== null) {
                 const row = createRowAndSetItsId(warning);
                 row.innerHTML = getTableRowContent(warning);
-                document.getElementById("warnings-table").appendChild(row);
+                document.getElementById('warnings-table').appendChild(row);
             }
         }
     }
@@ -137,34 +131,40 @@ const Homepage = () => {
          * the connect is alive (the connection permits sending and receiving of data).
          */
         webSocket.current.onopen = () => {
-            //console.log('Web socket connection open.');
+            console.log('Web socket connection open.');
             webSocket.current.send(JSON.stringify('subscribe'))
         }
 
         /**
          * After establishing the connection to webSocket, whenever a message is sent from the server, parse the message
-         * and pass the message data to the createTable function.
+         * and pass the message data to the createTable function. The data object initially consists of two properties,
+         * time and warnings, after the initial response, the web socket will send one response message every time.
          * @param message Message received from the webSocket.
          */
         webSocket.current.onmessage = message => {
             const data = JSON.parse(message.data);
-                if (data.time && data.warnings) {
-                    const warnings = data.warnings;
-
-                    const filteredWarnings = warnings.filter(warning => warning.prediction);
-                    filteredWarnings.forEach(warning => displayWarning(warning));
-
-                    setWarningsData(filteredWarnings);
-                }else if(data.id && data.severity && data.prediction){
-                    console.log(data);
-                    if(data.severity === severityValue.current){
-                        displayWarning(data);
-
-                    }
-                    else if(severityValue.current === 0){
-                        displayWarning(data)
-                    }
+            // Handle the initial response (array)
+            if (data.time && data.warnings) {
+                // Extract the warnings from the data
+                const warnings = data.warnings;
+                // Filter the warnings against possible null values for the prediction property.
+                const filteredWarnings = warnings.filter(warning => warning.prediction);
+                // Display each of the warnings.
+                filteredWarnings.forEach(warning => displayWarning(warning));
+                // Set the state of the warningsData.
+                setWarningsData(filteredWarnings);
+            }
+            // Handle the responses after the initial (objects)
+            else if (data.id && data.severity && data.prediction) {
+                // If the severity of the data matches the currently selected severity, receive only such warnings.
+                if (data.severity === severityValue.current) {
+                    displayWarning(data);
                 }
+                // Handle default case, any severity level of a warning
+                else if (severityValue.current === 0) {
+                    displayWarning(data)
+                }
+            }
         }
     }
 
@@ -174,7 +174,7 @@ const Homepage = () => {
      */
     function unSubscribeToWarnings() {
         if (webSocket.current.OPEN) {
-           // console.log('Web socket connection closed.')
+            console.log('Web socket connection closed.')
             webSocket.current.send(JSON.stringify('unsubscribe'))
         }
     }

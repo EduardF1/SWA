@@ -46,6 +46,6 @@ export const LABELS = [
 
 export const apiResource = 'http://localhost:8080/warnings';
 export const webSocketResource = 'ws://localhost:8090/warnings';
-export const serverWarningsSinceUrl = "http://localhost:8080/warnings/since/"
+export const warningsSinceUrl = "http://localhost:8080/warnings/since/"
 export const subscribeCommand = 'subscribe';
 export const unsubscribeCommand = 'unsubscribe';
