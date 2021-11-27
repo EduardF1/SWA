@@ -20,7 +20,7 @@ export const REQUIREMENTS = [
     'they are turned off, but reload them when they are turned on again.'
 ]
 export const SEVERITIES = [
-    'Severity 0',
+    'All severities',
     'Severity 1',
     'Severity 2',
     'Severity 3',
@@ -29,6 +29,7 @@ export const SEVERITIES = [
     'Severity 6'
 ];
 
+export const DEFAULT_DATE = '2021-11-01T13:00:00.000';
 export const PARTS = [
     'Part 1:',
     'Part 2:',
@@ -37,7 +38,9 @@ export const PARTS = [
 ];
 
 export const LABELS = [
-  'WARNINGS ON/OFF :'
+    'Warnings since last update: ',
+    'MAIN WARNINGS:',
+    'Warnings ON/OFF: '
 ];
 
 export const apiResource = 'http://localhost:8080/warnings';

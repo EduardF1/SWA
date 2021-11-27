@@ -1,27 +1,31 @@
 import React, {useEffect} from 'react';
-import {subscribeCommand, webSocketResource} from '../utility/constants';
+import {PARTS, webSocketResource} from '../utility/constants';
 import axios from 'axios';
-import {TableHeader} from "./table/TableHeader";
+import Part1 from "./part1/Part1";
+import Part2 from "./part2/Part2";
+import Part3 from "./part3/Part3";
+import Part4 from "./part4/Part4";
 
 
 let webSocket = new WebSocket(webSocketResource);
 const warningsSinceUrl = 'http://localhost:8080/warnings/since/';
 let warningData = [];
 let warningsSince = [];
+let tableRows = [];
 
 const Homepage = () => {
 
     useEffect(() => {
-       subscribeToWarnings();
+        subscribeToWarnings();
     }, [])
+
     /**
      * Function used to get the '#local-date' ui element, concatenate ':00.000' to its value (string).
      * @returns String The local time in UTF-8 format.
      */
     function getLocalTime() {
         const localTimeElement = document.getElementById('local-date');
-        const localTime = localTimeElement.value;
-        return localTime;
+        return localTimeElement.value;
     }
 
     /**
@@ -34,6 +38,7 @@ const Homepage = () => {
         const severity = severityElement[severityElement.selectedIndex].value;
         return parseInt(severity);
     }
+
     /**
      * Function to get the warnings since the given date time (in UTF-8 format, ex.: 2018-12-03T13:00) from the weather data
      * REST Api. Api endpoint: http://localhost:8080/warnings/since/, valid subresource : date time (in UTF-8 format, ex.: 2018-12-03T13:00).
@@ -47,28 +52,31 @@ const Homepage = () => {
                 warningsSince = warnings;
             });
         console.log(warningsSince);
+
         let paragraph = document.createElement('p');
         paragraph.setAttribute('id', 'onoff');
         paragraph.innerText = JSON.stringify(warningsSince);
-        document.getElementById('part2').appendChild(paragraph);
+        console.log(warningsSince)
+        document.getElementById(PARTS[1]).appendChild(paragraph);
     }
 
     //ON CHANGE FOR SEVERITY
     function changeSeverity() {
-        var severity = getSeverity()
+        const severity = getSeverity();
         if (severity === 0) {
             subscribeToWarnings()
         } else {
             unSubscribeToWarnings()
-            var warningsTable = document.getElementById("warnings-table")
+            const warningsTable = document.getElementById("warnings-table");
             // Warnings after severity input value change.
             const filteredWarnings = warningData.filter(warning => warning.severity === getSeverity() && warning.prediction !== null);
             // Clear the initial warnings' table data.
-            while (warningsTable.hasChildNodes()){
+            while (warningsTable.hasChildNodes()) {
                 warningsTable.removeChild(warningsTable.firstChild);
             }
             filteredWarnings.forEach(warning => {
-                if(warning.severity === getSeverity()){
+                if (warning.severity === getSeverity()) {
+
                     var tr = document.createElement('tr');
                     tr.setAttribute("id", warning.id);
                     tr.innerHTML =
@@ -136,7 +144,7 @@ const Homepage = () => {
          * If the webSocket was previously closed, unsubscribed from, reinitialized the webSocket variable with a new
          * webSocket instance.
          */
-        if(webSocket.CLOSED){
+        if (webSocket.CLOSED) {
             webSocket = new WebSocket(webSocketResource);
         }
         /**
@@ -183,57 +191,10 @@ const Homepage = () => {
 
     return (
         <div>
-            <div>
-                <h3>Part 1:</h3>
-                <h6 id='part1'>
-                    • display current warnings when the page load and update them without reloading the page when they are updated on
-                    the server.
-                    <div>
-                        <table>
-                            <TableHeader/>
-                            <tbody id='warnings-table'>
-                            </tbody>
-                        </table>
-                    </div>
-                </h6>
-            </div>
-            <div>
-                <h3>Part 2:</h3>
-                <h6 id='part2'>
-                    • display changes in warnings since last update.
-                    <div>WARNINGS SINCE LAST UPDATE: <input type='datetime-local' id='local-date' defaultValue={'2021-11-01T13:00:00.000'}/>
-                        <button onClick={getWarningsSince}>Get warnings since</button>
-                    </div>
-                </h6>
-            </div>
-            <div>
-                <h3>Part 3:</h3>
-                <h6 id='part3'>
-                    • allow the user to set a minimal severity level to only display some of the warnings. Don't reload the warnings
-                    when the user changes the minimal severity level.
-                    <div id='mainWarnings'>MAIN WARNINGS:
-                        <select className='bootstrap-select' id='severity' onChange={changeSeverity}>
-                            <option value='0' defaultChecked={true}>All severities</option>
-                            <option value='1'>Severity 1</option>
-                            <option value='2'>Severity 2</option>
-                            <option value='3'>Severity 3</option>
-                            <option value='4'>Severity 4</option>
-                            <option value='5'>Severity 5</option>
-                            <option value='6'>Severity 6</option>
-                        </select>
-                    </div>
-                </h6>
-            </div>
-            <div>
-                <h3>Part 4:</h3>
-                <h6 id='part4'>
-                    • allow the user to complete turn off warnings. Do not receive warnings from the server while they are turned off,
-                    but reload them when they are turned on again.
-                    <div id='onoffWarnings'>WARNINGS ON/OFF :
-                        <input type='checkbox' id='toggle' onClick={onCheckboxClick} defaultChecked={true}/>
-                    </div>
-                </h6>
-            </div>
+            <Part1/>
+            <Part2 getWarningsSinceProp={getWarningsSince}/>
+            <Part3 changeSeverityProp={changeSeverity}/>
+            <Part4 onCheckboxClickProp={onCheckboxClick}/>
         </div>
     );
 };
