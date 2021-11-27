@@ -130,7 +130,9 @@ update_periodically()
 
 wss.on('connection', (ws, req) => {
     ws.on('message', message => {
-        const { command } = JSON.parse(message);
+        // Required parsing for removal of additional string quotation marks  '"subscribe"' upon receiving a subscription message.
+        const command = JSON.parse(message);
+        console.log(command)
         switch(command) {
             case 'subscribe':
                 if (!ws.subscribed) {
