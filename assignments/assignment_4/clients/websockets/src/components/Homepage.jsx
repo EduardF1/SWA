@@ -60,13 +60,26 @@ const Homepage = () => {
         document.getElementById(PARTS[1]).appendChild(paragraph);
     }
 
+    function getTableRowContent(warning) {
+        return '<td>' + warning.id + '</td>' +
+            '<td>' + warning.severity + '</td>' +
+            '<td>' + warning.prediction.from + '</td>' +
+            '<td>' + warning.prediction.to + '</td>' +
+            '<td>' + warning.prediction.type + '</td>' +
+            '<td>' + warning.prediction.unit + '</td>' +
+            '<td>' + warning.prediction.time + '</td>' +
+            '<td>' + warning.prediction.place + '</td>' +
+            '<td>' + (warning.prediction.precipitation_types ? warning.prediction.precipitation_types : 'N/A') + '</td>' +
+            '<td>' + (warning.prediction.directions ? warning.prediction.directions : 'N/A') + '</td>';
+    }
+
     //ON CHANGE FOR SEVERITY
     function changeSeverity() {
         const severity = getSeverity();
         if (severity === 0) {
-            subscribeToWarnings()
+            subscribeToWarnings();
         } else {
-            unSubscribeToWarnings()
+            unSubscribeToWarnings();
             const warningsTable = document.getElementById("warnings-table");
             // Warnings after severity input value change.
             const filteredWarnings = warningData.filter(warning => warning.severity === getSeverity() && warning.prediction !== null);
@@ -76,73 +89,57 @@ const Homepage = () => {
             }
             filteredWarnings.forEach(warning => {
                 if (warning.severity === getSeverity()) {
-
-                    var tr = document.createElement('tr');
-                    tr.setAttribute("id", warning.id);
-                    tr.innerHTML =
-                        '<td>' + warning.id + '</td>' +
-                        '<td>' + warning.severity + '</td>' +
-                        '<td>' + warning.prediction.from + '</td>' +
-                        '<td>' + warning.prediction.to + '</td>' +
-                        '<td>' + warning.prediction.type + '</td>' +
-                        '<td>' + warning.prediction.unit + '</td>' +
-                        '<td>' + warning.prediction.time + '</td>' +
-                        '<td>' + warning.prediction.place + '</td>' +
-                        '<td>' + warning.prediction.precipitation_types + '</td>' +
-                        '<td>' + warning.prediction.directions + '</td>';
-
-                    document.getElementById("warnings-table").appendChild(tr);
+                    const row = createRowAndSetItsId(warning);
+                    row.innerHTML = getTableRowContent(warning);
+                    document.getElementById("warnings-table").appendChild(row);
                 }
             })
         }
     }
 
-    //PRINT THE TABLE
-    function printToTable(warnings) {
-        console.log(warnings)
-        if (warnings.time !== null) {
-            for (let warn of warnings.warnings) {
-                printWarnings(warn);
-            }
-        }
-        else {
-            printWarnings(warnings);
+    /**
+     * Function to create a table from the web socket warnings' response data. The response data
+     * consists of two properties:
+     *  - time (check performed to see if a time exists)
+     *  - warnings (if there is a warnings' report time, display each warning)
+     * @param data Response data from the web socket.
+     */
+    function createTable(data) {
+        console.log(data)
+        if (data.time !== null && data.warnings !== undefined) {
+            const warnings = data.warnings;
+            warnings.forEach(warning => displayWarning(warning));
         }
     }
-    //PRINT TO HTML
-    function printWarnings(warnings) {
-        if (warnings != null) {
-            warningData.push(warnings)
-            var id = document.getElementById(warnings.id)
-            if (id != null)
+
+    function createRowAndSetItsId(warning) {
+        const tableRow = document.createElement('tr');
+        tableRow.setAttribute("id", warning.id)
+        return tableRow;
+    }
+
+    /**
+     * Display a warning (create a table row for it).
+     * @param warning Warning object for which the row is created.
+     */
+    function displayWarning(warning) {
+        if (warning !== null) {
+            warningData.push(warning)
+            const id = document.getElementById(warning.id)
+            if (id != null){
                 id.remove();
-
-            var tr = document.createElement('tr');
-            tr.setAttribute("id", warnings.id)
-
-            if (warnings.prediction != null) {
-                tr.innerHTML =
-                    '<td>' + warnings.id + '</td>' +
-                    '<td>' + warnings.severity + '</td>' +
-                    '<td>' + warnings.prediction.from + '</td>' +
-                    '<td>' + warnings.prediction.to + '</td>' +
-                    '<td>' + warnings.prediction.type + '</td>' +
-                    '<td>' + warnings.prediction.unit + '</td>' +
-                    '<td>' + warnings.prediction.time + '</td>' +
-                    '<td>' + warnings.prediction.place + '</td>' +
-                    '<td>' + warnings.prediction.precipitation_types + '</td>' +
-                    '<td>' + warnings.prediction.directions + '</td>';
-
-                document.getElementById("warnings-table").appendChild(tr);
-
+            }
+            if (warning.prediction !== null) {
+                const row = createRowAndSetItsId(warning);
+                row.innerHTML = getTableRowContent(warning);
+                document.getElementById("warnings-table").appendChild(row);
             }
         }
     }
 
     function subscribeToWarnings() {
         /**
-         * If the webSocket was previously closed, unsubscribed from, reinitialized the webSocket variable with a new
-         * webSocket instance.
+         * If the webSocket was previously closed, unsubscribed from, reinitialized the webSocket variable with a new webSocket instance.
          */
         if (webSocket.CLOSED) {
             webSocket = new WebSocket(webSocketResource);
@@ -164,7 +161,7 @@ const Homepage = () => {
             const data = JSON.parse(message.data);
             console.log('Web socket communication occurring');
             console.log('Received data from Web socket:', data);
-            printToTable(data);
+            createTable(data);
         }
     }
 

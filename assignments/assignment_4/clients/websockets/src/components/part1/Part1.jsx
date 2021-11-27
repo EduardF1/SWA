@@ -1,6 +1,7 @@
 import React from 'react';
 import {TableHeader} from "./table/TableHeader";
 import {PARTS, REQUIREMENTS} from "../../utility/constants";
+import TableBody from "./table/TableBody";
 
 const Part1 = () => {
     return (
@@ -10,7 +11,7 @@ const Part1 = () => {
                 <div>
                     <table>
                         <TableHeader/>
-                        <tbody id='warnings-table'/>
+                        <TableBody/>
                     </table>
                 </div>
         </div>

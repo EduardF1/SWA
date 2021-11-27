@@ -26,7 +26,8 @@ export const SEVERITIES = [
     'Severity 3',
     'Severity 4',
     'Severity 5',
-    'Severity 6'
+    'Severity 6',
+    'Severity 7'
 ];
 
 export const DEFAULT_DATE = '2021-11-01T13:00:00.000';
