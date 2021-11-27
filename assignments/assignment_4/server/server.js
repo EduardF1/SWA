@@ -123,7 +123,7 @@ function update_periodically() {
                         .forEach( client => client.send(JSON.stringify(alert)) )
                 )
         }
-    }, update_frequency_seconds * 1000)
+    }, 15000)
 }
 
 update_periodically()
