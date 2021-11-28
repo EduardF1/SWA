@@ -1,112 +1,153 @@
-import React, {useEffect} from 'react';
-import {Label} from './table/Label';
-import {Input} from './table/Input';
-import {Table} from './table/Table';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {concatMap, interval} from 'rxjs';
 import {ajax} from 'rxjs/ajax';
 import {apiResource} from '../utility/constants';
-import {clearTable, displayWarnings, getValueFromHtmlElement} from '../utility/tableHelpers';
 import {filterBySeverity, filterSinceLastUpdate} from '../utility/filter';
 import axios from 'axios';
-
-let warningsCache = [];
-let timeOfUnsubscription = '';
-let isSubscribed = false;
-let subscription = {};
-let minSeverity;
-let subscriptionInterval = interval(3000)
+import './homePage.css';
+import Part1 from "./part1/Part1";
+import Part2 from "./part2/Part2";
+import Part3 from "./part3/Part3";
+import Part4 from "./part4/Part4";
 
 export const Homepage = () => {
 
+    const [warningsData, setWarningsData] = useState([]);
+    const [warningsSince, setWarningsSince] = useState([]);
+    const previousData = useRef([]);
+    const warningsCache = useRef([]);
+    const severityValue = useRef(0);
+    const subscription = useRef(null);
+    const isSubscribed = useRef(false);
+    const timeOfUnsubscription = useRef(null);
+    const subscriptionInterval = 10000;
+
+    const buildData = useCallback(() => {
+        const warningsList = [];
+        previousData.current.forEach(warning => {
+            warningsList.push({
+                id: warning.id,
+                severity: warning.severity,
+                from: warning.prediction.from,
+                to: warning.prediction.to,
+                type: warning.prediction.type,
+                unit: warning.prediction.unit,
+                time: warning.prediction.time,
+                place: warning.prediction.place,
+                precipitation_types: warning.prediction.precipitation_types ? warning.prediction.precipitation_types : 'N/A',
+                directions: warning.prediction.directions ? warning.prediction.directions : 'N/A'
+            })
+        })
+        setWarningsData(warningsList);
+        //setWarningsData(warnings => [...warnings, ...warningsList]);
+        //setWarningsData([...warningsData, ...warningsList]);
+    }, [])
+
+    const buildWarningsSince = (data) => {
+        const warningsSince = [];
+        data.forEach(warning => {
+            warningsSince.push({
+                id: warning.id,
+                severity: warning.severity,
+                from: warning.prediction.from,
+                to: warning.prediction.to,
+                type: warning.prediction.type,
+                unit: warning.prediction.unit,
+                time: warning.prediction.time,
+                place: warning.prediction.place,
+                precipitation_types: warning.prediction.precipitation_types ? warning.prediction.precipitation_types : 'N/A',
+                directions: warning.prediction.directions ? warning.prediction.directions : 'N/A'
+            })
+        })
+        setWarningsSince(warningsSince);
+    }
+
+    const subscribe = useCallback(() => {
+        subscription.current = interval(subscriptionInterval).pipe(concatMap(() => ajax.getJSON(apiResource))).subscribe({
+            next: warnings => {
+                const newWarnings = filterBySeverity(warnings, severityValue.current);
+                const changedWarnings = filterSinceLastUpdate(warningsCache.current, newWarnings);
+
+                // Update the cache
+                warningsCache.current = newWarnings;
+
+                newWarnings.forEach(warning => {
+                    previousData.current.push(warning);
+                })
+
+                buildData();
+                buildWarningsSince(changedWarnings);
+            },
+            error: error => console.log(`[${new Date().toISOString()}]: ${error}`)
+        });
+        isSubscribed.current = true;
+        console.log(`[${new Date().toISOString()}]: Subscribed`)
+    },[buildData])
+
+    const loadInitialWarningsData = useCallback(() => {
+        axios.get(apiResource)
+            .then(response => response.status === 200 ? response.data.warnings : new Error(response.statusText))
+            .then(warningData => {
+                previousData.current = warningData;
+                buildData();
+            }).catch(error => console.log(`[${new Date().toISOString()}]: ${error}`));
+    },[buildData])
+
+    useEffect(() => {
+        loadInitialWarningsData();
+        subscribe();
+
+        return () => {
+            subscription.current.unsubscribe()
+            console.log(`[${new Date().toISOString()}]: Unsubscribed`)
+        }
+    }, [subscribe, loadInitialWarningsData])
+
+    /**
+     * Function to handle state change of the toggle checkbox. If the checkbox is checked,
+     * the subscription to the web socket is made, otherwise the unsubscription occurs.
+     * The isChecked flag variable is used to keep track of the toggle's value.
+     */
+    const onCheckboxClick = () => {
+        const isChecked = document.getElementById('toggle').checked;
+        isChecked ? onSubscribe() : onUnsubscribe();
+    }
+
+    /**
+     * Function used to get the '#severity' ui element and retrieve its value (it is a select
+     * element with several options' children).
+     * @returns {number} The selected severity (in the UI by the user).
+     */
+    const getSeverity = () => {
+        const severityElement = document.getElementById('severity');
+        const severity = severityElement[severityElement.selectedIndex].value;
+        return parseInt(severity);
+    }
+
+    //ON CHANGE FOR SEVERITY
+    const changeSeverity = () => {
+        severityValue.current = getSeverity();
+    }
+
     const onSubscribe = () => {
-        showWarningData()
-        timeOfUnsubscription = null
-        if (!isSubscribed) {
+        if (!isSubscribed.current) {
             subscribe()
-            console.log(`[${new Date().toISOString()}]: Subscribed`)
         }
     }
 
     const onUnsubscribe = () => {
-        timeOfUnsubscription = new Date()
-        subscription.unsubscribe()
-        isSubscribed = false
-        console.log(`[${timeOfUnsubscription.toISOString()}]: Unsubscribed`)
-    }
-
-    const subscribe = () => {
-        subscription = subscriptionInterval.pipe(
-            concatMap(() => ajax.getJSON(apiResource))
-        ).subscribe({
-            next: warnings => {
-                const severity = getValueFromHtmlElement('severity-text-box');
-                const newWarnings = filterBySeverity(warnings, severity);
-                const changedWarnings = filterSinceLastUpdate(warningsCache, newWarnings);
-
-                // Clear the cache
-                warningsCache = [];
-                newWarnings?.forEach(warning => warningsCache.push(warning));
-
-                displayWarnings('warnings-table-body', newWarnings);
-
-                // Clear old warnings
-                clearTable('changes-table-body');
-                displayWarnings('changes-table-body', changedWarnings);
-            },
-            error: error => console.log(`[${new Date().toISOString()}]: ${error}`)
-        });
-        isSubscribed = true;
-        console.log(`[${new Date().toISOString()}]: Subscribed`)
-    }
-
-    useEffect(() => {
-        if (getValueFromHtmlElement('severity-text-box') !== '') {
-            showWarningData();
-            subscribe();
-        }
-    }, [])
-
-    window.onunload = () => {
-        subscription.unsubscribe()
-        console.log(`[${new Date().toISOString()}]: Unsubscribed`)
-    }
-
-    const showWarningData = () => {
-        axios.get(apiResource)
-            .then(response => response.status === 200 ? response.data.warnings : new Error(response.statusText))
-            .then(warningData => {
-                minSeverity = parseInt(getValueFromHtmlElement('severity-text-box'));
-                const newWarnings = filterBySeverity(warningData, minSeverity)
-                const changedWarnings = filterSinceLastUpdate(warningsCache, newWarnings)
-
-                // Empty cache after last updated warnings have been filtered, to ensure that the next update will show valid results
-                warningsCache = []
-                newWarnings.forEach(warning => warningsCache.push(warning))
-
-                clearTable('warnings-table-body')
-                displayWarnings('warnings-table-body', newWarnings)
-
-                clearTable('changes-table-body')
-                displayWarnings('changes-table-body', changedWarnings)
-            }).catch(error => console.log(`[${new Date().toISOString()}]: ${error}`));
+        timeOfUnsubscription.current = new Date()
+        subscription.current.unsubscribe()
+        isSubscribed.current = false
+        console.log(`[${timeOfUnsubscription.current.toISOString()}]: Unsubscribed`)
     }
 
     return (
-        <div>
-            <div>
-                <Label _for={'severity'} label={'Severity'}/>
-                <Input id={'severity-text-box'} type={'text'} value={1}/>
-            </div>
-            <div>
-                <Label _for={'update-warnings'} label={'Update warnings?'}/>
-                <Label _for={'on-button'} label={'On'}/>
-                <Input id={'on-button'} onclick={onSubscribe} type={'radio'} name={'updating'} value={'Subscribe'} checked={'true'} label={'Yes'}/>
-                <Label _for={'off-button'} label={'Off'}/>
-                <Input id={'off-button'} onclick={onUnsubscribe} type={'radio'} name={'updating'} value={'Unsubscribe'} labe={'No'}/>
-            </div>
-            <Table divId={'warnings-div'} header={'Warnings feed (updated every 3 seconds):'} tableId={'warnings-table'} bodyId={'warnings-table-body'}/>
-            <Table divId={'changes-div'} header={'Changed warnings since last update:'} tableId={'changes-table'} bodyId={'changes-table-body'}/>
+        <div className={'wrapper'}>
+            <Part1 rowData={warningsData}/>
+            <Part2 rowData={warningsSince}/>
+            <Part3 changeSeverityProp={changeSeverity}/>
+            <Part4 onCheckboxClickProp={onCheckboxClick}/>
         </div>
     );
 }
-

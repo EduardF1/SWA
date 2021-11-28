@@ -17,7 +17,7 @@ const Part1 = ({rowData}) => {
 
     return (
         <div>
-            <h2>4.2 Websocket</h2>
+            <h2>4.1 RXJS Polling</h2>
             <h3>{PARTS[0]}</h3>
             <h5 id={PARTS[0]}>{REQUIREMENTS[0]}</h5>
             <div className="ag-theme-alpine" style={{height: 600, width: '90vw'}}>

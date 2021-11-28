@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.warningsButton {
+    margin-bottom: 2rem;
+}
+
+.partOne {
+    height: 600px;
+    width: 90vw;
+}
+
+.partTwo {
+    width: 90vw;
+}
+
+.partThree {
+    width: 90vw;
+}
+
+.partFour {
+    width: 90vw;
+    margin-bottom: 2rem;
+}

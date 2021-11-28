@@ -4,7 +4,7 @@ import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-const Part1 = ({rowData}) => {
+const Part2 = ({rowData}) => {
 
     const gridRef = useRef();
 
@@ -16,11 +16,10 @@ const Part1 = ({rowData}) => {
     }
 
     return (
-        <div>
-            <h2>4.2 Websocket</h2>
-            <h3>{PARTS[0]}</h3>
-            <h5 id={PARTS[0]}>{REQUIREMENTS[0]}</h5>
-            <div className="ag-theme-alpine" style={{height: 600, width: '90vw'}}>
+        <div className={'partTwo'}>
+            <h3>{PARTS[1]}</h3>
+            <h5 id={PARTS[1]}>{REQUIREMENTS[1]}</h5>
+            <div className="ag-theme-alpine" style={{height: 400, width: '90vw'}}>
                 <AgGridReact
                     ref={gridRef}
                     defaultColDef={{
@@ -48,4 +47,4 @@ const Part1 = ({rowData}) => {
     );
 };
 
-export default Part1;
+export default Part2;
