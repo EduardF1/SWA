@@ -25,12 +25,12 @@ z.a
 
 // prototype chains x <- y <- z
 
-let x = {a: 7}
-let y = Object.create(x)
-console.log(y.a) // out: 7
-let z = {c: 87}
-Object.setPrototypeOf(z, y) // z --> y --> x
-console.log(y.isPrototypeOf(z)) // true
+let x_ = {a: 7}
+let y_ = Object.create(x_)
+console.log(y_.a) // out: 7
+let z_ = {c: 87}
+Object.setPrototypeOf(z_, y_) // z --> y --> x
+console.log(y_.isPrototypeOf(z_)) // true
 
 // Constructor:
 function Car(licensePlate, model) {
