@@ -1,125 +1,42 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {PARTS, warningsSinceUrl, webSocketResource} from '../utility/constants';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {warningsSinceUrl, webSocketResource} from '../utility/constants';
 import axios from 'axios';
+import './homePage.css';
 import Part1 from './part1/Part1';
 import Part2 from './part2/Part2';
 import Part3 from './part3/Part3';
 import Part4 from './part4/Part4';
 
-let warningData = [];
-let warningsSince = [];
-
 const Homepage = () => {
+
     const [warningsData, setWarningsData] = useState([]);
+    const [warningsSince, setWarningsSince] = useState([]);
+    const previousData = useRef([]);
     const webSocket = useRef(null);
     const severityValue = useRef(0);
 
-    /**
-     * Function to create a table from the web socket warnings' response data. The response data
-     * consists of two properties:
-     *  - time (check performed to see if a time exists)
-     *  - warnings (if there is a warnings' report time, display each warning)
-     */
-    function createTable() {
-        if (warningData.length !== 0) {
-            warningData.forEach(warning => displayWarning(warning));
-        }
-    }
-
-    // Initial component mount
-    useEffect(() => {
-        createTable();
-    }, [warningsData])
-
-    useEffect(() => {
-        webSocket.current = new WebSocket(webSocketResource);
-        subscribeToWarnings();
+    const buildData = useCallback(() => {
+        const warningsList = [];
+        previousData.current.forEach(warning => {
+            warningsList.push({
+                id: warning.id,
+                severity: warning.severity,
+                from: warning.prediction.from,
+                to: warning.prediction.to,
+                type: warning.prediction.type,
+                unit: warning.prediction.unit,
+                time: warning.prediction.time,
+                place: warning.prediction.place,
+                precipitation_types: warning.prediction.precipitation_types ? warning.prediction.precipitation_types : 'N/A',
+                directions: warning.prediction.directions ? warning.prediction.directions : 'N/A'
+            })
+        })
+        setWarningsData(warningsList);
+        //setWarningsData(warnings => [...warnings, ...warningsList]);
+        //setWarningsData([...warningsData, ...warningsList]);
     }, [])
 
-    /**
-     * Function used to get the '#local-date' ui element, concatenate ':00.000' to its value (string).
-     * @returns String The local time in UTF-8 format.
-     */
-    function getLocalTime() {
-        const localTimeElement = document.getElementById('local-date');
-        return localTimeElement.value;
-    }
-
-    /**
-     * Function used to get the '#severity' ui element and retrieve its value (it is a select
-     * element with several options' children).
-     * @returns {number} The selected severity (in the UI by the user).
-     */
-    function getSeverity() {
-        const severityElement = document.getElementById('severity');
-        const severity = severityElement[severityElement.selectedIndex].value;
-        return parseInt(severity);
-    }
-
-    /**
-     * Function to get the warnings since the given date time (in UTF-8 format, ex.: 2018-12-03T13:00) from the weather data
-     * REST Api. Api endpoint: http://localhost:8080/warnings/since/, valid subresource : date time (in UTF-8 format, ex.: 2018-12-03T13:00).
-     * @returns {Promise<void>} The extracted warnings' data array from the promise.
-     */
-    async function getWarningsSince() {
-        await axios
-            .get(warningsSinceUrl + getLocalTime())
-            .then(response => response.status === 200 ? response.data.warnings : new Error(response.statusText))
-            .then(warnings => {
-                warningsSince = warnings;
-            });
-
-        let paragraph = document.createElement('p');
-        paragraph.setAttribute('id', 'onoff');
-        paragraph.innerText = JSON.stringify(warningsSince);
-        //console.log(warningsSince)
-        document.getElementById(PARTS[1]).appendChild(paragraph);
-    }
-
-    function getTableRowContent(warning) {
-        return '<td>' + warning.id + '</td>' +
-            '<td>' + warning.severity + '</td>' +
-            '<td>' + warning.prediction.from + '</td>' +
-            '<td>' + warning.prediction.to + '</td>' +
-            '<td>' + warning.prediction.type + '</td>' +
-            '<td>' + warning.prediction.unit + '</td>' +
-            '<td>' + warning.prediction.time + '</td>' +
-            '<td>' + warning.prediction.place + '</td>' +
-            '<td>' + (warning.prediction.precipitation_types ? warning.prediction.precipitation_types : 'N/A') + '</td>' +
-            '<td>' + (warning.prediction.directions ? warning.prediction.directions : 'N/A') + '</td>';
-    }
-
-    //ON CHANGE FOR SEVERITY
-    function changeSeverity() {
-        severityValue.current = getSeverity();
-    }
-
-    function createRowAndSetItsId(warning) {
-        const tableRow = document.createElement('tr');
-        tableRow.setAttribute('id', warning.id)
-        return tableRow;
-    }
-
-    /**
-     * Display a warning (create a table row for it).
-     * @param warning Warning object for which the row is created.
-     */
-    function displayWarning(warning) {
-        if (warning !== null) {
-            warningData.push(warning);
-            const id = document.getElementById(warning.id);
-            if (id !== null) {
-                id.remove();
-            }
-            if (warning.prediction !== null) {
-                const row = createRowAndSetItsId(warning);
-                row.innerHTML = getTableRowContent(warning);
-                document.getElementById('warnings-table').appendChild(row);
-            }
-        }
-    }
-
-    function subscribeToWarnings() {
+    const subscribeToWarnings = useCallback(() => {
         /**
          * If the webSocket was previously closed, unsubscribed from, reinitialized the webSocket variable with a new webSocket instance.
          */
@@ -148,24 +65,87 @@ const Homepage = () => {
                 // Extract the warnings from the data
                 const warnings = data.warnings;
                 // Filter the warnings against possible null values for the prediction property.
-                const filteredWarnings = warnings.filter(warning => warning.prediction);
-                // Display each of the warnings.
-                filteredWarnings.forEach(warning => displayWarning(warning));
+                previousData.current = warnings.filter(warning => warning.prediction);
                 // Set the state of the warningsData.
-                setWarningsData(filteredWarnings);
+                buildData();
             }
             // Handle the responses after the initial (objects)
             else if (data.id && data.severity && data.prediction) {
                 // If the severity of the data matches the currently selected severity, receive only such warnings.
                 if (data.severity === severityValue.current) {
-                    displayWarning(data);
+                    previousData.current.push(data);
+                    buildData();
                 }
                 // Handle default case, any severity level of a warning
                 else if (severityValue.current === 0) {
-                    displayWarning(data)
+                    previousData.current.push(data);
+                    buildData();
                 }
             }
         }
+    }, [buildData])
+
+    useEffect(() => {
+        webSocket.current = new WebSocket(webSocketResource);
+        subscribeToWarnings();
+    }, [subscribeToWarnings])
+
+    /**
+     * Function used to get the '#local-date' ui element, concatenate ':00.000' to its value (string).
+     * @returns String The local time in UTF-8 format.
+     */
+    function getLocalTime() {
+        const localTimeElement = document.getElementById('local-date');
+        return localTimeElement.value;
+    }
+
+    /**
+     * Function used to get the '#severity' ui element and retrieve its value (it is a select
+     * element with several options' children).
+     * @returns {number} The selected severity (in the UI by the user).
+     */
+    function getSeverity() {
+        const severityElement = document.getElementById('severity');
+        const severity = severityElement[severityElement.selectedIndex].value;
+        return parseInt(severity);
+    }
+
+    const buildWarningsSince = (data) => {
+        const warningsSince = [];
+        data.forEach(warning => {
+            warningsSince.push({
+                id: warning.id,
+                severity: warning.severity,
+                from: warning.prediction.from,
+                to: warning.prediction.to,
+                type: warning.prediction.type,
+                unit: warning.prediction.unit,
+                time: warning.prediction.time,
+                place: warning.prediction.place,
+                precipitation_types: warning.prediction.precipitation_types ? warning.prediction.precipitation_types : 'N/A',
+                directions: warning.prediction.directions ? warning.prediction.directions : 'N/A'
+            })
+        })
+        setWarningsSince(warningsSince);
+    }
+
+    /**
+     * Function to get the warnings since the given date time (in UTF-8 format, ex.: 2018-12-03T13:00) from the weather data
+     * REST Api. Api endpoint: http://localhost:8080/warnings/since/, valid subresource : date time (in UTF-8 format, ex.: 2018-12-03T13:00).
+     * @returns {Promise<void>} The extracted warnings' data array from the promise.
+     */
+    async function getWarningsSince() {
+        await axios
+            .get(warningsSinceUrl + getLocalTime())
+            .then(response => response.status === 200 ? response.data.warnings : new Error(response.statusText))
+            .then(warnings => {
+                buildWarningsSince(warnings);
+            });
+    }
+
+    //ON CHANGE FOR SEVERITY
+    function changeSeverity() {
+        severityValue.current = getSeverity();
     }
 
     /**
@@ -176,6 +156,7 @@ const Homepage = () => {
         if (webSocket.current.OPEN) {
             console.log('Web socket connection closed.')
             webSocket.current.send(JSON.stringify('unsubscribe'))
+            webSocket.current.close()
         }
     }
 
@@ -190,9 +171,9 @@ const Homepage = () => {
     }
 
     return (
-        <div>
-            <Part1/>
-            <Part2 getWarningsSinceProp={getWarningsSince}/>
+        <div className={'wrapper'}>
+            <Part1 rowData={warningsData}/>
+            <Part2 getWarningsSinceProp={getWarningsSince} rowData={warningsSince}/>
             <Part3 changeSeverityProp={changeSeverity}/>
             <Part4 onCheckboxClickProp={onCheckboxClick}/>
         </div>

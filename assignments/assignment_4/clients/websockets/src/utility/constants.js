@@ -1,15 +1,3 @@
-export const TABLE_COLUMN_LABELS = [
-    'Id',
-    'Severity',
-    'From',
-    'To',
-    'Type',
-    'Unit',
-    'Time',
-    'Place',
-    'Precipitation types',
-    'Wind Directions',
-];
 export const REQUIREMENTS = [
     ' • display current warnings when the page load and update them without ' +
     'reloading the page when they are updated on the server.',
@@ -40,7 +28,7 @@ export const PARTS = [
 
 export const LABELS = [
     'Warnings since last update: ',
-    'MAIN WARNINGS:',
+    'MAIN WARNINGS SEVERITY (MIN): ',
     'Warnings ON/OFF: '
 ];
 
