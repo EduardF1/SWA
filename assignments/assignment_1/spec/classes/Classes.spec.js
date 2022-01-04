@@ -273,11 +273,11 @@ describe("Weather History", () => {
     describe(`After it has been initialized`, () => {
         test(`it should be possible to add data`, () => {
             //Arrange
-            const weatherData99 = new WeatherData(PLACES[6], END_DATE, CELSIUS_TYPE, CELSIUS_UNIT, 50);
+            const weatherData99 = new WeatherData(PLACES[6], END_DATE, CELSIUS_TYPE, CELSIUS_UNIT, VALUES[8]);
             // Act
             weatherHistory.add(weatherData99);
             // Assert
-            expect(weatherHistory.getSize()).toEqual(4);
+            expect(weatherHistory.getSize()).toEqual(VALUES[11]);
         });
         test(`it should be possible to change the place filter to ${PLACES[2]}`, () => {
             //Act

@@ -6,7 +6,7 @@ const {WeatherData} = require('./WeatherData');
  */
 class CloudCoverage extends WeatherData {
     constructor(time, place, value, type, unit, cloudCoverage) {
-        super(time, place, value, type, unit)
+        super(time, place, value, type, unit);
         this.cloudCoverage = cloudCoverage;
     }
 

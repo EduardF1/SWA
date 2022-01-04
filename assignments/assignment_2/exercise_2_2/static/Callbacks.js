@@ -1,12 +1,115 @@
+const CITIES = [
+    'Horsens',
+    'Aarhus',
+    'Copenhagen'
+];
+const FORECAST_ATTRIBUTES = [
+    'place',
+    'type',
+    'unit',
+    'time',
+    'from',
+    'to'
+];
+const WEATHER_DATA_ATTRIBUTES = [
+    'value',
+    'unit',
+    'time',
+    'from',
+    'to'
+];
+const TYPES = [
+    'temperature',
+    'precipitation',
+    'wind speed',
+    'cloud coverage'
+];
+const VALUE_KEYS = [
+    'all',
+    'minimum',
+    'maximum'
+];
+// Definition of the "init" function which is triggered instantly once the web page is loaded.
 window.init = function () {
-    const request = new XMLHttpRequest()
+    // Create a XMLHttpRequest object. (Ref.: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
+    const request = new XMLHttpRequest();
+    // Base API url.
     const baseUrl = 'http://localhost:8080';
-    request.open('GET', `${baseUrl}/data`);
-    request.send();
+    // Retrieve the browser window object.
     const document = window.document;
 
+    // Initialize a GET HTTP request to the "/data" API subresource.
+    request.open('GET', `${baseUrl}/data`);
+    // Send the request.
+    request.send();
+
+    /**
+     * Helper function to build the rows (content) for several tables (all minimum and maximum tables and forecast).
+     * @param tableReference (HTMLElement) The table for which the content should be built.
+     * @param element (Object) The object from which the table row data is extracted.
+     */
+    function buildRegularTableContent(tableReference, element) {
+        const row = tableReference.insertRow(0);
+        Object.values(element).forEach(value => row.insertCell().appendChild(document.createTextNode(value.toString())));
+    }
+
+    /**
+     * Helper function to build the rows (content) for several tables (the average cloud coverage and average wind speed).
+     * @param tableReference (HTMLElement) The table for which the content should be built.
+     * @param data (HashMap) The map from which the table row data is extracted for a specific city.
+     */
+    function buildAverageTable(tableReference, data) {
+        CITIES.forEach((city, index) => {
+            const row = tableReference.insertRow(index);
+            row.insertCell().appendChild(document.createTextNode(city));
+            row.insertCell().appendChild(document.createTextNode(
+                    Math.floor(
+                        data[city]
+                            .map(element => element.value)
+                            .reduce((a, b) => a + b, 0) / data[city].length
+                    ).toString()
+                )
+            );
+        })
+    }
+
+    /**
+     * Helper function used to build the rows of the wind directions table.
+     * @param tableReference (HTMLElement) The table reference.
+     * @param mode (Function) Function used to determine the highest occurrence of an element.
+     * @param data (Array of objects) Table data.
+     */
+    function buildTableWithHighestOccurrences(tableReference, mode, data) {
+        CITIES.forEach((city, index) => {
+            const row = tableReference.insertRow(index);
+            row.insertCell().appendChild(document.createTextNode(city));
+            row.insertCell().appendChild(document.createTextNode(mode(data[city])));
+        });
+    }
+
+    /**
+     * Helper function used to build the rows of the precipitations table.
+     * @param tableReference (HTMLElement) The table reference.
+     * @param data (Array of objects) Table data.
+     */
+    function buildPrecipitationTotalTable(tableReference, data) {
+        CITIES.forEach((city, index) => {
+            const row = tableReference.insertRow(index);
+            row.insertCell().appendChild(document.createTextNode(city));
+            row.insertCell().appendChild(document.createTextNode(data[city].map(element => element.value).reduce((a, b) => a + b, 0)));
+        });
+    }
+    /**
+     * Helper function to filter data (an array of objects) based on the value of the "place" argument.
+     * @param place (String) The place for which the data should be filtered.
+     * @param data (Array of objects) The data array to be filtered.
+     */
+    const getFilteredDataByPlace = (place, data) => data.filter(element => element.place === place);
+    // Use ".onload()" to access the callback of the request (if completed successfully).
     request.onload = () => {
+        // Check the request (if successful)
         if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            // Parse the response.
             const responseData = JSON.parse(request.responseText);
             const latestDate = new Date(
                 responseData
@@ -19,13 +122,8 @@ window.init = function () {
             const latestData = responseData.filter(element => new Date(element.time).getTime() === latestDate.getTime());
 
             const weatherTableBody = document.getElementById('weather-table-body');
-            latestData.map(element => {
-                const row = weatherTableBody.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            latestData.filter(element => Object.keys(element).length === WEATHER_DATA_ATTRIBUTES.length).map(element => {
+                buildRegularTableContent(weatherTableBody, element);
             })
 
             const today = new Date();
@@ -33,157 +131,85 @@ window.init = function () {
             const fiveDaysData = responseData.filter(element => new Date(element.time).getTime() > past5days.getTime());
 
             // All temperatures
-            const temperatures = fiveDaysData.filter(element => element.type === 'temperature');
-
+            const temperatures = fiveDaysData.filter(element => element.type === TYPES[0]);
             // All temperatures with city key
             const temperaturesInCities = {
-                'Horsens': temperatures.filter(element => element.place === 'Horsens'),
-                'Aarhus': temperatures.filter(element => element.place === 'Aarhus'),
-                'Copenhagen': temperatures.filter(element => element.place === 'Copenhagen'),
+                [CITIES[0]]: getFilteredDataByPlace(CITIES[0], temperatures),
+                [CITIES[1]]: getFilteredDataByPlace(CITIES[1], temperatures),
+                [CITIES[2]]: getFilteredDataByPlace(CITIES[2], temperatures),
             }
 
             // All temperatures' data map
             const temperaturesLedger = {
-                'Horsens': {
-                    'all': temperaturesInCities['Horsens'],
-                    'minimum': temperaturesInCities['Horsens'].map(element => element.value).reduce((a, b) => Math.min(a, b)),
-                    'maximum': temperaturesInCities['Horsens'].map(element => element.value).reduce((a, b) => Math.max(a, b)),
+                [CITIES[0]]: {
+                    [VALUE_KEYS[0]]: temperaturesInCities[CITIES[0]],
+                    [VALUE_KEYS[1]]: temperaturesInCities[CITIES[0]].map(element => element.value).reduce((a, b) => Math.min(a, b)),
+                    [VALUE_KEYS[2]]: temperaturesInCities[CITIES[0]].map(element => element.value).reduce((a, b) => Math.max(a, b)),
                 },
-                'Aarhus': {
-                    'all': temperaturesInCities['Aarhus'],
-                    'minimum': temperaturesInCities['Aarhus'].map(element => element.value).reduce((a, b) => Math.min(a, b)),
-                    'maximum': temperaturesInCities['Aarhus'].map(element => element.value).reduce((a, b) => Math.min(a, b)),
+                [CITIES[1]]: {
+                    [VALUE_KEYS[0]]: temperaturesInCities[CITIES[1]],
+                    [VALUE_KEYS[1]]: temperaturesInCities[CITIES[1]].map(element => element.value).reduce((a, b) => Math.min(a, b)),
+                    [VALUE_KEYS[2]]: temperaturesInCities[CITIES[1]].map(element => element.value).reduce((a, b) => Math.min(a, b)),
                 },
-                'Copenhagen': {
-                    'all': temperaturesInCities['Copenhagen'],
-                    'minimum': temperaturesInCities['Copenhagen'].map(element => element.value).reduce((a, b) => Math.min(a, b)),
-                    'maximum': temperaturesInCities['Copenhagen'].map(element => element.value).reduce((a, b) => Math.max(a, b)),
+                [CITIES[2]]: {
+                    [VALUE_KEYS[0]]: temperaturesInCities[CITIES[2]],
+                    [VALUE_KEYS[1]]: temperaturesInCities[CITIES[2]].map(element => element.value).reduce((a, b) => Math.min(a, b)),
+                    [VALUE_KEYS[2]]: temperaturesInCities[CITIES[2]].map(element => element.value).reduce((a, b) => Math.max(a, b)),
                 }
             }
 
             const minimumTemperatureTableBodyHorsens = document.getElementById('minimum-temperature-horsens-table-body');
-            temperaturesInCities['Horsens'].filter(element => element.value === temperaturesLedger['Horsens']['minimum']).map(element => {
-                const row = minimumTemperatureTableBodyHorsens.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            temperaturesInCities[CITIES[0]].filter(element => element.value === temperaturesLedger[CITIES[0]][VALUE_KEYS[1]]).slice(0,1).map(element => {
+                console.log(element);
+                buildRegularTableContent(minimumTemperatureTableBodyHorsens, element);
             });
 
             const maximumTemperatureTableBodyHorsens = document.getElementById('maximum-temperature-horsens-table-body');
-            temperaturesInCities['Horsens'].filter(element => element.value === temperaturesLedger['Horsens']['maximum']).map(element => {
-                const row = maximumTemperatureTableBodyHorsens.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            temperaturesInCities[CITIES[0]].filter(element => element.value === temperaturesLedger[CITIES[0]][VALUE_KEYS[2]]).slice(0,1).map(element => {
+                buildRegularTableContent(maximumTemperatureTableBodyHorsens, element);
             });
 
             const minimumTemperatureTableBodyAarhus = document.getElementById('minimum-temperature-aarhus-table-body');
-            temperaturesInCities['Aarhus'].filter(element => element.value === temperaturesLedger['Aarhus']['minimum']).map(element => {
-                const row = minimumTemperatureTableBodyAarhus.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            temperaturesInCities[CITIES[1]].filter(element => element.value === temperaturesLedger[CITIES[1]][VALUE_KEYS[1]]).slice(0,1).map(element => {
+                buildRegularTableContent(minimumTemperatureTableBodyAarhus, element);
             });
 
             const maximumTemperatureTableBodyAarhus = document.getElementById('maximum-temperature-aarhus-table-body');
-            temperaturesInCities['Aarhus'].filter(element => element.value === temperaturesLedger['Aarhus']['maximum']).map(element => {
-                const row = maximumTemperatureTableBodyAarhus.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            temperaturesInCities[CITIES[1]].filter(element => element.value === temperaturesLedger[CITIES[1]][VALUE_KEYS[2]]).slice(0,1).map(element => {
+                buildRegularTableContent(maximumTemperatureTableBodyAarhus, element);
             });
 
             const minimumTemperatureTableBodyCopenhagen = document.getElementById('minimum-temperature-copenhagen-table-body');
-            temperaturesInCities['Copenhagen'].filter(element => element.value === temperaturesLedger['Copenhagen']['minimum']).map(element => {
-                const row = minimumTemperatureTableBodyCopenhagen.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            temperaturesInCities[CITIES[2]].filter(element => element.value === temperaturesLedger[CITIES[2]][VALUE_KEYS[1]]).slice(0,1).map(element => {
+                buildRegularTableContent(minimumTemperatureTableBodyCopenhagen, element);
             });
 
             const maximumTemperatureTableBodyCopenhagen = document.getElementById('maximum-temperature-copenhagen-table-body');
-            temperaturesInCities['Copenhagen'].filter(element => element.value === temperaturesLedger['Copenhagen']['maximum']).map(element => {
-                const row = maximumTemperatureTableBodyCopenhagen.insertRow(0);
-                row.insertCell().appendChild(document.createTextNode(element.place));
-                row.insertCell().appendChild(document.createTextNode(element.value));
-                row.insertCell().appendChild(document.createTextNode(element.type));
-                row.insertCell().appendChild(document.createTextNode(element.unit));
-                row.insertCell().appendChild(document.createTextNode(element.time));
+            temperaturesInCities[CITIES[2]].filter(element => element.value === temperaturesLedger[CITIES[2]][VALUE_KEYS[2]]).slice(0,1).map(element => {
+                buildRegularTableContent(maximumTemperatureTableBodyCopenhagen, element);
             });
 
             //total precipitation
-            const precipitations = fiveDaysData.filter(element => element.type === 'precipitation')
+            const precipitations = fiveDaysData.filter(element => element.type === TYPES[1]);
             const precipitationsInCities = {
-                'Horsens': precipitations.filter(element => element.place === 'Horsens'),
-                'Aarhus': precipitations.filter(element => element.place === 'Aarhus'),
-                'Copenhagen': precipitations.filter(element => element.place === 'Copenhagen'),
+                [CITIES[0]]: getFilteredDataByPlace(CITIES[0], precipitations),
+                [CITIES[1]]: getFilteredDataByPlace(CITIES[1], precipitations),
+                [CITIES[2]]: getFilteredDataByPlace(CITIES[2], precipitations),
             }
 
             const precipitationTable = document.getElementById('precipitation-table-body');
-            // Horsens
-            const precipitationTableRow1 = precipitationTable.insertRow(0);
-            precipitationTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
-            precipitationTableRow1.insertCell().appendChild(document.createTextNode(precipitationsInCities['Horsens'].map(element => element.value).reduce((a, b) => a + b, 0)));
-            // Aarhus
-            const precipitationTableRow2 = precipitationTable.insertRow(1);
-            precipitationTableRow2.insertCell().appendChild(document.createTextNode('Aarhus'))
-            precipitationTableRow2.insertCell().appendChild(document.createTextNode(precipitationsInCities['Aarhus'].map(element => element.value).reduce((a, b) => a + b, 0)));
-            // Copenhagen
-            const precipitationTableRow3 = precipitationTable.insertRow(2);
-            precipitationTableRow3.insertCell().appendChild(document.createTextNode('Aarhus'))
-            precipitationTableRow3.insertCell().appendChild(document.createTextNode(precipitationsInCities['Aarhus'].map(element => element.value).reduce((a, b) => a + b, 0)));
-
+            buildPrecipitationTotalTable(precipitationTable, precipitationsInCities);
 
             //Average wind speed
-            const winds = fiveDaysData.filter(element => element.type === 'wind speed')
+            const winds = fiveDaysData.filter(element => element.type === TYPES[2]);
             const windsInCities = {
-                'Horsens': winds.filter(element => element.place === 'Horsens'),
-                'Aarhus': winds.filter(element => element.place === 'Aarhus'),
-                'Copenhagen': winds.filter(element => element.place === 'Copenhagen')
+                [CITIES[0]]: getFilteredDataByPlace(CITIES[0], winds),
+                [CITIES[1]]: getFilteredDataByPlace(CITIES[1], winds),
+                [CITIES[2]]: getFilteredDataByPlace(CITIES[2], winds),
             }
 
-            const windSpeedTable = document.getElementById('wind-average-table-body');
-
-            const windSpeedTableRow1 = windSpeedTable.insertRow(0);
-            windSpeedTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
-            windSpeedTableRow1.insertCell().appendChild(document.createTextNode(
-                    Math.floor(
-                        windsInCities['Horsens']
-                            .map(element => element.value)
-                            .reduce((a, b) => a + b, 0) / windsInCities['Horsens'].length
-                    ).toString()
-                )
-            );
-            const windSpeedTableRow2 = windSpeedTable.insertRow(1);
-            windSpeedTableRow2.insertCell().appendChild(document.createTextNode('Aarhus'))
-            windSpeedTableRow2.insertCell().appendChild(document.createTextNode(
-                    Math.floor(
-                        windsInCities['Aarhus']
-                            .map(element => element.value)
-                            .reduce((a, b) => a + b, 0) / windsInCities['Aarhus'].length
-                    ).toString()
-                )
-            );
-            const windSpeedTableRow3 = windSpeedTable.insertRow(2);
-            windSpeedTableRow3.insertCell().appendChild(document.createTextNode('Copenhagen'))
-            windSpeedTableRow3.insertCell().appendChild(document.createTextNode(
-                    Math.floor(
-                        windsInCities['Copenhagen']
-                            .map(element => element.value)
-                            .reduce((a, b) => a + b, 0) / windsInCities['Copenhagen'].length
-                    ).toString()
-                )
-            );
+            const averageWindSpeedTable = document.getElementById('wind-average-table-body');
+            buildAverageTable(averageWindSpeedTable, windsInCities);
 
             // Get the element with the highest occurrence
             function mode(arr) {
@@ -194,90 +220,39 @@ window.init = function () {
             }
 
             const windDirectionsInCities = {
-                'Horsens': windsInCities['Horsens'].map(element => element.direction),
-                'Aarhus': windsInCities['Aarhus'].map(element => element.direction),
-                'Copenhagen': windsInCities['Copenhagen'].map(element => element.direction)
+                [CITIES[0]]: windsInCities[CITIES[0]].map(element => element.direction),
+                [CITIES[1]]: windsInCities[CITIES[1]].map(element => element.direction),
+                [CITIES[2]]: windsInCities[CITIES[2]].map(element => element.direction)
             }
 
             const windDirectionsTable = document.getElementById('wind-direction-table-body');
-
-            const windDirectionsTableRow1 = windDirectionsTable.insertRow(0);
-            windDirectionsTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
-            windDirectionsTableRow1.insertCell().appendChild(document.createTextNode(mode(windDirectionsInCities['Horsens'])))
-
-            const windDirectionsTableRow2 = windDirectionsTable.insertRow(1);
-            windDirectionsTableRow2.insertCell().appendChild(document.createTextNode('Aarhus'))
-            windDirectionsTableRow2.insertCell().appendChild(document.createTextNode(mode(windDirectionsInCities['Aarhus'])))
-
-            const windDirectionsTableRow3 = windDirectionsTable.insertRow(2);
-            windDirectionsTableRow3.insertCell().appendChild(document.createTextNode('Copenhagen'))
-            windDirectionsTableRow3.insertCell().appendChild(document.createTextNode(mode(windDirectionsInCities['Copenhagen'])))
+            buildTableWithHighestOccurrences(windDirectionsTable, mode, windDirectionsInCities);
 
             //Average cloud coverage
-            const cloudCoverages = fiveDaysData.filter(element => element.type === 'cloud coverage')
+            const cloudCoverages = fiveDaysData.filter(element => element.type === TYPES[3]);
             const cloudCoveragesInCities = {
-                'Horsens': cloudCoverages.filter(element => element.place === 'Horsens'),
-                'Aarhus': cloudCoverages.filter(element => element.place === 'Aarhus'),
-                'Copenhagen': cloudCoverages.filter(element => element.place === 'Copenhagen'),
+                [CITIES[0]]: getFilteredDataByPlace(CITIES[0], cloudCoverages),
+                [CITIES[1]]: getFilteredDataByPlace(CITIES[1], cloudCoverages),
+                [CITIES[2]]: getFilteredDataByPlace(CITIES[2], cloudCoverages),
             }
-
             const averageCloudCoverageTable = document.getElementById('cloud-coverage-table-body');
-            const averageCloudCoverageTableRow1 = averageCloudCoverageTable.insertRow(0);
-            averageCloudCoverageTableRow1.insertCell().appendChild(document.createTextNode('Horsens'))
-            averageCloudCoverageTableRow1.insertCell().appendChild(document.createTextNode(
-                    Math.floor(
-                        cloudCoveragesInCities['Horsens']
-                            .map(element => element.value)
-                            .reduce((a, b) => a + b, 0) / cloudCoveragesInCities['Horsens'].length
-                    ).toString()
-                )
-            );
-
-            const averageCloudCoverageTableRow2 = averageCloudCoverageTable.insertRow(1);
-            averageCloudCoverageTableRow2.insertCell().appendChild(document.createTextNode('Aarhus'))
-            averageCloudCoverageTableRow2.insertCell().appendChild(document.createTextNode(
-                    Math.floor(
-                        cloudCoveragesInCities['Aarhus']
-                            .map(element => element.value)
-                            .reduce((a, b) => a + b, 0) / cloudCoveragesInCities['Aarhus'].length
-                    ).toString()
-                )
-            );
-
-            const averageCloudCoverageTableRow3 = averageCloudCoverageTable.insertRow(2);
-            averageCloudCoverageTableRow3.insertCell().appendChild(document.createTextNode('Copenhagen'))
-            averageCloudCoverageTableRow3.insertCell().appendChild(document.createTextNode(
-                    Math.floor(
-                        cloudCoveragesInCities['Copenhagen']
-                            .map(element => element.value)
-                            .reduce((a, b) => a + b, 0) / cloudCoveragesInCities['Copenhagen'].length
-                    ).toString()
-                )
-            );
-
+            buildAverageTable(averageCloudCoverageTable, cloudCoveragesInCities);
         } else {
-            throw new Error(`[${new Date().toISOString()}]: HTTP response: ${request.status} ${request.statusText}`)
+            throw new Error(`[${new Date().toISOString()}]: HTTP response: ${request.status} ${request.statusText}`);
         }
     }
 
     // Hourly predictions for the next 24 hours.
-    request.open('GET', `${baseUrl}/forecast`)
-    request.send()
-    request.onload = () => {
-        if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+    const request_ = new XMLHttpRequest();
+    request_.open('GET', `${baseUrl}/forecast`);
+    request_.send();
+    request_.onload = () => {
+        if (request_.readyState === XMLHttpRequest.DONE && request_.status === 200) {
             const forecastTable = document.getElementById('forecast-table-body');
-            const weatherData = JSON.parse(request.responseText)
-            weatherData.sort((a, b) => a.place.localeCompare(b.place)).reverse().map(element => {
-                const forecastTableRow = forecastTable.insertRow(0);
-                forecastTableRow.insertCell().appendChild(document.createTextNode(element.place));
-                forecastTableRow.insertCell().appendChild(document.createTextNode(element.from));
-                forecastTableRow.insertCell().appendChild(document.createTextNode(element.to));
-                forecastTableRow.insertCell().appendChild(document.createTextNode(element.type));
-                forecastTableRow.insertCell().appendChild(document.createTextNode(element.unit));
-                forecastTableRow.insertCell().appendChild(document.createTextNode(element.time));
-            })
+            const forecastData = JSON.parse(request_.responseText);
+            forecastData.filter(element => Object.keys(element).length === FORECAST_ATTRIBUTES.length).sort((a, b) => a.place.localeCompare(b.place)).reverse().map(element => buildRegularTableContent(forecastTable, element));
         } else {
-            throw new Error(`[${new Date().toISOString()}]: HTTP response: ${request.status} ${request.statusText}`)
+            throw new Error(`[${new Date().toISOString()}]: HTTP response: ${request_.status} ${request_.statusText}`);
         }
     }
 }
