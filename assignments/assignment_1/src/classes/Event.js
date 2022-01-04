@@ -1,3 +1,7 @@
+/**
+ * Event class
+ * Has two fields/properties, "place" and "time" and getters/setters for both.
+ */
 class Event {
     constructor(place, time) {
         this.time = time;

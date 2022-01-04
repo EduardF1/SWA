@@ -7,6 +7,9 @@ export function EventDataType(time, place, type, unit) {
 }
 
 EventDataType.prototype = {
+    getPlace: function () {
+      return this.place;
+    },
     setTime: function (newTime) {
         this.time = newTime;
     },

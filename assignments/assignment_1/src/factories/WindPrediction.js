@@ -1,6 +1,49 @@
 const {WeatherPrediction} = require('./WeatherPrediction');
 const {MPH_TYPE, MPH_UNIT, MPS_UNIT, MPS_TYPE} = require("../../../../Constants");
 
+/**
+ * Constructor function for the WindPrediction "class" (factory function implementation approach).
+ * @param state Variable (object) containing the initialization state for WindPrediction objects.
+ * @returns {
+ *              {
+ *                  setMax: (function(*): *),
+ *                  setWeatherPrediction: (function(*): *),
+ *                  getTime: (function(): Date),
+ *                  getMax: (function(): *),
+ *                  getWeatherPrediction: (function(): {
+ *                      setMax: (function(*): *),
+ *                      getTime: (function(): Date),
+ *                      getMax: (function(): *),
+ *                      getPlace: (function(): *),
+ *                      setType: (function(*): *),
+ *                      setPlace: (function(*): *),
+ *                      matches: (function(*)),
+ *                      setMin: (function(*): *),
+ *                      getMin: (function(): *),
+ *                      getType: (function(): *),
+ *                      setUnit: (function(*): *),
+ *                      getUnit: (function(): *),
+ *                      setTime: (function(*): *)
+ *                   }
+ *                  ),
+ *                  getPlace: (function(): *),
+ *                  setType: (function(*): *),
+ *                  setPlace: (function(*): *),
+ *                  matches: (function(*)),
+ *                  getExpectedDirections: (function(): any[]),
+ *                  convertToMPH: convertToMPH,
+ *                  setMin: (function(*): *),
+ *                  getMin: (function(): *),
+ *                  getType: (function(): *),
+ *                  setUnit: (function(*): *),
+ *                  convertToMS: convertToMS,
+ *                  setExpectedTypes: (function(*): *),
+ *                  getUnit: (function(): *),
+ *                  setTime: (function(*): *)
+ *               }
+ *            }
+ * @constructor
+ */
 const WindPrediction = (state) => {
     let weatherPrediction = WeatherPrediction(state);
     const getExpectedDirections = () => new Array(state.expectedDirections);
@@ -29,7 +72,17 @@ const WindPrediction = (state) => {
             weatherPrediction.setType(MPS_TYPE);
         }
     };
-    return {...weatherPrediction, getExpectedDirections, setExpectedTypes, matches, convertToMPH, convertToMS, getWeatherPrediction, setWeatherPrediction};
+    // Return a new object with the properties of the WeatherPrediction instance object, and the listed methods.
+    return {
+        ...weatherPrediction,
+        getExpectedDirections,
+        setExpectedTypes,
+        matches,
+        convertToMPH,
+        convertToMS,
+        getWeatherPrediction,
+        setWeatherPrediction
+    };
 }
 
 module.exports = {

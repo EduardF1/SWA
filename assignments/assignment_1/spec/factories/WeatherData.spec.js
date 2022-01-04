@@ -3,7 +3,7 @@ const {START_DATE, START_DATE_2, FAHRENHEIT_UNIT, FAHRENHEIT_TYPE, CELSIUS_UNIT,
 
 describe('Weather Data', () => {
     // Setup
-    let weatherData1 = WeatherData({place:PLACES[0], time:new Date(START_DATE), type:CELSIUS_TYPE,unit: CELSIUS_UNIT, value:VALUES[9]});
+    let weatherData1 = new WeatherData({place:PLACES[0], time:new Date(START_DATE), type:CELSIUS_TYPE,unit: CELSIUS_UNIT, value:VALUES[9]});
     describe(`When it has been initialized with the values ${weatherData1.getTime()}, ${weatherData1.getPlace()}, ` +
         `${weatherData1.getValue()}, ${weatherData1.getUnit()}, ${weatherData1.getType()}`, () => {
         test('it should be created', () => {
@@ -35,7 +35,7 @@ describe('Weather Data', () => {
 
     // Setup
     let newValue = 200;
-    let weatherData2 = new WeatherData(PLACES[0], new Date(START_DATE), CELSIUS_TYPE, CELSIUS_UNIT, 100);
+    let weatherData2 = new WeatherData({place:PLACES[0], time:new Date(START_DATE), type:CELSIUS_TYPE, unit:CELSIUS_UNIT, value:100});
     describe(`After it has been initialized with the values ${weatherData1.getTime()}, ${weatherData1.getPlace()}, ` +
         `${weatherData1.getValue()}, ${weatherData2.getUnit()}, ${weatherData2.getType()}.`, () => {
         test(`it be possible to change the value to ${newValue}`, () => {

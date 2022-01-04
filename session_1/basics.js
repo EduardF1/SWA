@@ -1,5 +1,5 @@
 // Methods
-// Methods are functions as members of objects
+// Methods are functions which are members of objects
 
 const rect = {
     width: 100,

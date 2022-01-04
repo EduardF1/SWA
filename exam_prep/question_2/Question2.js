@@ -51,8 +51,8 @@ Person.prototype = {
     toString: function () {
         return "Person info: " +
             "age='" + this.age + '\'' +
-            ", firstName='" + this.getFirstName() + '\'' +
-            ", lastName='" + this.getLastName() + '\'' +
+            ", firstName='" + this.firstName + '\'' +
+            ", lastName='" + this.lastName + '\'' +
             ", fullName='" + this.getFullName() + '\'' +
             ", age=" + this.age +
             ", interests=" + this.interests;
@@ -82,5 +82,19 @@ Teacher.prototype.toString = function () {
 
 const teacher1 = new Teacher('Big', 'Smoke', 35, 'M', 'gastronomy, science, sports', 'cooking');
 console.log(teacher1.toString());
-console.log(getMethods(teacher1));
+teacher1.setAge(22);
+console.log(teacher1.toString());
 
+// Concatenative inheritance (function aggregation).
+const {Event} = require("../../assignments/assignment_1/src/factories/Event.js");
+const {DataType} = require("../../assignments/assignment_1/src/factories/DataType.js");
+const {WeatherData} = require("../../assignments/assignment_1/src/factories/WeatherData.js");
+const {PLACES, START_DATE, VALUES, CELSIUS_UNIT, CELSIUS_TYPE} = require("../../Constants");
+
+const event1 =  Event({place: 'Milan', time: '1940-01-01'});
+const dataType1 =  DataType({unit: CELSIUS_UNIT, type: CELSIUS_TYPE});
+const weatherData1 =  WeatherData({place:PLACES[0], time:new Date(START_DATE), type:CELSIUS_TYPE,unit: CELSIUS_UNIT, value:VALUES[9]});
+
+console.log(event1);
+console.log(dataType1);
+console.log(weatherData1);

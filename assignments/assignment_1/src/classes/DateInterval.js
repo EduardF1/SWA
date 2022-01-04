@@ -1,14 +1,20 @@
+/**
+ * DateInterval class.
+ * Has as attributes/properties "to" and "from" (both are dates).
+ * Has getters and setters for all attributes and a "contains()" method that determines whether a given date, "dateToCheck" is
+ * within the values of "to" and "from" (values evaluated in milliseconds since the epoch).
+ */
 class DateInterval {
     constructor(from, to) {
         this.from = from;
         this.to = to;
     }
 
-    setFrom = (newFrom) => this.from = newFrom;
+    setFrom = (from_) => this.from = from_;
     getFrom = () => this.from;
-    setTo = (newTo) => this.to = newTo;
+    setTo = (to_) => this.to = to_;
     getTo = () => this.to;
-    contains = (d) => (this.from.getTime() <= d.getTime() && d.getTime() <= this.to.getTime());
+    contains = (dateToCheck) => (this.from.getTime() <= dateToCheck.getTime() && dateToCheck.getTime() <= this.to.getTime());
 }
 
 module.exports = {

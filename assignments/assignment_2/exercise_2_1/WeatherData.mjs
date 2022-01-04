@@ -5,7 +5,6 @@ export function WeatherData(time, place, type, unit, value) {
     this.value = value;
 }
 
-Object.setPrototypeOf(WeatherData.prototype, EventDataType.prototype);
 
 WeatherData.prototype = {
     setValue: function (newValue) {
@@ -15,4 +14,7 @@ WeatherData.prototype = {
         return this.value;
     }
 }
+Object.setPrototypeOf(WeatherData.prototype, EventDataType.prototype);
 
+const weatherData1 = new WeatherData(new Date('1999-10-10'), 'Bergamo', 'MM', 'C', 100);
+console.log(weatherData1.getPlace());

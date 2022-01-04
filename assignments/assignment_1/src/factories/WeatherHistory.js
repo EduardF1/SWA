@@ -6,21 +6,31 @@ const {
     MPS_TYPE,
     MPS_UNIT,
     FAHRENHEIT_TYPE,
-    FAHRENHEIT_UNIT
+    FAHRENHEIT_UNIT,
+    EMPTY_STRING
 } = require("../../../../Constants");
 const {DateInterval} = require('./DateInterval');
 
+/**
+ * Constructor function for the WeatherHistory "class" (factory function implementation approach).
+ * @param data Array of WeatherData objects.
+ * @param placeFilter Filter for the place/location of measurements.
+ * @param typeFilter Filter for the type of measurements.
+ * @param periodFilter Filter for the period of measurements.
+ * @returns {any} Composed object representing the WeatherData class.
+ * @constructor
+ */
 const WeatherHistory = ([...data], placeFilter, typeFilter, periodFilter) => {
     let state = {data: data, placeFilter: placeFilter, typeFilter: typeFilter, periodFilter: periodFilter};
     const setPlaceFilter = (place) => state.placeFilter = place;
-    const clearPlaceFilter = () => state.placeFilter = '';
+    const clearPlaceFilter = () => state.placeFilter = EMPTY_STRING;
     const getPlaceFilter = () => state.placeFilter;
     const setTypeFilter = (type) => state.typeFilter = type;
-    const clearTypeFilter = () => state.typeFilter = '';
+    const clearTypeFilter = () => state.typeFilter = EMPTY_STRING;
     const getTypeFilter = () => state.typeFilter;
     const setPeriodFilter = (period) => state.periodFilter = period;
     const getPeriodFilter = () => state.periodFilter;
-    const clearPeriodFilter = () => state.periodFilter = '';
+    const clearPeriodFilter = () => state.periodFilter = EMPTY_STRING;
     const convertToUsUnits = () => {
         state.data.forEach((element => {
             switch (element.getType()) {
@@ -35,9 +45,9 @@ const WeatherHistory = ([...data], placeFilter, typeFilter, periodFilter) => {
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPS_TYPE:
-                    element.setUnit(MPH_UNIT)
+                    element.setUnit(MPH_UNIT);
                     element.setType(MPH_TYPE);
-                    element.setValue(element.getValue() * 2.237)
+                    element.setValue(element.getValue() * 2.237);
                     break;
                 default:
                     break;
@@ -58,9 +68,9 @@ const WeatherHistory = ([...data], placeFilter, typeFilter, periodFilter) => {
                     element.setValue(element.getValue() * 25.4);
                     break;
                 case MPH_TYPE:
-                    element.setUnit(MPS_UNIT)
+                    element.setUnit(MPS_UNIT);
                     element.setType(MPS_TYPE);
-                    element.setValue(element.getValue() * 2.237)
+                    element.setValue(element.getValue() * 2.237);
                     break;
                 default:
                     break;
@@ -71,29 +81,34 @@ const WeatherHistory = ([...data], placeFilter, typeFilter, periodFilter) => {
     const getData = () => state.data;
     const getSize = () => state.data.length;
     const getFilteredData = () => {
-        let filteredData = []
+        let filteredData = [];
         state.data.forEach((element, index) => {
             console.log(
                 `${index + 1}. In ${element.getPlace()} having the type ${element.getType()} is measured` +
                 `in ${element.getUnit()} units and has the value ${element.getValue()} between ${periodFilter.getFrom()} and ${periodFilter.getTo()}`
             );
             if (
-                (placeFilter === element.getPlace() || placeFilter === "") &&
-                (typeFilter === element.getType() || typeFilter === "") &&
-                (periodFilter === "" || periodFilter.contains(element.getTime()))
+                (typeFilter === element.getType() || typeFilter === EMPTY_STRING) &&
+                (placeFilter === element.getPlace() || placeFilter === EMPTY_STRING) &&
+                (periodFilter.contains(element.getTime()) || periodFilter === EMPTY_STRING )
             ) {
-                filteredData.push(element)
+                filteredData.push(element);
             }
         });
         return filteredData;
     };
-    return Object.assign({}, ...state.data, DateInterval(state.periodFilter.dateFrom, state.periodFilter.dateTo), {
-        getPlaceFilter, setPlaceFilter, clearPlaceFilter,
-        getTypeFilter, setTypeFilter, clearTypeFilter,
-        getPeriodFilter, setPeriodFilter, clearPeriodFilter,
-        convertToUsUnits, convertToInternationalUnits, add,
-        getSize, getData, getFilteredData
-    });
+    return Object.assign({},
+        // Sources
+        ...state.data,
+        DateInterval(state.periodFilter.dateFrom, state.periodFilter.dateTo),
+        {
+            getPlaceFilter, setPlaceFilter, clearPlaceFilter,
+            getTypeFilter, setTypeFilter, clearTypeFilter,
+            getPeriodFilter, setPeriodFilter, clearPeriodFilter,
+            convertToUsUnits, convertToInternationalUnits, add,
+            getSize, getData, getFilteredData
+        }
+    );
 }
 
 module.exports = {

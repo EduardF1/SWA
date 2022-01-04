@@ -75,6 +75,7 @@ employee2.setName('Martinez');
 console.log(employee2.equals(employee1)); // Expected false
 employee4 = new Employee(new Person('Layman'), 10000)
 console.log(employee4);
-console.log(Person.prototype.toString)
+console.log(Person.prototype);
+console.log(Employee.prototype);
 console.log(Object.getPrototypeOf(Employee.prototype) === Person.prototype)
 console.log(employee1.constructor)

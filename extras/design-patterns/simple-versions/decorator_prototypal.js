@@ -39,5 +39,6 @@ const coffee = new Coffee();
 const coffee1 = new Small(coffee);
 const coffee2 = new Sugar(coffee);
 
+console.log(coffee);
 console.log(coffee1);
 console.log(coffee2);

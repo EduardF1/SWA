@@ -98,12 +98,12 @@ describe('Date Interval', () => {
 
     it(`should have from set to ${START_DATE}`, () => {
         // Assert
-        expect(dateInterval1.getFrom()).toEqual(START_DATE);
+        expect(dateInterval1.getFrom()).toEqual(new Date(START_DATE));
     });
 
     it(`should have to set to ${END_DATE}`, () => {
         // Assert
-        expect(dateInterval1.getTo()).toEqual(END_DATE);
+        expect(dateInterval1.getTo()).toEqual(new Date(END_DATE));
     });
 
     it(`should be possible to change from to ${START_DATE_2}`, () => {
@@ -166,7 +166,7 @@ describe('Weather Data', () => {
         // Act
         weatherData.setTime(START_DATE_2);
         // Assert
-        expect(weatherData.getTime()).toEqual(new Date(START_DATE_2));
+        expect(weatherData.getTime()).toEqual(new Date(START_DATE_2).toISOString().slice(0,10));
     });
 
     it(`should be possible to set the type to ${FAHRENHEIT_TYPE}`, () => {

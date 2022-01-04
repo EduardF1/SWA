@@ -1,6 +1,16 @@
 const {Event} = require('./Event');
 const {DataType} = require('./DataType');
 
+/**
+ * WeatherData class, example of multiple inheritance, it is a subclass of both
+ * Event and DataType classes. The multiple inheritance mechanism is possible by
+ * using "Object.assign()" which is given as arguments for target,
+ * "this" (the WeatherData object instance at creation) and as sources, the
+ * Event and DataType classes. The initialization/object creation of the WeatherData
+ * object instances takes place in the constructor function body.
+ * Has as attributes "place", "time", "type", "unit" and "value".
+ * Has getters and setters for all the attributes.
+ */
 class WeatherData  {
     constructor(place, time, type, unit, value) {
         Object.assign(

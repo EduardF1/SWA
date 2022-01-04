@@ -22,7 +22,7 @@ console.log(n.next());
 console.log(n.next());
 console.log(n.next());
 
-// Clojure: function that understands its surrounding scope(s)
+// Closure: function that understands its surrounding scope.
 
 /*
 class Sequence {

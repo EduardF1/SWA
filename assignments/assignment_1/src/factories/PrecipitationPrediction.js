@@ -1,6 +1,49 @@
 const {WeatherPrediction} = require('./WeatherPrediction');
 const {MM_TYPE, MM_UNIT, IN_TYPE, IN_UNIT} = require("../../../../Constants");
 
+/**
+ * Constructor function for the PrecipitationPrediction "class" (factory function implementation approach).
+ * @param state Variable (object) containing the initialization state for PrecipitationPrediction objects.
+ * @returns {
+ *              {
+ *                  setMax: function(*): *,
+ *                  setWeatherPrediction: (function(*): *),
+ *                  getTime: (function(): Date),
+ *                  getMax: function(): *,
+ *                  getWeatherPrediction: (function(): {
+ *                      setMax: function(*): *,
+ *                      getTime: (function(): Date),
+ *                      getMax: function(): *,
+ *                      getPlace: (function(): *),
+ *                      setType: (function(*): *),
+ *                      setPlace: (function(*): *),
+ *                      matches: function(*): *,
+ *                      setMin: function(*): *,
+ *                      getMin: function(): *,
+ *                      getType: (function(): *),
+ *                      setUnit: (function(*): *),
+ *                      getUnit: (function(): *),
+ *                      setTime: (function(*): *)
+ *                  }
+ *                ),
+ *               getPlace: (function(): *),
+ *               setType: (function(*): *),
+ *               setPlace: (function(*): *),
+ *               matches: (function(*)),
+ *               convertToMM: convertToMM,
+ *               convertToInches: convertToInches,
+ *               setMin: function(*): *,
+ *               getMin: function(): *,
+ *               getType: (function(): *),
+ *               setUnit: (function(*): *),
+ *               setExpectedTypes: (function(*): *),
+ *               getExpectedTypes: (function(): any[]),
+ *               getUnit: (function(): *),
+ *               setTime: (function(*): *)
+ *           }
+ *       }
+ * @constructor
+ */
 const PrecipitationPrediction = (state) => {
     let weatherPrediction = WeatherPrediction(state);
     const getExpectedTypes = () => new Array(state.expectedTypes);
@@ -30,7 +73,20 @@ const PrecipitationPrediction = (state) => {
             weatherPrediction.setType(MM_TYPE);
         }
     };
-    return {...weatherPrediction, getExpectedTypes, setExpectedTypes, matches, convertToInches, convertToMM, getWeatherPrediction, setWeatherPrediction}
+    /*
+        Return a new object with the weatherPrediction inner object's properties destructured and the
+        additional listed methods.
+    */
+    return {
+        ...weatherPrediction,
+        getExpectedTypes,
+        setExpectedTypes,
+        matches,
+        convertToInches,
+        convertToMM,
+        getWeatherPrediction,
+        setWeatherPrediction
+    }
 }
 
 module.exports = {
