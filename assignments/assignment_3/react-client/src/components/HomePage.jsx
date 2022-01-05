@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useState } from 'react';
+import {useRef, useState} from 'react';
 import { useSelector } from 'react-redux';
 import _ from "lodash";
 
@@ -10,6 +10,11 @@ import AccordionContainer from "./homepage/AccordionContainer";
 import JumbotronContainer from "./homepage/JumbotronContainer";
 import {CITIES} from "../assets/Constants";
 
+/**
+ * Main application component.
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const HomePage = () => {
     // Button state management hooks
     const [debounce, setDebounce] = useState(false);
@@ -17,10 +22,12 @@ export const HomePage = () => {
     const [filterSet, setFilterSet] = useState(false);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
     const [selectedStartDate, setSelectedStartDate] = useState(null);
-
-    // Data reducers
-    const historicData = useSelector(state => state.historicData);
-    const forecastData = useSelector(state => state.forecastData);
+    // Data
+    const historicData = useRef([]);
+    const forecastData = useRef([]);
+    // Data extraction from the redux store
+    historicData.current = useSelector(state => state.historicData);
+    forecastData.current = useSelector(state => state.forecastData);
 
     /**
      * Function is called from the Filter Component(callback function)
@@ -55,15 +62,17 @@ export const HomePage = () => {
 
     return (
         <div >
+            {/*Upper page section*/}
             <JumbotronContainer
                 getSelectedCityBackground={getSelectedCityBackground}
                 selectedCity={selectedCity}
                 onSelectedCityChange={onSelectedCityChange}
                 handleDateIntervalCallback={handleDateIntervalCallback}
             />
+            {/*Lower page section*/}
             <AccordionContainer
-                forecastData={forecastData}
-                historicData={historicData}
+                forecastData={forecastData.current}
+                historicData={historicData.current}
                 selectedCity={selectedCity}
             />
         </div>

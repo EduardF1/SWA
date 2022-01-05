@@ -401,3 +401,41 @@ const printMessage = (function_, number) => {
     console.log(`The number ${number} is an even number: ${isNumberEven}.`)
 };
 printMessage(isEven, 10);
+
+/*
+    *   Immutability *
+ */
+const object = {
+    propertyA: {
+        // To safely update object.propertyA.propertyC, we have to copy each piece
+        propertyC: 3
+    },
+    propertyB: 2
+}
+
+const object2 = {
+    // copy object
+    ...object,
+    // overwrite propertyA
+    propertyA: {
+        // copy object.propertyA
+        ...object.propertyA,
+        // overwrite propertyC
+        propertyC: 42
+    }
+}
+console.log(object);
+console.log(object2);
+
+
+const array_ = ['a', 'b'];
+// Create a new copy of arr, with "c" appended to the end
+const array2 = array_.concat('c');
+
+// or, we can make a copy of the original array:
+const array3 = array_.slice();
+// and mutate the copy:
+array3.push('c');
+console.log(array_);
+console.log(array2);
+console.log(array3);

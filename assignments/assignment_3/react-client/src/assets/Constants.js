@@ -1,4 +1,4 @@
-export const baseURL = 'http://localhost:8080/';
+export const baseURL = 'http://localhost:5050/';
 export const NEW_LINE = '\n';
 export const NOT_APPLICABLE = '-';
 
@@ -126,3 +126,8 @@ export const REQUEST_ALERTS = [
   'Data was successfully added to server',
   'An error occurred while trying to post data to the server.'
 ];
+
+export const IDENTIFIERS = [
+    'History',
+    'Forecast'
+]

@@ -1,6 +1,14 @@
+// 3rd Party
 import DateTimePicker from "react-datetime-picker";
-import React from "react";
 
+/**
+ * DateTimePickerRow component function.
+ * @param label (String) Filter button label.
+ * @param onChange (Function) OnChange handle.
+ * @param value (Date) Start or End Date.
+ * @returns {JSX.Element} The DateTimePickerRow component.
+ * @constructor
+ */
 export const DateTimePickerRow = ({label, onChange, value}) =>
     (
         <>

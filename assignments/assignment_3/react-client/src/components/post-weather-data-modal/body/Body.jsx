@@ -1,8 +1,7 @@
-import React from "react";
-
+// 3rd Party
 import Form from "react-bootstrap/Form";
 import {Col, Row} from "react-bootstrap";
-
+// Own
 import {SelectType} from "../form-groups/SelectType";
 import {SelectUnit} from "../form-groups/SelectUnit";
 import {InputValue} from "../form-groups/InputValue";

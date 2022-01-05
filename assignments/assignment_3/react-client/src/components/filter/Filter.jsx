@@ -1,10 +1,18 @@
-import Button from 'react-bootstrap/Button';
+// React
 import { useState } from 'react';
-import React from 'react';
-import {retrieveAllData} from "../../utility/StoreHandler";
+// 3rd Party
+import Button from 'react-bootstrap/Button';
+// Own
 import {DateTimePickerRow} from "./DateTimePickerRow";
+import {retrieveAllData} from "../../utility/StoreHandler";
 import {FILTER_BUTTONS_CONTAINER_LABELS, FILTER_LABELS} from "../../assets/Constants";
 
+/**
+ * Filter component function.
+ * @param props (Object) container for the props received from the parent (selectedCity, triggerFilterSet).
+ * @returns {JSX.Element} The Filter component.
+ * @constructor
+ */
 export const Filter = (props) => {
 
     // Filter state hooks
