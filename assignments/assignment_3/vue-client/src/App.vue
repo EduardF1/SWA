@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
+    <!-- Application routes' paths -->
     <router-link to="/weatherHistory">WeatherHistoryTable</router-link> |
     <router-link to="/weatherForecast">WeatherForecastTable</router-link> |
     <router-link to="/addWeatherData">AddWeatherDataForm</router-link>

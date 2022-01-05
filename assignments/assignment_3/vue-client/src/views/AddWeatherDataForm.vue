@@ -104,7 +104,7 @@ export default {
   },
   methods:{
     submitForm(){
-      axios.post('http://localhost:9090/data', this.form)
+      axios.post('http://localhost:5050/data', this.form)
           .then((res) => {
             console.log('Added: ', this.form)
           })
@@ -118,6 +118,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped/>

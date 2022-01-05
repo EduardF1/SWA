@@ -3,6 +3,7 @@
     <table class="table table:border secondary-5:border">
       <thead>
         <tr>
+          <!-- Iterate over the table header array and create the table header row with the cells (containing each "th" entry's properties).-->
           <th v-for="th in tableHeader" :key="th">
             <div class="between: flex center:items">
               <span>{{th.text}}</span>
@@ -16,6 +17,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Iterate over the table data array and create the table rows with their cells (containing each "td" entry's properties).-->
         <tr v-for="td in tableData" :key="td">
           <td>{{td.id}}</td>
           <td>{{td.from}}</td>
@@ -32,17 +34,26 @@
 
 <script>
 export default {
+  // Component name
   name: "TableBase2",
+  // Definition of component instance properties and their types.
   props: {
     columns: Array,
     entries: Array
   },
+  /*
+    Computed properties (received props): "this.columns" and "this.entries".
+    Def.:
+    A computed property is used to declaratively describe a value that depends on other values.
+    When you data-bind to a computed property inside the template, Vue knows when to update the
+    DOM when any of the values depended upon by the computed property has changed.
+  */
   computed: {
     tableHeader() {
-      return this.columns || []
+      return this.columns || [];
     },
     tableData() {
-      return this.entries || []
+      return this.entries || [];
     }
   }
 }
