@@ -1,20 +1,29 @@
+// React
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {warningsSinceUrl, webSocketResource} from '../utility/constants';
+// 3rd Party
 import axios from 'axios';
+// Own
 import './homePage.css';
-import Part1 from './part1/Part1';
-import Part2 from './part2/Part2';
-import Part3 from './part3/Part3';
-import Part4 from './part4/Part4';
+import {Part1} from './part1/Part1';
+import {Part2} from './part2/Part2';
+import {Part3} from './part3/Part3';
+import {Part4} from './part4/Part4';
+import {warningsSinceUrl, webSocketResource} from '../utility/constants';
 
-const Homepage = () => {
 
+export const Homepage = () => {
+    // Component states
     const [warningsData, setWarningsData] = useState([]);
     const [warningsSince, setWarningsSince] = useState([]);
     const previousData = useRef([]);
     const webSocket = useRef(null);
     const severityValue = useRef(0);
 
+    /**
+     * Function used to build the data (Array of warnings objects), by using the "useCallback()" hook,
+     * the function will trigger only if the inputs are changed.
+     * @type {(function(): void)|*}
+     */
     const buildData = useCallback(() => {
         const warningsList = [];
         previousData.current.forEach(warning => {
@@ -32,8 +41,6 @@ const Homepage = () => {
             })
         })
         setWarningsData(warningsList);
-        //setWarningsData(warnings => [...warnings, ...warningsList]);
-        //setWarningsData([...warningsData, ...warningsList]);
     }, [])
 
     const subscribeToWarnings = useCallback(() => {
@@ -94,7 +101,7 @@ const Homepage = () => {
      * Function used to get the '#local-date' ui element, concatenate ':00.000' to its value (string).
      * @returns String The local time in UTF-8 format.
      */
-    function getLocalTime() {
+    const getLocalTime = () => {
         const localTimeElement = document.getElementById('local-date');
         return localTimeElement.value;
     }
@@ -104,7 +111,7 @@ const Homepage = () => {
      * element with several options' children).
      * @returns {number} The selected severity (in the UI by the user).
      */
-    function getSeverity() {
+    const getSeverity = () => {
         const severityElement = document.getElementById('severity');
         const severity = severityElement[severityElement.selectedIndex].value;
         return parseInt(severity);
@@ -134,41 +141,41 @@ const Homepage = () => {
      * REST Api. Api endpoint: http://localhost:8080/warnings/since/, valid subresource : date time (in UTF-8 format, ex.: 2018-12-03T13:00).
      * @returns {Promise<void>} The extracted warnings' data array from the promise.
      */
-    async function getWarningsSince() {
+    const getWarningsSince = async () => {
         await axios
             .get(warningsSinceUrl + getLocalTime())
+            // Check the response status code
             .then(response => response.status === 200 ? response.data.warnings : new Error(response.statusText))
-            .then(warnings => {
-                buildWarningsSince(warnings);
-            });
+            // Extract the warnings from the promise once it is fulfilled.
+            .then(warnings => buildWarningsSince(severityValue.current === 0 ? warnings : warnings.filter(warning => warning.severity >= severityValue.current)));
     }
 
-    //ON CHANGE FOR SEVERITY
-    function changeSeverity() {
-        severityValue.current = getSeverity();
-    }
+    /**
+     * Change severity event handle.
+     */
+    const changeSeverity = () => severityValue.current = getSeverity();
 
     /**
      * Function used to unsubscribe from the webSocket, send a 'unsubscribe' string which is processed on the server
      * and will result in the closing of the web socket.
      */
-    function unSubscribeToWarnings() {
+    const unSubscribeToWarnings = () => {
         if (webSocket.current.OPEN) {
-            console.log('Web socket connection closed.')
-            webSocket.current.send(JSON.stringify('unsubscribe'))
-            webSocket.current.close()
+            console.log('Web socket connection closed.');
+            webSocket.current.send(JSON.stringify('unsubscribe'));
+            webSocket.current.close();
         }
-    }
+    };
 
     /**
      * Function to handle state change of the toggle checkbox. If the checkbox is checked,
      * the subscription to the web socket is made, otherwise the unsubscription occurs.
      * The isChecked flag variable is used to keep track of the toggle's value.
      */
-    function onCheckboxClick() {
+    const onCheckboxClick = () => {
         const isChecked = document.getElementById('toggle').checked;
         isChecked ? subscribeToWarnings() : unSubscribeToWarnings();
-    }
+    };
 
     return (
         <div className={'wrapper'}>
@@ -179,5 +186,3 @@ const Homepage = () => {
         </div>
     );
 };
-
-export default Homepage;

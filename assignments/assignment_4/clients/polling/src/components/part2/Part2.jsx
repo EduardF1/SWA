@@ -1,18 +1,27 @@
+// React
 import React, {useRef} from 'react';
-import {PARTS, REQUIREMENTS} from "../../utility/constants";
-import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+// 3rd Party
 import 'ag-grid-community/dist/styles/ag-grid.css';
+import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+// Own
+import {PARTS, REQUIREMENTS} from "../../utility/constants";
 
-const Part2 = ({rowData}) => {
-
+/**
+ * Part2 component.
+ * @param rowData (Array of objects) Prop used for the values of the grid rows.
+ * @returns {JSX.Element} The Part2 component.
+ * @constructor
+ */
+export const Part2 = ({rowData}) => {
+    console.log(rowData);
     const gridRef = useRef();
 
     if (gridRef.current && rowData.length !== 0) {
         const index = rowData.length - 1;
         setTimeout(() => {
             gridRef.current.api.ensureIndexVisible(index, 'bottom');
-        },1000)
+        },1000);
     }
 
     return (
@@ -46,5 +55,3 @@ const Part2 = ({rowData}) => {
         </div>
     );
 };
-
-export default Part2;

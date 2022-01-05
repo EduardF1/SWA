@@ -1,9 +1,3 @@
-import Homepage from "./components/Homepage";
+import {Homepage} from "./components/Homepage";
 
-function App() {
-  return (
-    <Homepage/>
-  );
-}
-
-export default App;
+export const App = () =><Homepage/>;

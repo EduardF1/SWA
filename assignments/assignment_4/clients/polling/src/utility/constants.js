@@ -1,5 +1,5 @@
 export const REQUIREMENTS = [
-    ' • display current warnings when the page load and update them without ' +
+    ' • display current warnings when the page loads and update them without ' +
     'reloading the page when they are updated on the server.',
     ' • display changes in warnings since last update.',
     ' • allow the user to set a minimal severity level to only display some of the warnings. Don\'t reload ' +
@@ -18,7 +18,6 @@ export const SEVERITIES = [
     'Severity 7'
 ];
 
-export const DEFAULT_DATE = '2021-11-01T13:00:00.000';
 export const PARTS = [
     'Part 1:',
     'Part 2:',

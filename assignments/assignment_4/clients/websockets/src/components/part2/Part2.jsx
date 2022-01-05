@@ -1,11 +1,22 @@
+// React
 import React, {useRef} from 'react';
-import {DEFAULT_DATE, LABELS, PARTS, REQUIREMENTS} from "../../utility/constants";
-import WarningsButton from "./WarningsButton";
-import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+// 3rd Party
 import 'ag-grid-community/dist/styles/ag-grid.css';
+import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+// Own
+import {WarningsButton} from "./WarningsButton";
+import {DEFAULT_DATE, LABELS, PARTS, REQUIREMENTS} from "../../utility/constants";
 
-const Part2 = ({getWarningsSinceProp, rowData}) => {
+/**
+ * Part2 component.
+ * @param getWarningsSinceProp (Function)  Prop value used to get the warnings since the given date time.
+ *                              Passed further to the "WarningsButton" component.
+ * @param rowData (Array of objects) Prop used for the values of the grid rows.
+ * @returns {JSX.Element} The Part2 component.
+ * @constructor
+ */
+export const Part2 = ({getWarningsSinceProp, rowData}) => {
 
     const gridRef = useRef();
 
@@ -52,5 +63,3 @@ const Part2 = ({getWarningsSinceProp, rowData}) => {
         </div>
     );
 };
-
-export default Part2;

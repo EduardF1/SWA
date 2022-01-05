@@ -1,10 +1,19 @@
+// React
 import React, {useRef} from 'react';
-import {PARTS, REQUIREMENTS} from "../../utility/constants";
-import {AgGridColumn, AgGridReact} from 'ag-grid-react';
+// 3rd Party
 import 'ag-grid-community/dist/styles/ag-grid.css';
+import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+// Own
+import {PARTS, REQUIREMENTS} from "../../utility/constants";
 
-const Part1 = ({rowData}) => {
+/**
+ * Part1 component.
+ * @param rowData (Array of objects) Prop used for the values of the grid rows.
+ * @returns {JSX.Element} The Part1 component.
+ * @constructor
+ */
+export const Part1 = ({rowData}) => {
 
     const gridRef = useRef();
 
@@ -47,5 +56,3 @@ const Part1 = ({rowData}) => {
         </div>
     );
 };
-
-export default Part1;
