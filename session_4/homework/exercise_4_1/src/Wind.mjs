@@ -1,4 +1,5 @@
 const {MPH_UNIT, MPS_UNIT} = require('Constants.js');
+
 const Wind = (unit, value, direction) => {
     this.unit = unit;
     this.value = value;

@@ -20,7 +20,7 @@ const subscribeButton = document.getElementById('subscribe');
 const unsubscribeButton = document.getElementById('unsubscribe');
 
 // Api endpoint
-const apiResource = 'http://localhost:9090/warnings';
+const apiResource = 'http://localhost:8080/warnings';
 
 // Polling interval observable, polls every 1 second
 const pollingInterval = timer(1000, 1000);

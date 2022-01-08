@@ -26,6 +26,7 @@ const VALUE_KEYS = [
     'maximum'
 ];
 // Definition of the "init" function which is triggered instantly once the web page is loaded.
+// "insertRow()", though unrecognized is a valid JS function, ref.: https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableElement/insertRow.
 window.init = function () {
     /**
      * Api base url.

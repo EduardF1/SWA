@@ -15,14 +15,14 @@ const chars = {
     '7': 'o',
     '3': 'l',
     length: 12
-}
+};
 
-let msg = ''
+let msg = '';
 for(let i = 0; i < chars.length; i++) {
     if (chars[i])
         msg = msg + chars[i]
     else
-        msg = msg + ' '
+        msg = msg + ' ';
 }
 
 console.log(msg)

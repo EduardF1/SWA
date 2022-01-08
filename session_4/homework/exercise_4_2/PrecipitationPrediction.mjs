@@ -2,7 +2,7 @@ const {WeatherPrediction} = require('WeatherData.mjs');
 
 class PrecipitationPrediction extends WeatherPrediction {
     constructor(time, place, value, type, unit, precipitationTypes) {
-        super(time, place, value, type, unit)
+        super(time, place, value, type, unit);
         this.precipitationTypes = precipitationTypes;
         Object.freeze(this);
     }
@@ -14,16 +14,16 @@ class PrecipitationPrediction extends WeatherPrediction {
 
     convertToInches = () => {
         if (this.getDataType().getUnit() === 'MM') {
-            this.setValue(this.getValue() / 25.4)
-            this.setUnit('IN')
-            this.setType('Inches')
+            this.setValue(this.getValue() / 25.4);
+            this.setUnit('IN');
+            this.setType('Inches');
         }
     }
     convertToMM = () => {
         if (this.getDataType().getUnit() === 'inches') {
-            this.setValue(super.getValue() * 25.4)
-            this.setUnit('MM')
-            this.setType('Millimeters')
+            this.setValue(super.getValue() * 25.4);
+            this.setUnit('MM');
+            this.setType('Millimeters');
         }
     }
 }

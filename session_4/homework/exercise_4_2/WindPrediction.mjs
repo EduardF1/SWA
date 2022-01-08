@@ -2,7 +2,7 @@ const {WeatherPrediction} = require('./WeatherPrediction');
 
 class WindPrediction extends WeatherPrediction {
     constructor(time, place, value, type, unit, expectedDirections) {
-        super(time, place, value, type, unit)
+        super(time, place, value, type, unit);
         this.expectedDirections = expectedDirections;
         Object.freeze(this);
     }

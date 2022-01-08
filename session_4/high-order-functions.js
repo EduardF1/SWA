@@ -7,7 +7,7 @@ const pets = [
 
 const types = (ps) => {
     let result = [];
-    for (pet of ps) {
+    for (const pet of ps) {
         result.push(pet.type);
     }
     return result;
@@ -17,7 +17,7 @@ console.log(types(pets));
 
 const names = (ps) => {
     let result = [];
-    for (pet of ps) {
+    for (const pet of ps) {
         result.push(pet.name);
     }
     return result;
@@ -29,7 +29,7 @@ console.log(names(pets));
 // ps = pets, f = a function
 const map = (ps, f) => {
     let result = [];
-    for (pet of ps) {
+    for (const pet of ps) {
         result.push(f(pet));
     }
     return result;
@@ -114,4 +114,3 @@ const hypo = (a) => b => Math.sqrt(a * a + b * b);
 const h = hypo(3);
 console.log(h(4));
 console.log(as.map(a => hypo(a)));
-

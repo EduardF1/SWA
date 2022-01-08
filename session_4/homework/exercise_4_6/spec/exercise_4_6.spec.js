@@ -27,7 +27,7 @@ describe('Suite for testing the names, adults, total_salaries_of_seniors functio
 
     it('should be possible to use names() to retrieve all the names of the persons', () => {
         // Arrange
-        let namesOfPersons = [];
+        let namesOfPersons;
         // Act
         namesOfPersons = names(persons);
         // Assert
@@ -36,7 +36,7 @@ describe('Suite for testing the names, adults, total_salaries_of_seniors functio
 
     it('should be possible to use adults() to retrieve all the adults', () => {
         // Arrange
-        let namesOfPersons = [];
+        let namesOfPersons;
         // Act
         namesOfPersons = adults(persons);
         // Assert
@@ -45,7 +45,7 @@ describe('Suite for testing the names, adults, total_salaries_of_seniors functio
 
     it('should be possible to use total_salaries_of_seniors() to retrieve all the salaries of seniors', () => {
         // Arrange
-        let salariesOfSeniors = 0;
+        let salariesOfSeniors;
         // Act
         salariesOfSeniors = total_salaries_of_seniors(persons);
         // Assert

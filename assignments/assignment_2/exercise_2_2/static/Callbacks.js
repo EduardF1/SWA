@@ -160,7 +160,6 @@ window.init = function () {
 
             const minimumTemperatureTableBodyHorsens = document.getElementById('minimum-temperature-horsens-table-body');
             temperaturesInCities[CITIES[0]].filter(element => element.value === temperaturesLedger[CITIES[0]][VALUE_KEYS[1]]).slice(0,1).map(element => {
-                console.log(element);
                 buildRegularTableContent(minimumTemperatureTableBodyHorsens, element);
             });
 
